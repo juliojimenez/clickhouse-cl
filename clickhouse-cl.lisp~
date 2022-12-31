@@ -1,0 +1,10 @@
+(defpackage :clickhouse
+  (:nicknames :ch)
+  (:use :cl :sxql :dexador)
+  (:export :connect))
+
+(in-package :ch)
+
+(defun connect ()
+  "Connect to ClickHouse Instance"
+  (print "Connected! (not really)"))
