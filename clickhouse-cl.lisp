@@ -3,8 +3,7 @@
   (:use :cl :sxql :dexador)
   (:shadowing-import-from :dexador "GET")
   (:shadowing-import-from :dexador "DELETE")
-  (:export :connect
-	   :database))
+  (:export :database))
 
 (in-package :clickhouse)
 
@@ -31,5 +30,5 @@
    (password
     :initarg :password
     :accessor password
-    :documentation "Clickhouse database password.)))
+    :documentation "Clickhouse database password.")))
 
