@@ -49,6 +49,9 @@
   (with-slots ((h host) (p port) (s ssl)) obj
     (http-get h p s "/replicas_status")))
 
+(defgeneric query (obj &key)
+  (:documentation "Execute a query"))
+
 (defun format-url (host-slot port-slot ssl-slot uri)
   (cond (ssl-slot (format nil "https://~a:~a~a" host-slot port-slot uri))
 	((not ssl-slot) (format nil "http://~a:~a~a" host-slot port-slot uri))
@@ -56,3 +59,4 @@
 
 (defun http-get (host-slot port-slot ssl-slot uri)
   (dexador:get (format-url host-slot port-slot ssl-slot uri)))
+
