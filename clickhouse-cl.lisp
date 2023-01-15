@@ -10,17 +10,17 @@
 (defclass database ()
   ((host
     :initarg :host
-    :initform (error "Must provide a hostname.")
+    :initform "localhost"
     :accessor host
     :documentation "ClickHouse database hostname.")
    (port
     :initarg :port
-    :initform 8443
+    :initform 8123
     :accessor port
     :documentation "ClickHouse database port, i.e. 8443 or 8123.")
    (ssl
     :initarg :ssl
-    :initform t
+    :initform nil
     :accessor ssl
     :documentation "SSL option, t or nil.")
    (username
@@ -33,11 +33,26 @@
     :accessor password
     :documentation "Clickhouse database password.")))
 
-(defmethod ping ((obj database))
-  (with-slots ((ssl ssl) (host host) (port port)) obj
-    (dexador:get (format-url ssl host port))))
+(defgeneric ping (obj &key)
+  (:documentation "Pings the database server"))
 
-(defun format-url (ssl host port)
-  (cond ((ssl) (format nil "https://~a:~a" host port))
-	((not ssl) (format nil "http://~a:~a" host port))
-	(t (format nil "https://~a:~a" host port))))
+(defmethod ping ((obj database) &key ping)
+  (with-slots ((h host) (p port) (s ssl)) obj
+    (if (not (not ping))
+	(http-get h p s "/ping")
+	(http-get h p s "/"))))
+
+(defgeneric replicas-status (obj)
+  (:documentation "Get replicas status."))
+
+(defmethod replicas-status ((obj database))
+  (with-slots ((h host) (p port) (s ssl)) obj
+    (http-get h p s "/replicas_status")))
+
+(defun format-url (host-slot port-slot ssl-slot uri)
+  (cond (ssl-slot (format nil "https://~a:~a~a" host-slot port-slot uri))
+	((not ssl-slot) (format nil "http://~a:~a~a" host-slot port-slot uri))
+	(t (format nil "https://~a:~a~a" host-slot port-slot uri))))
+
+(defun http-get (host-slot port-slot ssl-slot uri)
+  (dexador:get (format-url host-slot port-slot ssl-slot uri)))
