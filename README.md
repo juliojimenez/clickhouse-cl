@@ -33,8 +33,8 @@ CL-USER>
 | Name | Accessor | Default | Description |
 | ---- | -------- | ------- | ----------- |
 | host | y | localhost | Database hostname |
-| port | y | 8443 | Database port, i.e. 8443 or 8123 |
-| ssl | y | t | SSL option, boolean, t or nil. |
+| port | y | 8123 | Database port, i.e. 8443 or 8123 |
+| ssl | y | nil | SSL option, boolean, t or nil. |
 | username | y | default | Database username |
 | password | y | | Database password |
 
