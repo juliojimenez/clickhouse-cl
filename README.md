@@ -32,7 +32,7 @@ CL-USER>
 
 | Name | Accessor | Default | Description |
 | ---- | -------- | ------- | ----------- |
-| host | y | | Database hostname |
+| host | y | localhost | Database hostname |
 | port | y | 8443 | Database port, i.e. 8443 or 8123 |
 | ssl | y | t | SSL option, boolean, t or nil. |
 | username | y | default | Database username |
@@ -110,7 +110,7 @@ This would be applicable to a recently [installed](https://clickhouse.com/docs/e
 (defparameter *db* (make-instance 'clickhouse:database))
 ```
 
-## To
+## To Do
 
 - [x] [HTTP Client](https://github.com/juliojimenez/clickhouse-cl/issues/9)
 - [ ] [SQL Generator](https://github.com/juliojimenez/clickhouse-cl/issues/10)
