@@ -16,4 +16,16 @@
 *.wx64fsl
 *.wx32fsl
 **/*~
-
+data
+dictionaries_lib
+flags
+format_schemas
+metadata
+metadata_dropped
+preprocessed_configs
+store
+tmp
+user_defined
+user_files
+user_scripts
+uuid
