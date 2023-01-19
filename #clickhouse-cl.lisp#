@@ -64,3 +64,4 @@
 (defun http-get (host-slot port-slot ssl-slot uri)
   (dexador:get (format-url host-slot port-slot ssl-slot uri)))
 
+(defmacro sql-parser (
