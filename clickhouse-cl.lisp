@@ -49,10 +49,10 @@
   (with-slots ((h host) (p port) (s ssl)) obj
     (http-get h p s "/replicas_status")))
 
-(defgeneric query (obj &key)
+(defgeneric query (obj &key sxql raw)
   (:documentation "Execute a query"))
 
-(defmethod query ((obj database) &key query)
+(defmethod query ((obj database) &key sxql raw)
   (with-slots ((h host) (p port) (s ssl)) obj
     (http-get h p s query)))
 
@@ -64,3 +64,5 @@
 (defun http-get (host-slot port-slot ssl-slot uri)
   (dexador:get (format-url host-slot port-slot ssl-slot uri)))
 
+(defmacro sql-parser (verb field @body body clauses)
+  `(,verb field ,@body clauses))
