@@ -3,7 +3,10 @@
   (:use :cl :sxql :dexador)
   (:shadowing-import-from :dexador "GET")
   (:shadowing-import-from :dexador "DELETE")
-  (:export :database))
+  (:export :database
+           :select
+	   :from
+	   :where))
 
 (in-package :clickhouse)
 
@@ -64,5 +67,5 @@
 (defun http-get (host-slot port-slot ssl-slot uri)
   (dexador:get (format-url host-slot port-slot ssl-slot uri)))
 
-(defmacro sql-parser (verb field @body body clauses)
-  `(,verb field ,@body clauses))
+(defmacro sql-parser (verb field body clauses)
+  `(,verb ,field ,body ,clauses))
