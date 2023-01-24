@@ -1,9 +1,12 @@
 (defpackage :clickhouse
   (:nicknames :ch)
-  (:use :cl :sxql :dexador)
+  (:use :cl
+        :ch-sql-parser
+	:dexador)
   (:shadowing-import-from :dexador "GET")
   (:shadowing-import-from :dexador "DELETE")
-  (:export :database))
+  (:export :database
+	   :make-query))
 
 (in-package :clickhouse)
 
@@ -49,6 +52,13 @@
   (with-slots ((h host) (p port) (s ssl)) obj
     (http-get h p s "/replicas_status")))
 
+(defgeneric query (obj &key sxql raw)
+  (:documentation "Execute a query"))
+
+(defmethod query ((obj database) &key sxql raw)
+  (with-slots ((h host) (p port) (s ssl)) obj
+    (http-get h p s query)))
+
 (defun format-url (host-slot port-slot ssl-slot uri)
   (cond (ssl-slot (format nil "https://~a:~a~a" host-slot port-slot uri))
 	((not ssl-slot) (format nil "http://~a:~a~a" host-slot port-slot uri))
@@ -56,3 +66,6 @@
 
 (defun http-get (host-slot port-slot ssl-slot uri)
   (dexador:get (format-url host-slot port-slot ssl-slot uri)))
+
+(defmacro sql-parser (verb field body clauses)
+  `(,verb ,field ,body ,clauses))
