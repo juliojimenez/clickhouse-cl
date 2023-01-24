@@ -1,12 +1,12 @@
 (defpackage :clickhouse
   (:nicknames :ch)
-  (:use :cl :sxql :dexador)
+  (:use :cl
+        :ch-sql-parser
+	:dexador)
   (:shadowing-import-from :dexador "GET")
   (:shadowing-import-from :dexador "DELETE")
   (:export :database
-           :select
-	   :from
-	   :where))
+	   :make-query))
 
 (in-package :clickhouse)
 
