@@ -130,6 +130,12 @@ This would be applicable to a recently [installed](https://clickhouse.com/docs/e
 (defparameter *db* (make-instance 'clickhouse:database))
 ```
 
+### Query
+
+```
+(clickhouse::query *db* "SELECT 1")
+```
+
 ## To Do
 
 - [x] [HTTP Client](https://github.com/juliojimenez/clickhouse-cl/issues/9)
