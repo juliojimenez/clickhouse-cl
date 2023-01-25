@@ -1,11 +1,9 @@
-(in-package :cl-user)
-(defpackage :ch-sql-parser
-  (:nicknames :ch-sql)
-  (:use :cl)
+(defpackage :clickhouse.ch-sql-parser
+  (:use cl)
   (:export :make-query))
 
-(in-package :ch-sql-parser)
-
+(in-package :clickhouse.ch-sql-parser)
+  
 (defparameter *query-string* nil)
 
 (defun make-query (query)
