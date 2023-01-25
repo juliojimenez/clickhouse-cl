@@ -71,7 +71,7 @@ CL-USER>
 
 #### ping
 
-clickhouse::ping obj :ping bool
+clickhouse::ping *obj* :ping *bool*
 
 ```lisp
 CL-USER> (clickhouse::ping *db*)
@@ -95,7 +95,7 @@ NIL
 
 #### replicas-status
 
-clickhouse::replicas-status obj
+clickhouse::replicas-status *obj*
 
 ```lisp
 CL-USER> (clickhouse::replicas-status *db*)
@@ -103,6 +103,20 @@ CL-USER> (clickhouse::replicas-status *db*)
 200
 #<HASH-TABLE :TEST EQUAL :COUNT 4 {10048F4503}>
 #<QURI.URI.HTTP:URI-HTTP http://localhost:8123/replicas_status>
+NIL
+```
+
+#### query
+
+clickhouse::query *obj* *query*
+
+```lisp
+CL-USER> (clickhouse::query *db* "SELECT 1")
+"1
+"
+200
+#<HASH-TABLE :TEST EQUAL :COUNT 10 {100527B853}>
+#<QURI.URI.HTTP:URI-HTTP http://localhost:8123>
 NIL
 ```
 
@@ -119,7 +133,6 @@ This would be applicable to a recently [installed](https://clickhouse.com/docs/e
 ## To Do
 
 - [x] [HTTP Client](https://github.com/juliojimenez/clickhouse-cl/issues/9)
-- [ ] [SQL Generator](https://github.com/juliojimenez/clickhouse-cl/issues/10)
+- [x] [SQL Generator](https://github.com/juliojimenez/clickhouse-cl/issues/10)
 - [ ] [Improve Output](https://github.com/juliojimenez/clickhouse-cl/issues/12)
-
 
