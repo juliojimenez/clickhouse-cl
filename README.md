@@ -141,4 +141,3 @@ This would be applicable to a recently [installed](https://clickhouse.com/docs/e
 - [x] [HTTP Client](https://github.com/juliojimenez/clickhouse-cl/issues/9)
 - [x] [SQL Generator](https://github.com/juliojimenez/clickhouse-cl/issues/10)
 - [ ] [Improve Output](https://github.com/juliojimenez/clickhouse-cl/issues/12)
-
