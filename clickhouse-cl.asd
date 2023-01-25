@@ -5,6 +5,8 @@
   :license  "Apache-2.0"
   :version "0.0.6"
   :depends-on (#:dexador)
-  :components ((:file "ch-sql-parser")
-	       (:file "http")
-	       (:file "clickhouse-cl")))
+  :components ((:module "src"
+			:components
+			((:file "ch-sql-parser")
+			 (:file "http")
+			 (:file "clickhouse-cl")))))
