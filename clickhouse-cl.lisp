@@ -1,8 +1,11 @@
 (defpackage :clickhouse
   (:nicknames :ch)
-  (:use :cl
-        #:clickhouse.ch-sql-parser
-	#:clickhouse.http)
+  (:use :cl)
+  (:import-from :clickhouse.ch-sql-parser
+                :make-query)
+  (:import-from :clickhouse.http
+                :http-get
+                :http-post)
   (:export :database))
 
 (in-package :clickhouse)
@@ -54,5 +57,5 @@
 
 (defmethod query ((obj database) query)
   (with-slots ((h host) (p port) (s ssl)) obj
-    (http-get h p s query)))
+    (http-post h p s (make-query query))))
 

@@ -15,6 +15,6 @@
 (defun http-get (host-slot port-slot ssl-slot uri)
   (dexador:get (format-url host-slot port-slot ssl-slot uri)))
 
-(defun http-post (host-slot port-slot ssl-slot uri content)
-  (dexador:post (format-url host-slot port-slot ssl-slot uri)
+(defun http-post (host-slot port-slot ssl-slot content)
+  (dexador:post (format-url host-slot port-slot ssl-slot "")
 		:content content))
