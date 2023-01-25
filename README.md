@@ -26,6 +26,12 @@ To load "clickhouse-cl":
 CL-USER>
 ```
 
+## No Line Breaks (Emacs)
+
+To prevent line breaks, which makes query outputs with many fields difficult to read, issue the command `M-x toggle-truncate-lines RET` in the Emacs minibuffer.
+
+If that doesn't work, checkout this [StackExchange](https://superuser.com/questions/592154/how-can-i-turn-off-emacss-auto-line-wrapping-for-the-current-session) post for other options.
+
 ## `database` Class
 
 ### Slots
