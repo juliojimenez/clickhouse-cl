@@ -7,6 +7,7 @@
   :depends-on (#:dexador)
   :components ((:module "src"
 			:components
-			((:file "ch-sql-parser")
+			((:file "utils")
+			 (:file "ch-sql-parser")
 			 (:file "http")
 			 (:file "clickhouse-cl")))))
