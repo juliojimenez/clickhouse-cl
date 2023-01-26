@@ -8,8 +8,7 @@
                 :http-post)
   (:import-from :clickhouse.utils
                 :prettify
-                :ver
-		:array-vector-string)
+                :ver)
   (:export :database
            :ping
            :replicas-status
@@ -60,7 +59,7 @@
 (defmethod replicas-status ((obj database) &key nice nicer )
   (with-slots ((h host) (p port) (s ssl)) obj
     (prettify
-     (array-vector-string (http-get h p s "/replicas_status"))
+     (http-get h p s "/replicas_status")
      :nice nice :nicer nicer)))
 
 (defgeneric query (obj query &key)
@@ -71,4 +70,3 @@
     (prettify
      (http-post h p s (make-query query))
      :nice nice :nicer nicer)))
-

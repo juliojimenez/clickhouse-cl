@@ -2,8 +2,7 @@
   (:use :cl)
   (:export :format-url
            :prettify
-           :ver
-	   :array-vector-string))
+           :ver))
 
 (in-package :clickhouse.utils)
 
@@ -14,16 +13,8 @@
 
 (defun prettify (body &key nice nicer)
   (cond (nice (format nil "~d" (string-trim '(#\Newline #\") body)))
-	(nicer (format t "~d" (string-trim '(#\Newline #\") body)))
+	(nicer (format t "~d" (remove #\\ (remove #\' (string-trim '(#\Newline #\") body)))))
 	(t (format nil "~s" (string-trim '(#\Newline #\") body)))))
 
 (defmacro ver (val)
   `(not (not ,val)))
-
-(defun array-vector-string (body)
-  (format nil "~{~c~}" (char-coder (coerce body 'list))))
-
-(defun char-coder (code-list)
-  (mapcar (lambda (x)
-	    (code-char x))
-	  code-list))
