@@ -11,10 +11,9 @@
 	((not ssl-slot) (format nil "http://~a:~a~a" host-slot port-slot uri))
 	(t (format nil "https://~a:~a~a" host-slot port-slot uri))))
 
-(defun prettify (body &key nice nicer)
-  (cond (nice (format nil "~d" (string-trim '(#\Newline #\") body)))
-	(nicer (format t "~d" (remove #\\ (remove #\' (string-trim '(#\Newline #\") body)))))
-	(t (format nil "~s" (string-trim '(#\Newline #\") body)))))
+(defun prettify (body &key console)
+  (cond (console (format t "~d" (string-trim '(#\Newline) body)))
+	(t (string-trim '(#\Newline) body))))
 
 (defmacro ver (val)
   `(not (not ,val)))

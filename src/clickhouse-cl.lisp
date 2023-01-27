@@ -45,28 +45,28 @@
 (defgeneric ping (obj &key)
   (:documentation "Pings the database server"))
 
-(defmethod ping ((obj database) &key ping nice nicer)
+(defmethod ping ((obj database) &key ping console)
   (with-slots ((h host) (p port) (s ssl)) obj
     (prettify
      (if (ver ping)
 	 (http-get h p s "/ping")
 	 (http-get h p s "/"))
-     :nice nice :nicer nicer)))
+     :console console)))
 
 (defgeneric replicas-status (obj &key)
   (:documentation "Get replicas status."))
 
-(defmethod replicas-status ((obj database) &key nice nicer )
+(defmethod replicas-status ((obj database) &key console)
   (with-slots ((h host) (p port) (s ssl)) obj
     (prettify
      (http-get h p s "/replicas_status")
-     :nice nice :nicer nicer)))
+     :console console)))
 
 (defgeneric query (obj query &key)
   (:documentation "Execute a query"))
 
-(defmethod query ((obj database) query &key nice nicer)
+(defmethod query ((obj database) query &key console)
   (with-slots ((h host) (p port) (s ssl)) obj
     (prettify
      (http-post h p s (make-query query))
-     :nice nice :nicer nicer)))
+     :console console)))
