@@ -6,7 +6,13 @@
   (:import-from :clickhouse.http
                 :http-get
                 :http-post)
-  (:export :database))
+  (:import-from :clickhouse.utils
+                :prettify
+                :ver)
+  (:export :database
+           :ping
+           :replicas-status
+	   :query))
 
 (in-package :clickhouse)
 
@@ -39,23 +45,28 @@
 (defgeneric ping (obj &key)
   (:documentation "Pings the database server"))
 
-(defmethod ping ((obj database) &key ping)
+(defmethod ping ((obj database) &key ping console)
   (with-slots ((h host) (p port) (s ssl)) obj
-    (if (not (not ping))
-	(http-get h p s "/ping")
-	(http-get h p s "/"))))
+    (prettify
+     (if (ver ping)
+	 (http-get h p s "/ping")
+	 (http-get h p s "/"))
+     :console console)))
 
-(defgeneric replicas-status (obj)
+(defgeneric replicas-status (obj &key)
   (:documentation "Get replicas status."))
 
-(defmethod replicas-status ((obj database))
+(defmethod replicas-status ((obj database) &key console)
   (with-slots ((h host) (p port) (s ssl)) obj
-    (http-get h p s "/replicas_status")))
+    (prettify
+     (http-get h p s "/replicas_status")
+     :console console)))
 
-(defgeneric query (obj query)
+(defgeneric query (obj query &key)
   (:documentation "Execute a query"))
 
-(defmethod query ((obj database) query)
+(defmethod query ((obj database) query &key console)
   (with-slots ((h host) (p port) (s ssl)) obj
-    (http-post h p s (make-query query))))
-
+    (prettify
+     (http-post h p s (make-query query))
+     :console console)))

@@ -120,6 +120,57 @@ CL-USER> (clickhouse::query *db* "SELECT 1")
 NIL
 ```
 
+### Console Option
+
+All methods can take the keyword parameter `:console t`, providing a cleaner output when interacting directly with the library in the REPL.
+
+```lisp
+CL-USER> (clickhouse:query *db* "SHOW DATABASES")
+"INFORMATION_SCHEMA
+default
+information_schema
+system"
+```
+
+```lisp
+CL-USER> (clickhouse:query *db* "SHOW DATABASES" :console t)
+INFORMATION_SCHEMA
+default
+information_schema
+letsgetitstarted
+system
+NIL
+```
+
+```lisp
+CL-USER> (clickhouse:query *db* "SELECT trip_id, passenger_count, pickup_ntaname FROM trips LIMIT 10")
+"1201746944	1	Upper West Side
+1200864931	5	Midtown-Midtown South
+1200018648	1	Airport
+1201452450	5	East Village
+1202368372	2	West Village
+1201973571	2	Clinton
+1200831168	1	Hudson Yards-Chelsea-Flatiron-Union Square
+1201362116	1	Clinton
+1203091619	1	Midtown-Midtown South
+1200639419	1	Hudson Yards-Chelsea-Flatiron-Union Square"
+```
+
+```lisp
+CL-USER> (clickhouse:query *db* "SELECT trip_id, passenger_count, pickup_ntaname FROM trips LIMIT 10" :console t)
+1201746944	1	Upper West Side
+1200864931	5	Midtown-Midtown South
+1200018648	1	Airport
+1201452450	5	East Village
+1202368372	2	West Village
+1201973571	2	Clinton
+1200831168	1	Hudson Yards-Chelsea-Flatiron-Union Square
+1201362116	1	Clinton
+1203091619	1	Midtown-Midtown South
+1200639419	1	Hudson Yards-Chelsea-Flatiron-Union Square
+NIL
+```
+
 ## Common Forms
 
 ### Connection to a local database
@@ -140,4 +191,6 @@ This would be applicable to a recently [installed](https://clickhouse.com/docs/e
 
 - [x] [HTTP Client](https://github.com/juliojimenez/clickhouse-cl/issues/9)
 - [x] [SQL Generator](https://github.com/juliojimenez/clickhouse-cl/issues/10)
-- [ ] [Improve Output](https://github.com/juliojimenez/clickhouse-cl/issues/12)
+- [x] [Improve Output](https://github.com/juliojimenez/clickhouse-cl/issues/12)
+- [ ] [Set Up Tests](https://github.com/juliojimenez/clickhouse-cl/issues/17)
+- [ ] [JSONEachRow Parsing](https://github.com/juliojimenez/clickhouse-cl/issues/18)

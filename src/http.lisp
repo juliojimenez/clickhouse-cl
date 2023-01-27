@@ -1,5 +1,7 @@
 (defpackage :clickhouse.http
   (:use :cl :dexador)
+  (:import-from :clickhouse.utils
+		:format-url)
   (:export :http-get
 	   :http-post)
   (:shadowing-import-from :dexador "GET")
@@ -7,14 +9,15 @@
   
 (in-package :clickhouse.http)
 
-(defun format-url (host-slot port-slot ssl-slot uri)
-  (cond (ssl-slot (format nil "https://~a:~a~a" host-slot port-slot uri))
-	((not ssl-slot) (format nil "http://~a:~a~a" host-slot port-slot uri))
-	(t (format nil "https://~a:~a~a" host-slot port-slot uri))))
-
 (defun http-get (host-slot port-slot ssl-slot uri)
-  (dexador:get (format-url host-slot port-slot ssl-slot uri)))
+  (multiple-value-bind (body status response-headers uri stream)
+      (dexador:get (format-url host-slot port-slot ssl-slot uri)
+		   :force-string t)
+    (values body)))
 
 (defun http-post (host-slot port-slot ssl-slot content)
-  (dexador:post (format-url host-slot port-slot ssl-slot "")
-		:content content))
+  (multiple-value-bind (body status response-header uri stream)
+      (dexador:post (format-url host-slot port-slot ssl-slot "")
+		    :content content
+		    :force-string t)
+    (values body)))
