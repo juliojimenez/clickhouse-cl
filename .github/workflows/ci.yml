@@ -24,4 +24,4 @@ jobs:
         run: ros install ci-utils
 
       - name: Run Test Suite
-        run: run-fiveam -e t -l clickhouse-cl-test :clickhouse-cl
+        run: ./.roswell/bin/run-fiveam -e t -l clickhouse-cl-test :clickhouse-cl
