@@ -75,22 +75,12 @@ clickhouse::ping *obj* :ping *bool*
 
 ```lisp
 CL-USER> (clickhouse::ping *db*)
-"Ok.
-"
-200
-#<HASH-TABLE :TEST EQUAL :COUNT 6 {1004C22953}>
-#<QURI.URI.HTTP:URI-HTTP http://localhost:8123>
-NIL
+"Ok."
 ```
 
 ```lisp
 CL-USER>  (clickhouse::ping *db* :ping t)
-"Ok.
-"
-200
-#<HASH-TABLE :TEST EQUAL :COUNT 6 {1003529693}>
-#<QURI.URI.HTTP:URI-HTTP http://localhost:8123/ping>
-NIL
+"Ok."
 ```
 
 #### replicas-status
@@ -99,11 +89,7 @@ clickhouse::replicas-status *obj*
 
 ```lisp
 CL-USER> (clickhouse::replicas-status *db*)
-#(79 107 46 10)
-200
-#<HASH-TABLE :TEST EQUAL :COUNT 4 {10048F4503}>
-#<QURI.URI.HTTP:URI-HTTP http://localhost:8123/replicas_status>
-NIL
+"Ok."
 ```
 
 #### query
@@ -112,12 +98,7 @@ clickhouse::query *obj* *query*
 
 ```lisp
 CL-USER> (clickhouse::query *db* "SELECT 1")
-"1
-"
-200
-#<HASH-TABLE :TEST EQUAL :COUNT 10 {100527B853}>
-#<QURI.URI.HTTP:URI-HTTP http://localhost:8123>
-NIL
+"1"
 ```
 
 ### Console Option
