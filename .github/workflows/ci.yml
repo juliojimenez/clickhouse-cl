@@ -1,0 +1,27 @@
+name: clickhouse-cl CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test_suite:
+    name: clickhouse-cl Test Suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Roswell
+        env:
+          LISP: sbcl-bin
+        run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
+          
+      - name: Install ci-utils
+        run: ros install ci-utils
+
+      - name: Run Test Suite
+        run: run-fiveam -e t -l clickhouse-cl-test :clickhouse-cl
