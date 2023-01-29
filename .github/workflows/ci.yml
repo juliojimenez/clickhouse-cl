@@ -10,11 +10,12 @@ jobs:
   test_suite:
     name: clickhouse-cl Test Suite
     runs-on: ubuntu-latest
-    container: 
-      image: clickhouse/clickhouse-server
-      ports:
-        - 8123
-      options: --ulimit nofile=262144:262144
+    services: 
+      clickhouse:
+        image: clickhouse/clickhouse-server
+        ports:
+          - 8123:8123
+        options: --ulimit nofile=262144:262144
 
     steps:
       - name: Checkout Code
