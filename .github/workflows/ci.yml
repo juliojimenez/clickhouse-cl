@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  test_suite:
-    name: clickhouse-cl Test Suite
+  unit_tests_suite:
+    name: Unit Tests Suite
     runs-on: ubuntu-latest
 
     steps:
@@ -24,4 +24,29 @@ jobs:
         run: ros install ci-utils
 
       - name: Run Test Suite
-        run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse-cl-test clickhouse-test::clickhouse-cl
+        run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse-cl-test clickhouse-test::unit-tests
+
+  integration_tests_suite:
+    name: Integration Tests Suite
+    runs-on: ubuntu-latest
+    services: 
+      clickhouse:
+        image: clickhouse/clickhouse-server
+        ports:
+          - 8123:8123
+        options: --ulimit nofile=262144:262144
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Roswell
+        env:
+          LISP: sbcl-bin
+        run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
+          
+      - name: Install ci-utils
+        run: ros install ci-utils
+
+      - name: Run Test Suite
+        run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse-cl-test clickhouse-test::integration-tests

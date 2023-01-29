@@ -6,9 +6,9 @@
 
 (in-package :clickhouse-test)
 
-(def-suite clickhouse-cl :description "clickhouse-cl test suite.")
+(def-suite unit-tests :description "unit tests suite.")
 
-(in-suite clickhouse-cl)
+(in-suite unit-tests)
 
 ; clickhouse.utils
 
@@ -32,3 +32,42 @@
 
 (test prettify-console
   (is (equalp nil (clickhouse.utils:prettify "1." :console t))))
+
+(def-suite integration-tests :description "integration tests suite.")
+
+(in-suite integration-tests)
+
+(test make-database
+  (finishes (defparameter *db-test* (make-instance 'clickhouse:database))))
+
+(test ping-implicit
+  (is (string= "Ok." (progn (defparameter *db-test* (make-instance 'clickhouse:database))
+			    (clickhouse:ping *db-test*)))))
+
+(test ping-explicit
+  (is (string= "Ok." (progn (defparameter *db-test* (make-instance 'clickhouse:database))
+			    (clickhouse:ping *db-test* :ping t)))))
+
+(test ping-implicit-console
+  (is (equalp nil (progn (defparameter *db-test* (make-instance 'clickhouse:database))
+			    (clickhouse:ping *db-test* :console t)))))
+
+(test ping-explicit-console
+  (is (equalp nil (progn (defparameter *db-test* (make-instance 'clickhouse:database))
+			    (clickhouse:ping *db-test* :ping t :console t)))))
+
+(test replicas-status
+  (is (string= "Ok." (progn (defparameter *db-test* (make-instance 'clickhouse:database))
+			    (clickhouse:replicas-status *db-test*)))))
+
+(test replica-status-console
+  (is (equalp nil (progn (defparameter *db-test* (make-instance 'clickhouse:database))
+			 (clickhouse:replicas-status *db-test* :console t)))))
+
+(test easy-query
+  (is (string= "1" (progn (defparameter *db-test* (make-instance 'clickhouse:database))
+			  (clickhouse:query *db-test* "SELECT 1")))))
+
+(test easy-query-console
+  (is (equalp nil (progn (defparameter *db-test* (make-instance 'clickhouse:database))
+			 (clickhouse:query *db-test* "SELECT 1" :console t)))))

@@ -1,4 +1,4 @@
-[![clickhouse-cl CI](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml)
+[![CI](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml)
 
 # clickhouse-cl
 

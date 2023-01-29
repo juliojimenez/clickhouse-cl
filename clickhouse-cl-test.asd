@@ -3,10 +3,10 @@
 
   :author "julio@clickhouse.com"
   :license  "Apache-2.0"
-  :version "0.0.4"
+  :version "0.0.5"
   :depends-on (#:clickhouse-cl
 	       #:fiveam)
   :components ((:module "t"
 			:components
 			((:file "clickhouse-cl"))))
-  :perform (test-op (o c) (symbol-call :fiveam '#:run! :clickhouse-cl)))
+  :perform (test-op (o c) (symbol-call :fiveam '#:run! :unit-tests)))
