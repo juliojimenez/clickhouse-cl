@@ -14,6 +14,6 @@
   :on-pull-request t
   :jobs ((40ants-ci/jobs/critic:critic)))
 
-(defworkflow d
+(defworkflow docs
   :on-push-to "main"
   :jobs ((40ants-ci/jobs/docs:build-docs)))
