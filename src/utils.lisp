@@ -2,7 +2,8 @@
   (:use :cl)
   (:export :format-url
            :prettify
-           :ver))
+           :ver
+	   :coerce-by-length))
 
 (in-package :clickhouse.utils)
 
@@ -17,3 +18,8 @@
 
 (defmacro ver (val)
   `(not (not ,val)))
+
+;(defmacro coerce-by-length (input)
+;  (if (= 1 (length input))
+;      (coerce input 'character)
+;      (coerce input 'string)))

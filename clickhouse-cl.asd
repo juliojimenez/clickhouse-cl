@@ -3,8 +3,8 @@
 
   :author "julio@clickhouse.com"
   :license  "Apache-2.0"
-  :version "0.1.3"
-  :depends-on (#:40ants-ci)
+  :version "0.1.4"
+  :depends-on (#:dexador)
   :components ((:module "src"
 			:components
 			((:file "utils")
