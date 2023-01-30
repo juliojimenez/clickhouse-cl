@@ -8,10 +8,12 @@
 	       #:lexer
 	       #:40ants-ci)
   :components ((:module "src"
-		:components
-		(;(:file "ci")
-		 (:file "utils")
-		 (:file "ch-sql-parser")
-		 (:file "http")
-		 (:file "clickhouse-cl"))))
+			:components
+			((:file "utils")
+			 (:file "ch-sql-parser" :depends-on ("lexer"))
+			 (:file "http")
+                         (:file "parse")
+                         (:file "re" :depends-on ("parse"))
+                         (:file "lexer" :depends-on ("re"))
+			 (:file "clickhouse-cl"))))
   :in-order-to ((test-op (test-op "clickhouse-cl-test"))))
