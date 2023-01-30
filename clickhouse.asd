@@ -4,7 +4,8 @@
   :author "julio@clickhouse.com"
   :license  "Apache-2.0"
   :version "0.1.4"
-  :depends-on (#:dexador)
+  :depends-on ("dexador"
+               "lexer")
   :components ((:module "src"
 			:components
 			((:file "utils")
@@ -17,7 +18,7 @@
   :in-order-to ((test-op (test-op "clickhouse-cl-test"))))
 
 
-(asdf:defsystem #:clickhouse-cl/ci
+(asdf:defsystem #:clickhouse/ci
   :description "CI for Common Lisp ClickHouse Client Library"
 
   :author "julio@clickhouse.com"

@@ -20,7 +20,7 @@
           "name": "Setup Common Lisp Environment",
           "uses": "40ants/setup-lisp@v2",
           "with": {
-            "asdf-system": "clickhouse-cl"
+            "asdf-system": "clickhouse"
           }
         },
         {
@@ -40,7 +40,7 @@
         },
         {
           "name": "Run Linter",
-          "run": "qlot exec 40ants-linter --system \"clickhouse-cl\"",
+          "run": "qlot exec 40ants-linter --system \"clickhouse\"",
           "shell": "bash"
         }
       ]

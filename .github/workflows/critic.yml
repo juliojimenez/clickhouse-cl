@@ -20,7 +20,7 @@
           "name": "Setup Common Lisp Environment",
           "uses": "40ants/setup-lisp@v2",
           "with": {
-            "asdf-system": "clickhouse-cl"
+            "asdf-system": "clickhouse"
           }
         },
         {
@@ -39,8 +39,8 @@
           "shell": "bash"
         },
         {
-          "name": "Run Critic for \"clickhouse-cl\" system",
-          "run": "qlot exec lisp-critic clickhouse-cl",
+          "name": "Run Critic for \"clickhouse\" system",
+          "run": "qlot exec lisp-critic clickhouse",
           "shell": "bash"
         }
       ]
