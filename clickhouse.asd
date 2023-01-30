@@ -1,4 +1,4 @@
-(asdf:defsystem #:clickhouse-cl
+(asdf:defsystem #:clickhouse
   :description "Common Lisp ClickHouse Client Library"
 
   :author "julio@clickhouse.com"
