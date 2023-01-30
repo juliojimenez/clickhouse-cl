@@ -16,6 +16,8 @@
 
 (in-package :clickhouse)
 
+(defparameter *format* nil)
+
 (defclass database ()
   ((host
     :initarg :host

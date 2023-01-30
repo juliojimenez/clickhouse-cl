@@ -42,6 +42,8 @@
 
 (in-suite integration-tests)
 
+; database class and methods
+
 (test make-database
   (finishes (defparameter *db-test* (make-instance 'clickhouse:database))))
 
