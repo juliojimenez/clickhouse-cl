@@ -22,8 +22,7 @@
   :author "julio@clickhouse.com"
   :license  "Apache-2.0"
   :depends-on (#:40ants-ci
-	       #:40ants-doc
-	       #:40ants-doc/changelog)
+	       #:40ants-doc)
   :components ((:module "src"
 		:components
 		((:file "ci")))))
