@@ -23,4 +23,4 @@
   ;; a builtin linter which may suggest documentation
   ;; improvements:
   :on-pull-request t
-  :jobs ((40ants-ci/jobs/docs:build-docs)
+  :jobs ((40ants-ci/jobs/docs:build-docs)))

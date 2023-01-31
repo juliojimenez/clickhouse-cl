@@ -44,9 +44,10 @@
     :documentation "Clickhouse database password.")))
 
 (defgeneric ping (obj &key)
-  (:documentation "Pings the database server"))
+  (:documentation "Pings the database server."))
 
 (defmethod ping ((obj database) &key ping console)
+  "Pings the database server."
   (with-slots ((h host) (p port) (s ssl)) obj
     (prettify
      (if (ver ping)

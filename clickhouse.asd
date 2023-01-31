@@ -23,8 +23,7 @@
   :license "Apache-2.0"
   :version "0.1.0"
   :depends-on ("40ants-ci"
-	       "40ants-doc"
-	       "40ants-doc/changelog")
+	       "40ants-doc-full")
   :components ((:module "src"
 		:components
 		((:file "ci")))))
