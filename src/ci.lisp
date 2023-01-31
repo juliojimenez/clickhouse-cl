@@ -5,8 +5,8 @@
   (:import-from :40ants-ci/jobs/linter)
   (:import-from :40ants-ci/jobs/critic)
   (:import-from :40ants-ci/jobs/docs))
-(in-package :clickhouse/ci)
 
+(in-package :clickhouse/ci)
 
 (defworkflow linter
   :on-pull-request t

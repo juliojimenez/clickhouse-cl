@@ -2,8 +2,8 @@
   :description "Common Lisp ClickHouse Client Library"
 
   :author "julio@clickhouse.com"
-  :license  "Apache-2.0"
-  :version "0.1.5"
+  :license "Apache-2.0"
+  :version "0.1.6"
   :depends-on (#:dexador
 	       #:lexer
 	       #:boost-json)
@@ -18,9 +18,10 @@
 
 (asdf:defsystem #:clickhouse/ci
   :description "CI for Common Lisp ClickHouse Client Library"
-
+  
   :author "julio@clickhouse.com"
-  :license  "Apache-2.0"
+  :license "Apache-2.0"
+  :version "0.1.0"
   :depends-on ("40ants-ci"
 	       "40ants-doc"
 	       "40ants-doc/changelog")
