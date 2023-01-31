@@ -11,7 +11,7 @@
 		((:file "utils")
 		 (:file "ch-sql-parser")
 		 (:file "http")
-		 (:file "clickhouse-cl"))))
+		 (:file "clickhouse" :depends-on ("http" "ch-sql-parser")))))
   :in-order-to ((test-op (test-op "clickhouse-cl-test"))))
 
 
