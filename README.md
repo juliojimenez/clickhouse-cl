@@ -1,8 +1,16 @@
-[![CI](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml)
+[![CI](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml) [![LINTER](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml) [![CRITIC](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml)
 
 # clickhouse-cl
 
 Common Lisp ClickHouse Client Library
+
+- [Loading using QuickLisp](#loading-using-quicklisp)
+- [No Line Breaks](#no-line-breaks-emacs)
+- [`database` Class](#database-class)
+  - [Slots](#slots)
+  - [Usage](#usage)
+  - [Methods](#methods)
+    - []
 
 ## Loading using QuickLisp
 
