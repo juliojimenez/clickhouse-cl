@@ -1,5 +1,5 @@
 (defpackage :clickhouse.ch-sql-parser
-  (:use :cl :lexer)
+  (:use #:cl #:lexer)
   (:import-from :clickhouse.utils
 		:coerce-by-length)
   (:export :make-query
