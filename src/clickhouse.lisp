@@ -12,7 +12,7 @@
   (:export :database
            :ping
            :replicas-status
-	   :query))
+           :query))
 
 (in-package :clickhouse)
 

@@ -1,7 +1,9 @@
 (defpackage :clickhouse.ch-sql-parser
   (:use #:cl #:lexer)
   (:import-from :clickhouse.utils
-		:coerce-by-length)
+                :coerce-by-length)
+  (:import-from :clickhouse
+		:*format*)
   (:export :make-query
            :formatter))
 
