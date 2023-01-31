@@ -1,7 +1,5 @@
 (defpackage :clickhouse.ch-sql-parser
   (:use #:cl #:lexer #:boost-json)
-  (:import-from :clickhouse.utils
-                :coerce-by-length)
   (:export :make-query
            :formatter
            :*format*
