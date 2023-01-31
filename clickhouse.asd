@@ -4,8 +4,9 @@
   :author "julio@clickhouse.com"
   :license  "Apache-2.0"
   :version "0.1.5"
-  :depends-on (#:lexer
-	       #:dexador)
+  :depends-on (#:dexador
+	       #:lexer
+	       #:boost-json)
   :components ((:module "src"
 		:components
 		((:file "utils")

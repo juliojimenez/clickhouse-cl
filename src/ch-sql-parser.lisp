@@ -1,10 +1,11 @@
 (defpackage :clickhouse.ch-sql-parser
-  (:use #:cl #:lexer)
+  (:use #:cl #:lexer #:boost-json)
   (:import-from :clickhouse.utils
                 :coerce-by-length)
   (:export :make-query
            :formatter
-           :*format*))
+           :*format*
+	   :json-each-row))
 
 (in-package :clickhouse.ch-sql-parser)
 
@@ -34,5 +35,7 @@
 		   (print chosen-format)
 		   (cond ((equal chosen-format "JSONEachRow") (setf *format* 'jsoneachrow))
 			 (t (setf *format* nil))))))))
-			   
 
+(defun json-each-row (input)
+  (json-decode input))
+			  
