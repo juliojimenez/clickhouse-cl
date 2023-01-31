@@ -2,15 +2,16 @@
   (:use #:cl #:lexer)
   (:import-from :clickhouse.utils
                 :coerce-by-length)
-  (:import-from :clickhouse
-		:*format*)
   (:export :make-query
-           :formatter))
+           :formatter
+           :*format*))
 
 (in-package :clickhouse.ch-sql-parser)
-  
+
+(defparameter *format* nil)
+
 (defun make-query (query)
-  (formatter query)
+  (auto-formatter query)
   (values query))
 
 (define-lexer ch-lexer (state)
@@ -21,7 +22,7 @@
 (defun syntax-parser (query)
   (tokenize 'ch-lexer query))
 
-(defun formatter (input)
+(defun auto-formatter (input)
   (let ((lexer (syntax-parser input))
 	(chosen-format))
     (print lexer)
@@ -30,7 +31,8 @@
 		 (progn
 		   (setf chosen-format (token-value (nth (+ 1 i) lexer)))
 		   (print chosen-format)
-		   (cond ((equal chosen-format "JSONEachRow") (setf clickhouse::*format* 'jsoneachrow))
-			 (t (setf clickhouse::*format* nil))))))))
+		   (cond ((equal chosen-format "JSONEachRow") (setf *format* 'jsoneachrow))
+			 (t (setf *format* nil))))
+		 (setf *format* nil)))))
 			   
 
