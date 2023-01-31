@@ -8,7 +8,7 @@
 
 (in-package :clickhouse.ch-sql-parser)
 
-(defparameter *format* nil)
+(defvar *format* nil)
 
 (defun make-query (query)
   (auto-formatter query)
@@ -26,13 +26,13 @@
   (let ((lexer (syntax-parser input))
 	(chosen-format))
     (print lexer)
+    (setf *format* nil)
     (loop for i from 0 below (length lexer) and lexeme across (coerce lexer 'vector)
 	  do (if (equalp "FORMAT" (token-value lexeme))
 		 (progn
 		   (setf chosen-format (token-value (nth (+ 1 i) lexer)))
 		   (print chosen-format)
 		   (cond ((equal chosen-format "JSONEachRow") (setf *format* 'jsoneachrow))
-			 (t (setf *format* nil))))
-		 (setf *format* nil)))))
+			 (t (setf *format* nil))))))))
 			   
 
