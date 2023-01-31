@@ -1,10 +1,37 @@
 (defpackage :clickhouse.ch-sql-parser
-  (:use :cl)
-  (:export :make-query))
+  (:use #:cl #:lexer #:boost-json)
+  (:export :make-query
+           :formatter
+           :*format*
+	   :json-formats))
 
 (in-package :clickhouse.ch-sql-parser)
-  
-(defparameter *query-string* nil)
+
+(defvar *format* nil)
 
 (defun make-query (query)
-  (setf *query-string* query))
+  (auto-formatter query)
+  (values query))
+
+(define-lexer ch-lexer (state)
+  ("%s+"   (values :next-token))
+  ("%a%w*" (values :ident $$))
+  ("%d+"   (values :int (parse-integer $$))))
+
+(defun syntax-parser (query)
+  (tokenize 'ch-lexer query))
+
+(defun auto-formatter (input)
+  (let ((lexer (syntax-parser input))
+	(chosen-format))
+    (setf *format* nil)
+    (loop for i from 0 below (length lexer) and lexeme across (coerce lexer 'vector)
+	  do (if (equalp "FORMAT" (token-value lexeme))
+		 (progn
+		   (setf chosen-format (token-value (nth (+ 1 i) lexer)))
+		   (cond ((equal chosen-format "JSON") (setf *format* 'json))
+			 (t (setf *format* nil))))))))
+
+(defun json-formats (input)
+  (json-decode input))
+			  

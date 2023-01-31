@@ -13,6 +13,15 @@ Clone this repo wherever your quicklisp `local-projects` folder is configured.
 ~/quicklisp/local-projects/$ cd clickhouse-cl
 ~/quicklisp/local-projects/clickhouse-cl/$
 ```
+Some dependencies live on the awesome [Ultralisp.org](https://ultralisp.org/) distribution, load it like this...
+
+```lisp
+CL-USER> (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
+; Fetching #<URL "http://dist.ultralisp.org/">
+...
+#<QL-DIST:DIST ultralisp 20230130142500>
+CL-USER> 
+```
 
 In the emacs SLIME REPL or SBCL (or however you Lisp :wink:, as long as you QuickLisp), load the library with...
 

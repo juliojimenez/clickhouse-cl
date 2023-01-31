@@ -12,7 +12,8 @@
   (:export :database
            :ping
            :replicas-status
-	   :query))
+           :query
+           :jget))
 
 (in-package :clickhouse)
 
@@ -65,8 +66,12 @@
 (defgeneric query (obj query &key)
   (:documentation "Execute a query"))
 
-(defmethod query ((obj database) query &key console)
+(defmethod query ((obj database) query &key console no-format)
   (with-slots ((h host) (p port) (s ssl)) obj
     (prettify
      (http-post h p s (make-query query))
-     :console console)))
+     :console console :formatting (if no-format nil clickhouse.ch-sql-parser:*format*))))
+
+(defmacro jget (obj key)
+  `(boost-json:json-getf ,obj ,key))
+

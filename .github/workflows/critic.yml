@@ -1,0 +1,49 @@
+{
+  "name": "CRITIC",
+  "on": {
+    "pull_request": null
+  },
+  "jobs": {
+    "critic": {
+      "runs-on": "ubuntu-latest",
+      "env": {
+        "OS": "ubuntu-latest",
+        "QUICKLISP_DIST": "quicklisp",
+        "LISP": "sbcl-bin"
+      },
+      "steps": [
+        {
+          "name": "Checkout Code",
+          "uses": "actions/checkout@v2"
+        },
+        {
+          "name": "Setup Common Lisp Environment",
+          "uses": "40ants/setup-lisp@v2",
+          "with": {
+            "asdf-system": "clickhouse"
+          }
+        },
+        {
+          "name": "Change dist to Ultralisp",
+          "run": "echo 'dist ultralisp http://dist.ultralisp.org' > qlfile",
+          "shell": "bash"
+        },
+        {
+          "name": "Update Qlot",
+          "run": "qlot update || qlot update",
+          "shell": "bash"
+        },
+        {
+          "name": "Install LISP-CRITIC wrapper",
+          "run": "qlot exec ros install 40ants-critic",
+          "shell": "bash"
+        },
+        {
+          "name": "Run Critic for \"clickhouse\" system",
+          "run": "qlot exec lisp-critic clickhouse",
+          "shell": "bash"
+        }
+      ]
+    }
+  }
+}

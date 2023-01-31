@@ -33,9 +33,16 @@
 (test prettify-console
   (is (equalp nil (clickhouse.utils:prettify "1." :console t))))
 
+; clickhouse.ch-sql-parser
+
+(test make-query
+  (is (string= "SELECT 1" (clickhouse.ch-sql-parser:make-query "SELECT 1"))))
+
 (def-suite integration-tests :description "integration tests suite.")
 
 (in-suite integration-tests)
+
+; database class and methods
 
 (test make-database
   (finishes (defparameter *db-test* (make-instance 'clickhouse:database))))
