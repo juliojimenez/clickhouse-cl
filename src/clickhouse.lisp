@@ -59,6 +59,7 @@
   (:documentation "Get replicas status."))
 
 (defmethod replicas-status ((obj database) &key console)
+  "Get replicas status."
   (with-slots ((h host) (p port) (s ssl)) obj
     (prettify
      (http-get h p s "/replicas_status")
