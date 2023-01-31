@@ -2,8 +2,7 @@
   (:use :cl)
   (:export :format-url
            :prettify
-           :ver
-	   :coerce-by-length))
+           :ver))
 
 (in-package :clickhouse.utils)
 
@@ -15,7 +14,7 @@
 (defun prettify (body &key console formatting)
   (let ((b (string-trim '(#\Newline) body)))
     (cond (console (format t "~d" b))
-	  ((ver formatting) (cond ((equalp formatting clickhouse.ch-sql-parser::'jsoneachrow) (clickhouse.ch-sql-parser:json-each-row b))))
+	  ((ver formatting) (cond ((equalp formatting clickhouse.ch-sql-parser::'json) (clickhouse.ch-sql-parser:json-formats b))))
 	  (t (values b)))))
 
 (defmacro ver (val)

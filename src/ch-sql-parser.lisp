@@ -5,7 +5,7 @@
   (:export :make-query
            :formatter
            :*format*
-	   :json-each-row))
+	   :json-formats))
 
 (in-package :clickhouse.ch-sql-parser)
 
@@ -33,9 +33,9 @@
 		 (progn
 		   (setf chosen-format (token-value (nth (+ 1 i) lexer)))
 		   (print chosen-format)
-		   (cond ((equal chosen-format "JSONEachRow") (setf *format* 'jsoneachrow))
+		   (cond ((equal chosen-format "JSON") (setf *format* 'json))
 			 (t (setf *format* nil))))))))
 
-(defun json-each-row (input)
+(defun json-formats (input)
   (json-decode input))
 			  

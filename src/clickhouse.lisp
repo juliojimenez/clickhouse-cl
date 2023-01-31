@@ -12,7 +12,8 @@
   (:export :database
            :ping
            :replicas-status
-           :query))
+           :query
+           :jget))
 
 (in-package :clickhouse)
 
@@ -70,3 +71,7 @@
     (prettify
      (http-post h p s (make-query query))
      :console console :formatting clickhouse.ch-sql-parser:*format*)))
+
+(defmacro jget (obj key)
+  `(boost-json:json-getf ,obj ,key))
+

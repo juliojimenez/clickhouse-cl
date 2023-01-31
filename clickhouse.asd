@@ -9,7 +9,7 @@
 	       #:boost-json)
   :components ((:module "src"
 		:components
-		((:file "utils")
+		((:file "utils" :depends-on ("ch-sql-parser"))
 		 (:file "ch-sql-parser")
 		 (:file "http")
 		 (:file "clickhouse" :depends-on ("http" "ch-sql-parser")))))
