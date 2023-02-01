@@ -17,6 +17,8 @@ jobs:
 
       - name: Set Up Lisp
         uses: 40ants/setup-lisp@v2
+        with:
+          asdf-system: clickhouse
           
       - name: Install ci-utils
         run: ros install ci-utils
@@ -40,6 +42,8 @@ jobs:
 
       - name: Set Up Lisp
         uses: 40ants/setup-lisp@v2
+        with:
+          asdf-system: clickhouse
           
       - name: Install ci-utils
         run: ros install ci-utils
