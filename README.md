@@ -10,7 +10,17 @@ Common Lisp ClickHouse Client Library
   - [Slots](#slots)
   - [Usage](#usage)
   - [Methods](#methods)
-    - []
+    - [ping](#ping)
+    - [replicas-status](#replicas-status)
+    - [query](#query)
+  - [Console Option](#console-option)
+- [Formats](#formats)
+  - [Input](#input)
+  - [Output](#output)
+- [Common Forms](#common-forms)
+  - [Connection to a local database](#connection-to-a-local-database)
+  - [Query](#query)
+- [To Do](#to-do)
 
 ## Loading using QuickLisp
 
@@ -34,14 +44,14 @@ CL-USER>
 In the emacs SLIME REPL or SBCL (or however you Lisp :wink:, as long as you QuickLisp), load the library with...
 
 ```lisp
-CL-USER> (ql:quickload :clickhouse-cl)
-To load "clickhouse-cl":
+CL-USER> (ql:quickload :clickhouse)
+To load "clickhouse":
   Load 1 ASDF system:
-    clickhouse-cl
-; Loading "clickhouse-cl"
+    clickhouse
+; Loading "clickhouse"
 [package clickhouse]
 
-(:CLICKHOUSE-CL)
+(:CLICKHOUSE)
 CL-USER>
 ```
 
@@ -90,7 +100,7 @@ CL-USER>
 
 #### ping
 
-clickhouse::ping *obj* :ping *bool*
+clickhouse::ping *obj* :ping *bool* :console *bool*
 
 ```lisp
 CL-USER> (clickhouse::ping *db*)
@@ -104,7 +114,7 @@ CL-USER>  (clickhouse::ping *db* :ping t)
 
 #### replicas-status
 
-clickhouse::replicas-status *obj*
+clickhouse::replicas-status *obj* :console *bool* 
 
 ```lisp
 CL-USER> (clickhouse::replicas-status *db*)
@@ -113,7 +123,7 @@ CL-USER> (clickhouse::replicas-status *db*)
 
 #### query
 
-clickhouse::query *obj* *query*
+clickhouse::query *obj* *query* :console *bool* :no-format *bool*
 
 ```lisp
 CL-USER> (clickhouse::query *db* "SELECT 1")
@@ -187,6 +197,16 @@ trip_id	passenger_count	pickup_ntaname
 NIL
 ```
 
+## Formats
+
+> ClickHouse can accept and return data in various formats. A format supported for input can be used to parse the data provided to INSERTs, to perform SELECTs from a file-backed table such as File, URL or HDFS, or to read a dictionary. A format supported for output can be used to arrange the results of a SELECT, and to perform INSERTs into a file-backed table. ([Formats](https://clickhouse.com/docs/en/interfaces/formats/))
+
+clickhouse-cl supports automatic input and output format processing for the formats below. If such processing is not desired, the keyword parameter `:no-format t` is added to the [**query**](#query) method.
+
+| Format | Input | Output | Functions |
+| ------ | ----- | ------ | --------- |
+| JSON || :heavy_check_mark: ||
+
 ## Common Forms
 
 ### Connection to a local database
@@ -209,4 +229,5 @@ This would be applicable to a recently [installed](https://clickhouse.com/docs/e
 - [x] [SQL Generator](https://github.com/juliojimenez/clickhouse-cl/issues/10)
 - [x] [Improve Output](https://github.com/juliojimenez/clickhouse-cl/issues/12)
 - [x] [Set Up Tests](https://github.com/juliojimenez/clickhouse-cl/issues/17)
-- [ ] [JSONEachRow Parsing](https://github.com/juliojimenez/clickhouse-cl/issues/18)
+- [x] [JSON Parsing](https://github.com/juliojimenez/clickhouse-cl/issues/18)
+- [x] []

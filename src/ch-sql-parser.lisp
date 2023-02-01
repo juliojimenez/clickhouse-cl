@@ -10,15 +10,18 @@
 (defvar *format* nil)
 
 (defun make-query (query)
+  "Sets detected format, passes query."
   (auto-formatter query)
   (values query))
 
 (define-lexer ch-lexer (state)
   ("%s+"   (values :next-token))
+  (","     (values :comma))
   ("%a%w*" (values :ident $$))
   ("%d+"   (values :int (parse-integer $$))))
 
 (defun syntax-parser (query)
+  "Tokenizes a query using ch-lexer."
   (tokenize 'ch-lexer query))
 
 (defun auto-formatter (input)
