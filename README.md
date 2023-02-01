@@ -205,7 +205,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 
 | Format | Input | Output | Functions |
 | ------ | ----- | ------ | --------- |
-| JSON || :heavy_check_mark: ||
+| JSON || :heavy_check_mark: | jget *obj* *key* |
 
 ## Common Forms
 
