@@ -1,4 +1,4 @@
-name: clickhouse-cl CI
+name: CI
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
         run: ros install ci-utils
 
       - name: Run Test Suite
-        run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse-cl-test clickhouse-test::unit-tests
+        run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse-test clickhouse-test::unit-tests
 
   integration_tests_suite:
     name: Integration Tests Suite
@@ -49,4 +49,4 @@ jobs:
         run: ros install ci-utils
 
       - name: Run Test Suite
-        run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse-cl-test clickhouse-test::integration-tests
+        run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse-test clickhouse-test::integration-tests
