@@ -6,6 +6,8 @@
 
 (in-package :clickhouse-test)
 
+(defparameter *db-test* nil)
+
 (def-suite all-tests :description "all tests suite.")
 
 (in-suite all-tests)
