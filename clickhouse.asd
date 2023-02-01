@@ -12,7 +12,7 @@
 		 (:file "ch-sql-parser")
 		 (:file "http")
 		 (:file "clickhouse" :depends-on ("http" "ch-sql-parser")))))
-  :in-order-to ((test-op (test-op "clickhouse-cl-test"))))
+  :in-order-to ((test-op (test-op "clickhouse-test"))))
 
 
 (asdf:defsystem #:clickhouse/ci
