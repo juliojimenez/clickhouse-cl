@@ -20,11 +20,9 @@ jobs:
         with:
           asdf-system: clickhouse
           
-      - name: Install ci-utils
-        run: ros install ci-utils
-
-      - name: Run Test Suite
-        run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse clickhouse-test::unit-tests
+      - uses: 40ants/run-tests@v2
+        with:
+          asdf-system: clickhouse
 
   integration_tests_suite:
     name: Integration Tests Suite
@@ -45,8 +43,6 @@ jobs:
         with:
           asdf-system: clickhouse
           
-      - name: Install ci-utils
-        run: ros install ci-utils
-
-      - name: Run Test Suite
-        run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse clickhouse-test::integration-tests
+      - uses: 40ants/run-tests@v2
+        with:
+          asdf-system: clickhouse
