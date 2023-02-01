@@ -5,7 +5,8 @@
   :license  "Apache-2.0"
   :version "0.0.6"
   :depends-on (#:clickhouse
-	       #:fiveam)
+	       #:fiveam
+	       #:lexer)
   :components ((:module "t"
 			:components
 			((:file "clickhouse"))))
