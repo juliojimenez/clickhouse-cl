@@ -15,8 +15,8 @@ Common Lisp ClickHouse Client Library
     - [query](#query)
   - [Console Option](#console-option)
 - [Formats](#formats)
-  - [Input](#input)
-  - [Output](#output)
+  - [Functions](#functions)
+    - [jget](#jget)
 - [Common Forms](#common-forms)
   - [Connection to a local database](#connection-to-a-local-database)
   - [Query](#query)
@@ -206,6 +206,24 @@ clickhouse-cl supports automatic input and output format processing for the form
 | Format | Input | Output | Functions |
 | ------ | ----- | ------ | --------- |
 | JSON || :heavy_check_mark: | jget *obj* *key* |
+
+### Functions
+
+#### jget
+
+jget *obj* *key*
+
+```lisp
+CL-USER> (defparameter *db* (make-instance 'clickhouse:database))
+*DB*
+CL-USER> (defparameter *result* (clickhouse:query *db* "SELECT trip_id, passenger_count FROM trips LIMIT 10 FORMAT JSON"))
+*RESULT*
+CL-USER> *result*
+#<BOOST-JSON:JSON-OBJECT {"meta":#,"data":#,"rows":10,"rows_before_limit_at_least":10,"statistics":#}>
+CL-USER> (clickhouse:jget *result* "rows")
+10
+T
+```
 
 ## Common Forms
 
