@@ -22,7 +22,7 @@ jobs:
           
       - uses: 40ants/run-tests@v2
         with:
-          asdf-system: clickhouse
+          asdf-system: clickhouse-test
 
   integration_tests_suite:
     name: Integration Tests Suite
