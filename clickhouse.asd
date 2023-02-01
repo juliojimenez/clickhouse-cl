@@ -1,3 +1,4 @@
+(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
 (asdf:defsystem #:clickhouse
   :description "Common Lisp ClickHouse Client Library"
   :author "julio@clickhouse.com"

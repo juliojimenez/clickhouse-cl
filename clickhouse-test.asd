@@ -1,4 +1,3 @@
-(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
 (asdf:defsystem #:clickhouse-test
   :description "clickhouse Tests"
 
