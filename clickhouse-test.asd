@@ -5,9 +5,8 @@
   :license  "Apache-2.0"
   :version "0.0.6"
   :depends-on (#:clickhouse
-	       #:fiveam
-	       #:lexer)
+	       #:fiveam)
   :components ((:module "t"
 			:components
 			((:file "clickhouse"))))
-  :perform (test-op (o c) (symbol-call :fiveam '#:run! :unit-tests)))
+  :perform (test-op (o c) (symbol-call :fiveam '#:run! :all-tests)))

@@ -7,25 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  unit_tests_suite:
-    name: Unit Tests Suite
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set Up Lisp
-        uses: 40ants/setup-lisp@v2
-        with:
-          asdf-system: clickhouse
-          
-      - uses: 40ants/run-tests@v2
-        with:
-          asdf-system: clickhouse-test
-
-  integration_tests_suite:
-    name: Integration Tests Suite
+  all_tests_suite:
+    name: All Tests Suite
     runs-on: ubuntu-latest
     services: 
       clickhouse:
