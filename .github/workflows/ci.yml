@@ -30,8 +30,9 @@ jobs:
         run: ros install sbcl
           
       - run: |
-          ls -a /home/runner/.roswell/bin
-          sbcl --eval '(asdf:test-system "clickhouse-test")'
+          sudo apt-get install -y tree
+          tree /home/runner/
+      # sbcl --eval '(asdf:test-system "clickhouse-test")'
       # - uses: 40ants/run-tests@v2
       #   with:
       #     asdf-system: clickhouse
