@@ -6,6 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  COVERALLS: 1
+
 jobs:
   all_tests_suite:
     name: All Tests Suite
@@ -42,5 +45,5 @@ jobs:
           run-tests: |
             (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
             (ql:quickload :clickhouse-test)
-            (asdf:test-system "clickhouse")
-          coveralls-token: ${{ secrets.GITHUB_TOKEN }}
+            (with-coveralls
+              (asdf:test-system "clickhouse"))
