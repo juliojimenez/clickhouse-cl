@@ -29,7 +29,9 @@ jobs:
       - name: Install sbcl
         run: ros install sbcl
           
-      - run: sbcl --eval '(asdf:test-system "clickhouse-test")'
+      - run: |
+          ls -a /home/runner/.roswell/bin
+          sbcl --eval '(asdf:test-system "clickhouse-test")'
       # - uses: 40ants/run-tests@v2
       #   with:
       #     asdf-system: clickhouse
