@@ -10,18 +10,22 @@
 (defvar *format* nil)
 
 (defun make-query (query)
+  "Sets detected format, passes query."
   (auto-formatter query)
   (values query))
 
 (define-lexer ch-lexer (state)
   ("%s+"   (values :next-token))
+  (","     (values :comma))
   ("%a%w*" (values :ident $$))
   ("%d+"   (values :int (parse-integer $$))))
 
 (defun syntax-parser (query)
+  "Tokenizes a query using ch-lexer."
   (tokenize 'ch-lexer query))
 
 (defun auto-formatter (input)
+  "Gets FORMAT used and sets it for clickhouse.utils:prettify."
   (let ((lexer (syntax-parser input))
 	(chosen-format))
     (setf *format* nil)
@@ -33,5 +37,6 @@
 			 (t (setf *format* nil))))))))
 
 (defun json-formats (input)
+  "Decodes input into a BOOST-JSON:JSON-OBJECT."
   (json-decode input))
 			  

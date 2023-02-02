@@ -6,9 +6,11 @@
 
 (in-package :clickhouse-test)
 
-(def-suite unit-tests :description "unit tests suite.")
+(defparameter *db-test* nil)
 
-(in-suite unit-tests)
+(def-suite all-tests :description "all tests suite.")
+
+(in-suite all-tests)
 
 ; clickhouse.utils
 
@@ -37,10 +39,6 @@
 
 (test make-query
   (is (string= "SELECT 1" (clickhouse.ch-sql-parser:make-query "SELECT 1"))))
-
-(def-suite integration-tests :description "integration tests suite.")
-
-(in-suite integration-tests)
 
 ; database class and methods
 
