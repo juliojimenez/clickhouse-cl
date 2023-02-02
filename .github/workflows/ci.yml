@@ -6,6 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  SBCL_PATH: /home/runner/.roswell/impls/x86-64/linux/sbcl-bin/2.3.1/bin
+
 jobs:
   all_tests_suite:
     name: All Tests Suite
@@ -28,17 +31,11 @@ jobs:
 
       - name: Env Setup 
         run: |
+          find /home/runner -name asdf.lisp -print
           curl -o /tmp/ql.lisp http://beta.quicklisp.org/quicklisp.lisp
           $SBCL_PATH/sbcl --no-sysinit --no-userinit --load /tmp/ql.lisp \
-            --eval '(quicklisp-quickstart:install :path "~/.quicklisp")' \
+            --eval '(quicklisp-quickstart:install :path "/home/runner/.quicklisp")' \
             --eval '(ql:add-to-init-file)' \
             --quit
           $SBCL_PATH/sbcl --eval '(asdf:test-system "clickhouse-test")'
-        env:
-          SBCL_PATH: /home/runner/.roswell/impls/x86-64/linux/sbcl-bin/2.3.1/bin
-      # sudo apt-get install -y tree
-      # tree -a /home/runner/
-          
-      # - uses: 40ants/run-tests@v2
-      #   with:
-      #     asdf-system: clickhouse
+        
