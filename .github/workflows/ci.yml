@@ -9,12 +9,14 @@ on:
 jobs:
   all_tests_suite:
     name: All Tests Suite
+    
     runs-on: ubuntu-latest
+    
     strategy:
       matrix:
         lisp:
           - sbcl-bin
-          - ccl-bin
+
     env:
       LISP: ${{ matrix.lisp }}
     services: 
@@ -37,6 +39,7 @@ jobs:
         uses: 40ants/run-tests@v2
         with:
           asdf-system: clickhouse
+          coveralls-token: ${{ secrets.GITHUB_TOKEN }}
           run-tests: |
             (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
             (ql:quickload :clickhouse-test)

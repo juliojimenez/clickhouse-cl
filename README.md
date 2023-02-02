@@ -20,7 +20,7 @@ Common Lisp ClickHouse Client Library
 - [Common Forms](#common-forms)
   - [Connection to a local database](#connection-to-a-local-database)
   - [Query](#query)
-- [To Do](#to-do)
+- [Bugs, Features, and Vulnerabilies Reporting](#bugs-features-and-vulnerabilies-reporting)
 
 ## Loading using QuickLisp
 
@@ -241,11 +241,6 @@ This would be applicable to a recently [installed](https://clickhouse.com/docs/e
 (clickhouse::query *db* "SELECT 1")
 ```
 
-## To Do
+# Bugs, Features, and Vulnerabilies Reporting
 
-- [x] [HTTP Client](https://github.com/juliojimenez/clickhouse-cl/issues/9)
-- [x] [SQL Generator](https://github.com/juliojimenez/clickhouse-cl/issues/10)
-- [x] [Improve Output](https://github.com/juliojimenez/clickhouse-cl/issues/12)
-- [x] [Set Up Tests](https://github.com/juliojimenez/clickhouse-cl/issues/17)
-- [x] [JSON Parsing](https://github.com/juliojimenez/clickhouse-cl/issues/18)
-- [x] []
+To report bugs, request a feature, or report a security vulnerability, please submit a new [issue](https://github.com/juliojimenez/clickhouse-cl/issues/new/choose).
