@@ -2,7 +2,9 @@
   (:use :cl :fiveam)
   (:import-from :clickhouse.utils
                 :format-url
-                :ver))
+                :ver)
+  (:export #:all-tests
+	   #:run!))
 
 (in-package :clickhouse-test)
 
