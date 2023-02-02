@@ -25,11 +25,17 @@ jobs:
         env:
           LISP: sbcl-bin
         run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
-          
-      - name: Install sbcl
-        run: ros install sbcl
-          
-      - run: /home/runner/.roswell/impls/x86-64/linux/sbcl-bin/2.3.1/bin/sbcl --eval '(asdf:test-system "clickhouse-test")'
+
+      - name: Env Setup 
+        run: |
+          curl -o /tmp/ql.lisp http://beta.quicklisp.org/quicklisp.lisp
+          $SBCL_PATH/sbcl --no-sysinit --no-userinit --load /tmp/ql.lisp \
+            --eval '(quicklisp-quickstart:install :path "~/.quicklisp")' \
+            --eval '(ql:add-to-init-file)' \
+            --quit
+          $SBCL_PATH/sbcl --eval '(asdf:test-system "clickhouse-test")'
+        env:
+          SBCL_PATH: /home/runner/.roswell/impls/x86-64/linux/sbcl-bin/2.3.1/bin
       # sudo apt-get install -y tree
       # tree -a /home/runner/
           
