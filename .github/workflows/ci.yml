@@ -37,7 +37,8 @@ jobs:
             --eval '(quicklisp-quickstart:install :path "/home/runner/.quicklisp")' \
             --eval '(ql-util:without-prompting (ql:add-to-init-file))' \
             --eval '(push "/home/runner/work/clickhouse-cl/clickhouse-cl" ql:*local-project-directories*)' \
-            --eval '(ql:register-local-projects)'
+            --eval '(ql:register-local-projects)' \
+            --eval '(ql:quickload :clickhouse-test)'
 
       - name: Run Tests
         run: $SBCL_PATH/sbcl --non-interactive --eval '(asdf:test-system "clickhouse-test")'
