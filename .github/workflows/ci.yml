@@ -21,9 +21,6 @@ jobs:
         options: --ulimit nofile=262144:262144
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
       - name: Install Roswell
         env:
           LISP: sbcl-bin
@@ -36,4 +33,11 @@ jobs:
           $SBCL_PATH/sbcl --non-interactive --load /tmp/ql.lisp \
             --eval '(quicklisp-quickstart:install :path "/home/runner/.quicklisp")' \
             --eval '(ql-util:without-prompting (ql:add-to-init-file))'
-          $SBCL_PATH/sbcl --non-interactive --eval '(asdf:test-system "clickhouse-test")'
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          path: /home/runner/.quicklisp/local-projects
+
+      - name: Run Tests
+        run: $SBCL_PATH/sbcl --non-interactive --eval '(asdf:test-system "clickhouse-test")'
