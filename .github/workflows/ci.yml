@@ -26,8 +26,8 @@ jobs:
           LISP: sbcl-bin
         run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
           
-      - name: Install ci-utils
-        run: ros install ci-utils
+      - name: Install sbcl
+        run: ros install sbcl
           
       - run: sbcl --eval '(asdf:test-system "clickhouse-test")'
       # - uses: 40ants/run-tests@v2
