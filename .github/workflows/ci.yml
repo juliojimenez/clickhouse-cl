@@ -37,3 +37,5 @@ jobs:
         uses: 40ants/run-tests@v2
         with:
           asdf-system: clickhouse
+          run-tests: |
+            (ql:quickload :clickhouse-test)
