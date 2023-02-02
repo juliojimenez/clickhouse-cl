@@ -38,5 +38,6 @@ jobs:
         with:
           asdf-system: clickhouse
           run-tests: |
+            (ql:quickload :lexer)
             (ql:quickload :clickhouse)
             (asdf:test-system "clickhouse")
