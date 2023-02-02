@@ -33,7 +33,7 @@ jobs:
         run: |
           find /home/runner -name asdf.lisp -print
           curl -o /tmp/ql.lisp http://beta.quicklisp.org/quicklisp.lisp
-          $SBCL_PATH/sbcl --no-sysinit --no-userinit --load /tmp/ql.lisp \
+          $SBCL_PATH/sbcl --non-interactive --no-sysinit --no-userinit --load /tmp/ql.lisp \
             --eval '(quicklisp-quickstart:install :path "/home/runner/.quicklisp")' \
             --eval '(ql:add-to-init-file)' \
             --quit
