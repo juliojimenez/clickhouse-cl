@@ -6,9 +6,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  SBCL_PATH: /home/runner/.roswell/impls/x86-64/linux/sbcl-bin/2.3.1/bin
-
 jobs:
   all_tests_suite:
     name: All Tests Suite
