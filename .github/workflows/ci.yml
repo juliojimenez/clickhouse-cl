@@ -29,7 +29,7 @@ jobs:
       - name: Install ci-utils
         run: ros install ci-utils
           
-      - run: ls -a /home/runner/.roswell
+      - run: ls -a /home/runner/.roswell/bin/
       #sbcl --eval '(asdf:test-system "clickhouse-test")'
       # - uses: 40ants/run-tests@v2
       #   with:
