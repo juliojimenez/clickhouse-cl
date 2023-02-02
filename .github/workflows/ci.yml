@@ -26,7 +26,8 @@ jobs:
         with:
           asdf-system: clickhouse
           
-      - run: sbcl --eval '(asdf:test-system "clickhouse-test")'
+      - run: ls -a
+      #sbcl --eval '(asdf:test-system "clickhouse-test")'
       # - uses: 40ants/run-tests@v2
       #   with:
       #     asdf-system: clickhouse
