@@ -9,4 +9,4 @@
   :components ((:module "t"
 		:components
 		((:file "clickhouse"))))
-  :perform (test-op (o c) (symbol-call :fiveam '#:run! 'clickhouse-test::all-tests)))
+  :perform (test-op (o c) (symbol-call :fiveam '#:run! (find-symbol "ALL-TESTS" 'clickhouse-test))))
