@@ -13,6 +13,13 @@ jobs:
   all_tests_suite:
     name: All Tests Suite
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lisp:
+          - sbcl-bin
+          - ccl-bin
+    env:
+      LISP: ${{ matrix.lisp }}
     services: 
       clickhouse:
         image: clickhouse/clickhouse-server
@@ -24,21 +31,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Install Roswell
-        env:
-          LISP: sbcl-bin
-        run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
+      - name: Set Up Lisp
+        uses: 40ants/setup-lisp@v1
+        with:
+          asdf-system: clickhouse
 
-      - name: Env Setup 
-        run: |
-          find /home/runner -name asdf.lisp -print
-          curl -o /tmp/ql.lisp http://beta.quicklisp.org/quicklisp.lisp
-          $SBCL_PATH/sbcl --non-interactive --load /tmp/ql.lisp \
-            --eval '(quicklisp-quickstart:install :path "/home/runner/.quicklisp")' \
-            --eval '(ql-util:without-prompting (ql:add-to-init-file))' \
-            --eval '(push "/home/runner/work/clickhouse-cl/clickhouse-cl" ql:*local-project-directories*)' \
-            --eval '(ql:register-local-projects)' \
-            --eval '(ql:quickload :clickhouse-test)'
-
-      - name: Run Tests
-        run: $SBCL_PATH/sbcl --non-interactive --eval '(asdf:test-system "clickhouse-test")'
+      - name: Run Test 
+        uses: 40ants/run-tests@v2
+        with:
+          asdf-system: clickhouse
