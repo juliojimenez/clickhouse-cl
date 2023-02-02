@@ -39,8 +39,8 @@ jobs:
         uses: 40ants/run-tests@v2
         with:
           asdf-system: clickhouse
-          coveralls-token: ${{ secrets.GITHUB_TOKEN }}
           run-tests: |
             (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
             (ql:quickload :clickhouse-test)
             (asdf:test-system "clickhouse")
+          coveralls-token: ${{ secrets.GITHUB_TOKEN }}
