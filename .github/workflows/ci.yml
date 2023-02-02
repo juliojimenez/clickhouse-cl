@@ -39,5 +39,5 @@ jobs:
           asdf-system: clickhouse
           run-tests: |
             (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
-            (ql:quickload :clickhouse)
+            (ql:quickload :clickhouse-test)
             (asdf:test-system "clickhouse")
