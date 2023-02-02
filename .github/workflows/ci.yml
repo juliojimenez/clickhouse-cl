@@ -6,9 +6,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  COVERALLS: 1
-
 jobs:
   all_tests_suite:
     name: All Tests Suite
@@ -22,6 +19,7 @@ jobs:
 
     env:
       LISP: ${{ matrix.lisp }}
+
     services: 
       clickhouse:
         image: clickhouse/clickhouse-server
@@ -42,7 +40,7 @@ jobs:
         uses: 40ants/run-tests@v2
         with:
           asdf-system: clickhouse
-          coveralls-token: ${{ secrets.COVERALLS_TOKEN }}
+          # coveralls-token: ${{ secrets.COVERALLS_TOKEN }}
           run-tests: |
             (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
             (ql:quickload :clickhouse-test)
