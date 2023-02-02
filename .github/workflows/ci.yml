@@ -37,7 +37,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          path: /home/runner/.quicklisp/local-projects
+          path: ../../../.quicklisp/local-projects
 
       - name: Run Tests
         run: $SBCL_PATH/sbcl --non-interactive --eval '(asdf:test-system "clickhouse-test")'
