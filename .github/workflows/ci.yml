@@ -33,9 +33,7 @@ jobs:
         run: |
           find /home/runner -name asdf.lisp -print
           curl -o /tmp/ql.lisp http://beta.quicklisp.org/quicklisp.lisp
-          $SBCL_PATH/sbcl --non-interactive --no-sysinit --no-userinit --load /tmp/ql.lisp \
+          $SBCL_PATH/sbcl --non-interactive --load /tmp/ql.lisp \
             --eval '(quicklisp-quickstart:install :path "/home/runner/.quicklisp")' \
-            --eval '(ql:add-to-init-file)' \
-            --quit
-          $SBCL_PATH/sbcl --eval '(asdf:test-system "clickhouse-test")'
-        
+            --eval '(ql-util:without-prompting (ql:add-to-init-file))'
+          $SBCL_PATH/sbcl --non-interactive --eval '(asdf:test-system "clickhouse-test")'
