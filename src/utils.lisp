@@ -19,6 +19,6 @@
 	  ((ver formatting) (cond ((equalp formatting clickhouse.ch-sql-parser::'json) (clickhouse.ch-sql-parser:json-formats b))))
 	  (t (values b)))))
 
-(defmacro ver (val)
+(defun ver (val)
   "Boolean coercion helper."
-  `(not (not ,val)))
+  (not (not val)))
