@@ -16,6 +16,7 @@
 
 (define-lexer ch-lexer (state)
   ("%s+"   (values :next-token))
+  ("\*"     (values :asterisk))
   (","     (values :comma))
   ("%a%w*" (values :ident $$))
   ("%d+"   (values :int (parse-integer $$))))
