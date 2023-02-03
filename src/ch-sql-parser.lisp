@@ -12,7 +12,8 @@
 (defun make-query (query)
   "Sets detected format, passes query."
   ;(print query)
-  (auto-formatter query)
+  (auto-formatter
+   (substitute #\space #\newline query))
   (values query))
 
 (define-lexer ch-lexer (state)
@@ -20,17 +21,30 @@
   ("%s+"    (values :next-token))
   ; keywords
   ("SELECT" (values :select))
+  ("Select" (values :select))
   ("select" (values :select))
   ("FROM"   (values :from))
+  ("From"   (values :from))
   ("from"   (values :from))
+  ("WHERE"  (values :where))
+  ("Where"  (values :where))
+  ("where"  (values :where))
+  ("LIKE"   (values :like))
+  ("Like"   (values :like))
+  ("like"   (values :like))
   ("LIMIT"  (values :limit))
+  ("Limit"  (values :limit))
   ("limit"  (values :limit))
   ("FORMAT" (values :format))
+  ("Format" (values :format))
   ("format" (values :format))
   ; special characters
   ("%*"     (values :wildcard))
   (","      (values :comma))
   ("%."     (values :period))
+  ("%%"     (values :percent))
+  ("'"      (values :singleq))
+  ("\""     (values :doubleq))
   ; identifiers
   ("%a%w*"  (values :ident $$))
   ; numbers
