@@ -11,15 +11,30 @@
 
 (defun make-query (query)
   "Sets detected format, passes query."
+  ;(print query)
   (auto-formatter query)
   (values query))
 
 (define-lexer ch-lexer (state)
-  ("%s+"   (values :next-token))
-  ("\*"     (values :asterisk))
-  (","     (values :comma))
-  ("%a%w*" (values :ident $$))
-  ("%d+"   (values :int (parse-integer $$))))
+  ; next-token
+  ("%s+"    (values :next-token))
+  ; keywords
+  ("SELECT" (values :select))
+  ("select" (values :select))
+  ("FROM"   (values :from))
+  ("from"   (values :from))
+  ("LIMIT"  (values :limit))
+  ("limit"  (values :limit))
+  ("FORMAT" (values :format))
+  ("format" (values :format))
+  ; special characters
+  ("%*"     (values :wildcard))
+  (","      (values :comma))
+  ("%."     (values :period))
+  ; identifiers
+  ("%a%w*"  (values :ident $$))
+  ; numbers
+  ("%d+"    (values :int (parse-integer $$))))
 
 (defun syntax-parser (query)
   "Tokenizes a query using ch-lexer."
@@ -29,11 +44,13 @@
   "Gets FORMAT used and sets it for clickhouse.utils:prettify."
   (let ((lexer (syntax-parser input))
 	(chosen-format))
+    ;(print lexer)
     (setf *format* nil)
-    (loop for i from 0 below (length lexer) and lexeme across (coerce lexer 'vector)
-	  do (if (equalp "FORMAT" (token-value lexeme))
+    (loop for i from 0 below (length lexer) and lexeme across (to-vector lexer)
+	  do (if (equalp "FORMAT" (token-lexeme lexeme))
 		 (progn
 		   (setf chosen-format (token-value (nth (+ 1 i) lexer)))
+		   ;(print chosen-format)
 		   (cond ((equal chosen-format "JSON") (setf *format* 'json))
 			 (t (setf *format* nil))))))))
 
@@ -41,3 +58,5 @@
   "Decodes input into a BOOST-JSON:JSON-OBJECT."
   (json-decode input))
 			  
+(defun to-vector (val)
+  (coerce val 'vector))
