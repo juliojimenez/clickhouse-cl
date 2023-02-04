@@ -29,7 +29,7 @@
 
 (defun json-formats (input)
   "Decodes input into a BOOST-JSON:JSON-OBJECT."
-  (json-decode input))
+  (boost-json:json-decode input))
 
 (defun tab-separated-formatter (input)
   (setq tab-separated nil)
