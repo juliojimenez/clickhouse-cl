@@ -25,17 +25,31 @@
 (test format-url-ssl-uri
   (is (string= "https://localhost:8443/ping" (format-url "localhost" 8443 t "/ping"))))
 
-(test ver-t
-  (is (equalp t (ver "okie dokie"))))
+(test json-formats
+  (is (string=
+       "pass"
+       (clickhouse:jget (clickhouse.utils::json-formats "{ \"testing\": \"pass\" }") "testing"))))
 
-(test ver-nil
-  (is (equalp nil (ver nil))))
+(test prettify-console
+  (is (equalp nil (clickhouse.utils:prettify "1." :console t))))
 
 (test prettify-nil
   (is (string= "1." (clickhouse.utils:prettify "1." :console nil))))
 
-(test prettify-console
-  (is (equalp nil (clickhouse.utils:prettify "1." :console t))))
+(test tab-separated-formatter
+  (is (equalp
+       '("7" "8" "9")
+       (first
+	(clickhouse.utils::tab-separated-formatter "c1	c2	c3
+1	2	3
+4	5	6
+7	8	9")))))
+
+(test ver-nil
+  (is (equalp nil (ver nil))))
+
+(test ver-t
+  (is (equalp t (ver "okie dokie"))))
 
 ; clickhouse.ch-sql-parser
 

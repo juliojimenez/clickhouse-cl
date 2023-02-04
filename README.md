@@ -14,13 +14,14 @@ Common Lisp ClickHouse Client Library
     - [replicas-status](#replicas-status)
     - [query](#query)
   - [Console Option](#console-option)
+  - [Timeouts](#timeouts)
 - [Formats](#formats)
   - [Functions](#functions)
     - [jget](#jget)
 - [Common Forms](#common-forms)
   - [Connection to a local database](#connection-to-a-local-database)
   - [Query](#query)
-- [Bugs, Features, and Vulnerabilities Reporting](#bugs-features-and-vulnerabilies-reporting)
+- [Bugs, Features, and Vulnerabilities Reporting](#bugs-features-and-vulnerabilities-reporting)
 
 ## Loading using QuickLisp
 
@@ -123,7 +124,7 @@ CL-USER> (clickhouse::replicas-status *db*)
 
 #### query
 
-clickhouse::query *obj* *query* :console *bool* :no-format *bool*
+clickhouse::query *obj* *query* :console *bool* :no-format *bool* :timeout *int*
 
 ```lisp
 CL-USER> (clickhouse::query *db* "SELECT 1")
@@ -197,15 +198,35 @@ trip_id	passenger_count	pickup_ntaname
 NIL
 ```
 
+### Timeouts
+
+The default *query* method timeout is 60 seconds. Use the `:timeout seconds` keyword parameter to change the default for long running operations.
+
+```lisp
+(clickhouse:query *db* "INSERT INTO crypto_prices 
+                            SELECT 
+                                trade_date,
+                                crypto_name,
+                                volume,
+                                price,
+                                market_cap,
+                                change_1_day
+                            FROM s3('https://learn-clickhouse.s3.us-east-2.amazonaws.com/crypto_prices.csv',
+                                    'CSVWithNames'
+                        )
+                            SETTINGS input_format_try_infer_integers=0" :timeout 300)
+```
+
 ## Formats
 
 > ClickHouse can accept and return data in various formats. A format supported for input can be used to parse the data provided to INSERTs, to perform SELECTs from a file-backed table such as File, URL or HDFS, or to read a dictionary. A format supported for output can be used to arrange the results of a SELECT, and to perform INSERTs into a file-backed table. ([Formats](https://clickhouse.com/docs/en/interfaces/formats/))
 
 clickhouse-cl supports automatic input and output format processing for the formats below. If such processing is not desired, the keyword parameter `:no-format t` is added to the [**query**](#query) method.
 
-| Format | Input | Output | Functions |
-| ------ | ----- | ------ | --------- |
-| JSON || :heavy_check_mark: | jget *obj* *key* |
+| Format | Input | Output | Result | Functions |
+| ------ | ----- | ------ | ------ | --------- |
+| TabSeparated | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| JSON || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 
 ### Functions
 
