@@ -15,9 +15,10 @@
 		   :force-string t)
     (values body)))
 
-(defun http-post (host-slot port-slot ssl-slot content)
+(defun http-post (host-slot port-slot ssl-slot content timeout)
   (multiple-value-bind (body status response-header uri stream)
       (dexador:post (format-url host-slot port-slot ssl-slot "")
 		    :content content
-		    :force-string t)
+		    :force-string t
+		    :read-timeout (if timeout timeout 60))
     (values body)))
