@@ -39,7 +39,7 @@
   ("explain"     (values :explain))
   ("ASC"         (values :asc))
   ("Asc"         (values :asc))
-  ("asc"         (values :asc)
+  ("asc"         (values :asc))
   ("DESC"        (values :desc))
   ("Desc"        (values :desc))
   ("desc"        (values :desc))
