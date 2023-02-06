@@ -55,9 +55,30 @@
 	  do (vector-push-extend #\┬ new-top-border)
 	when (not (member i positions))
 	  do (vector-push-extend #\─ new-top-border))
+  (vector-push-extend #\Newline new-top-border)
+  (setq new-title-row (make-array 0
+				  :element-type 'character
+				  :fill-pointer 0
+				  :adjustable t))
+  (setq title-row-split (uiop:split-string title-row))
+  (setf title-row-split (loop for i in title-row-split
+			      when (and (not (string= i "")) (not (string= i "┃")))
+				collect i))
+  (loop for i from 0 to (car (last positions))
+	when (or (= i 0) (= i (car (last positions))))
+	  do (vector-push-extend #\│ new-title-row)
+	when (and (member i positions) (> i 0) (< i (car (last positions))))
+	  do (vector-push-extend #\│ new-title-row)
+	when (not (member i positions))
+	  do (vector-push-extend #\Space new-title-row))
+  (loop for i in positions
+	for j from 0 upto (- (length title-row-split) 1)
+	  do (replace new-title-row (nth j title-row-split) :start1 (+ i 2)))
+  (vector-push-extend #\Newline new-title-row)
+  
   (setf clean-split (cdddr clean-split))
   (setq clean-split-string (format nil "~{~a~%~}" clean-split))
-  (setf clean (concatenate 'string new-top-border title-row bottom-border clean-split-string))
+  (setf clean (concatenate 'string new-top-border new-title-row bottom-border clean-split-string))
   (values clean))
 
 (defun tab-separated-formatter (input)
