@@ -111,6 +111,10 @@
   (";"           (values :semicolon))
   ("="           (values :equal))
   ("!="          (values :notequal))
+  (">"           (values :greaterthan))
+  ("<"           (values :lessthan))
+  (">="          (values :greaterequalthan))
+  ("<="          (values :lessequalthan))
   ("%+"          (values :plus))
   ("%-"          (values :minus))
   ("%%"          (values :percent))
@@ -146,6 +150,7 @@
 		   (setf chosen-format (token-value (nth (+ 1 i) lexer)))
 		   ;(print chosen-format)
 		   (cond ((equal chosen-format "JSON") (setf *format* 'json))
+			 ((equal chosen-format "Pretty") (setf *format* 'pretty))
 			 ((equal chosen-format "TabSeparated") (setf *format* 'tabseparated))
 			 (t (setf *format* nil))))))))
 			  
