@@ -82,18 +82,20 @@ Creating a instance of `database`.
 (make-instance 'clickhouse:database :host "clickhouse.example.com" :port "8123" :username "example" :password "1amAsecretPassWord")
 ```
 
+The clickhouse-cl package nickname is `ch` and will be used throughout this README for brevity.
+
 Binding an instance of `database`.
 
 ```lisp
-(defparameter *db* (make-instance 'clickhouse:database :host "localhost" :port "8123" :ssl nil :username "default" :password "1amAsecretPassWord"))
+(defparameter *db* (make-instance 'ch:database :host "localhost" :port "8123" :ssl nil :username "default" :password "1amAsecretPassWord"))
 ```
 
 Reading and setting a slot.
 
 ```lisp
-CL-USER> (clickhouse::password *db*)
+CL-USER> (ch::password *db*)
 "1amAsecretPassWord"
-CL-USER> (setf (clickhouse::password *db*) "chang3m3plea5e")
+CL-USER> (setf (ch::password *db*) "chang3m3plea5e")
 "chang3m3plea5e"
 CL-USER>
 ```
@@ -101,33 +103,33 @@ CL-USER>
 
 #### ping
 
-clickhouse::ping *obj* :ping *bool* :console *bool*
+ch::ping *obj* :ping *bool* :console *bool*
 
 ```lisp
-CL-USER> (clickhouse::ping *db*)
+CL-USER> (ch::ping *db*)
 "Ok."
 ```
 
 ```lisp
-CL-USER>  (clickhouse::ping *db* :ping t)
+CL-USER>  (ch::ping *db* :ping t)
 "Ok."
 ```
 
 #### replicas-status
 
-clickhouse::replicas-status *obj* :console *bool* 
+ch::replicas-status *obj* :console *bool* 
 
 ```lisp
-CL-USER> (clickhouse::replicas-status *db*)
+CL-USER> (ch::replicas-status *db*)
 "Ok."
 ```
 
 #### query
 
-clickhouse::query *obj* *query* :console *bool* :no-format *bool* :timeout *int*
+ch::query *obj* *query* :console *bool* :no-format *bool* :timeout *int*
 
 ```lisp
-CL-USER> (clickhouse::query *db* "SELECT 1")
+CL-USER> (ch::query *db* "SELECT 1")
 "1"
 ```
 
@@ -136,7 +138,7 @@ CL-USER> (clickhouse::query *db* "SELECT 1")
 All methods can take the keyword parameter `:console t`, providing a cleaner output when interacting directly with the library in the REPL.
 
 ```lisp
-CL-USER> (clickhouse:query *db* "SHOW DATABASES")
+CL-USER> (ch:query *db* "SHOW DATABASES")
 "INFORMATION_SCHEMA
 default
 information_schema
@@ -144,7 +146,7 @@ system"
 ```
 
 ```lisp
-CL-USER> (clickhouse:query *db* "SHOW DATABASES" :console t)
+CL-USER> (ch:query *db* "SHOW DATABASES" :console t)
 INFORMATION_SCHEMA
 default
 information_schema
@@ -154,7 +156,7 @@ NIL
 ```
 
 ```lisp
-CL-USER> (clickhouse:query *db* "SELECT trip_id, passenger_count, pickup_ntaname FROM trips LIMIT 10")
+CL-USER> (ch:query *db* "SELECT trip_id, passenger_count, pickup_ntaname FROM trips LIMIT 10")
 "1201746944	1	Upper West Side
 1200864931	5	Midtown-Midtown South
 1200018648	1	Airport
@@ -168,7 +170,7 @@ CL-USER> (clickhouse:query *db* "SELECT trip_id, passenger_count, pickup_ntaname
 ```
 
 ```lisp
-CL-USER> (clickhouse:query *db* "SELECT trip_id, passenger_count, pickup_ntaname FROM trips LIMIT 10" :console t)
+CL-USER> (ch:query *db* "SELECT trip_id, passenger_count, pickup_ntaname FROM trips LIMIT 10" :console t)
 1201746944	1	Upper West Side
 1200864931	5	Midtown-Midtown South
 1200018648	1	Airport
@@ -183,7 +185,7 @@ NIL
 ```
 
 ```lisp
-CL-USER> (clickhouse:query *db* "SELECT trip_id, passenger_count, pickup_ntaname FROM trips LIMIT 10 FORMAT TabSeparatedWithName" :console t)
+CL-USER> (ch:query *db* "SELECT trip_id, passenger_count, pickup_ntaname FROM trips LIMIT 10 FORMAT TabSeparatedWithName" :console t)
 trip_id	passenger_count	pickup_ntaname
 1201746944	1	Upper West Side
 1200864931	5	Midtown-Midtown South
@@ -203,18 +205,18 @@ NIL
 The default *query* method timeout is 60 seconds. Use the `:timeout seconds` keyword parameter to change the default for long running operations.
 
 ```lisp
-(clickhouse:query *db* "INSERT INTO crypto_prices 
-                            SELECT 
-                                trade_date,
-                                crypto_name,
-                                volume,
-                                price,
-                                market_cap,
-                                change_1_day
-                            FROM s3('https://learn-clickhouse.s3.us-east-2.amazonaws.com/crypto_prices.csv',
-                                    'CSVWithNames'
-                        )
-                            SETTINGS input_format_try_infer_integers=0" :timeout 300)
+(ch:query *db* "INSERT INTO crypto_prices 
+                    SELECT 
+                        trade_date,
+                        crypto_name,
+                        volume,
+                        price,
+                        market_cap,
+                        change_1_day
+                    FROM s3('https://learn-clickhouse.s3.us-east-2.amazonaws.com/crypto_prices.csv',
+                            'CSVWithNames'
+                     )
+                    SETTINGS input_format_try_infer_integers=0" :timeout 300)
 ```
 
 ## Formats
@@ -227,6 +229,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | ------ | ----- | ------ | ------ | --------- |
 | TabSeparated | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | TabSeparatedRaw | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| TabSeparatedWithNames | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | JSON || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | Pretty || :heavy_check_mark: || Best viewed with `:console t` |
 
@@ -237,13 +240,13 @@ clickhouse-cl supports automatic input and output format processing for the form
 jget *obj* *key*
 
 ```lisp
-CL-USER> (defparameter *db* (make-instance 'clickhouse:database))
+CL-USER> (defparameter *db* (make-instance 'ch:database))
 *DB*
-CL-USER> (defparameter *result* (clickhouse:query *db* "SELECT trip_id, passenger_count FROM trips LIMIT 10 FORMAT JSON"))
+CL-USER> (defparameter *result* (ch:query *db* "SELECT trip_id, passenger_count FROM trips LIMIT 10 FORMAT JSON"))
 *RESULT*
 CL-USER> *result*
 #<BOOST-JSON:JSON-OBJECT {"meta":#,"data":#,"rows":10,"rows_before_limit_at_least":10,"statistics":#}>
-CL-USER> (clickhouse:jget *result* "rows")
+CL-USER> (ch:jget *result* "rows")
 10
 T
 ```
@@ -255,13 +258,13 @@ T
 This would be applicable to a recently [installed](https://clickhouse.com/docs/en/getting-started/quick-start/) database, prior to applying a password and/or adding any users.
 
 ```lisp
-(defparameter *db* (make-instance 'clickhouse:database))
+(defparameter *db* (make-instance 'ch:database))
 ```
 
 ### Query
 
 ```
-(clickhouse::query *db* "SELECT 1")
+(ch::query *db* "SELECT 1")
 ```
 
 # Bugs, Features, and Vulnerabilities Reporting

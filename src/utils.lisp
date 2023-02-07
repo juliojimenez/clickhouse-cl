@@ -28,16 +28,15 @@
 				   (pretty-formatter b))
 				  ((or
 				    (equalp formatting clickhouse.ch-sql-parser::'tabseparated)
-				    (equalp formatting clickhouse.ch-sql-parser::'tabseparatedraw))
+				    (equalp formatting clickhouse.ch-sql-parser::'tabseparatedraw)
+				    (equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnames))
 				   (tab-separated-formatter b))))
 	  (console (format t "~d" b))
 	  (t (values b)))))
 
 (defun pretty-formatter (input)
   "Clean up Pretty format output"
-  (setq clean (remove #\ESC input))
-  (setf clean (regex-replace-all "\\[[0-1]{1}m" clean ""))
-  (setq clean-split (uiop:split-string clean :separator '(#\Newline)))
+  (let ((clean-split (pretty-formatter-clean-input input)))
   (setq top-border (first clean-split))
   (setq title-row (second clean-split))
   (setq bottom-border (third clean-split))
@@ -96,7 +95,13 @@
   (setf clean-split (cdddr clean-split))
   (setq clean-split-string (format nil "~{~a~%~}" clean-split))
   (setf clean (concatenate 'string new-top-border new-title-row new-bottom-border clean-split-string))
-  (values clean))
+  (values clean)))
+
+(defun pretty-formatter-clean-input (input)
+  (let ((clean input))
+    (setf clean (remove #\ESC input))
+    (setf clean (regex-replace-all "\\[[0-1]{1}m" clean ""))
+    (uiop:split-string clean :separator '(#\Newline))))
 
 (defun tab-separated-formatter (input)
   "Process TabSeparated format into a list of lists."
