@@ -125,12 +125,14 @@
   ("Array"       (values :array))
   ("Date"        (values :date))
   ("DateTime"    (values :datetime))
+  ("DateTime64"    (values :datetime64))
   ("FixedString" (values :fixedstring))
   ("Float"       (values :float))
   ("Float32"     (values :float32))
   ("Nullable"    (values :nullable))
   ("String"      (values :string))
   ("UInt32"      (values :uint32))
+  ("UInt64"      (values :uint64))
   ; engines
   ("MergeTree"   (values :mergetree))
   ("Replicated"  (values :replicated))
@@ -197,6 +199,7 @@
 			 ((equal chosen-format "Pretty") (setf *format* 'pretty))
 			 ((equal chosen-format "TabSeparated") (setf *format* 'tabseparated))
 			 ((equal chosen-format "TabSeparatedRaw") (setf *format* 'tabseparatedraw))
+			 ((equal chosen-format "TabSeparatedWithNames") (setf *format* 'tabseparatedwithnames))
 			 (t (setf *format* nil))))))))
 			  
 (defun to-vector (val)

@@ -28,7 +28,8 @@
 				   (pretty-formatter b))
 				  ((or
 				    (equalp formatting clickhouse.ch-sql-parser::'tabseparated)
-				    (equalp formatting clickhouse.ch-sql-parser::'tabseparatedraw))
+				    (equalp formatting clickhouse.ch-sql-parser::'tabseparatedraw)
+				    (equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnames))
 				   (tab-separated-formatter b))))
 	  (console (format t "~d" b))
 	  (t (values b)))))
