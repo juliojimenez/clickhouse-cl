@@ -26,7 +26,9 @@
 				   (json-formats b))
 				  ((equalp formatting clickhouse.ch-sql-parser::'pretty)
 				   (pretty-formatter b))
-				  ((equalp formatting clickhouse.ch-sql-parser::'tabseparated)
+				  ((or
+				    (equalp formatting clickhouse.ch-sql-parser::'tabseparated)
+				    (equalp formatting clickhouse.ch-sql-parser::'tabseparatedraw))
 				   (tab-separated-formatter b))))
 	  (console (format t "~d" b))
 	  (t (values b)))))

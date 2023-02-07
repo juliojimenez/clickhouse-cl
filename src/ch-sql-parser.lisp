@@ -141,6 +141,11 @@
   ("MySQL"       (values :mysql))
   ("MaterializedMySQL" (values :materializedmysql))
   ("SQLite"      (values :sqlite))
+  ; table functions
+  ("file"        (values :file))
+  ("url"         (values :url))
+  ("s3"          (values :s3))
+  ("hdfs"        (values :hdfs))
   ; special characters
   ("%*"          (values :wildcard))
   (","           (values :comma))
@@ -155,6 +160,7 @@
   ("<="          (values :lessequalthan))
   ("%+"          (values :plus))
   ("%-"          (values :minus))
+  ("%_"          (values :underscore))
   ("%%"          (values :percent))
   ("/"           (values :fslash))
   ("\\"          (values :bslash))
@@ -190,6 +196,7 @@
 		   (cond ((equal chosen-format "JSON") (setf *format* 'json))
 			 ((equal chosen-format "Pretty") (setf *format* 'pretty))
 			 ((equal chosen-format "TabSeparated") (setf *format* 'tabseparated))
+			 ((equal chosen-format "TabSeparatedRaw") (setf *format* 'tabseparatedraw))
 			 (t (setf *format* nil))))))))
 			  
 (defun to-vector (val)
