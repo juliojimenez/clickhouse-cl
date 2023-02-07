@@ -122,12 +122,15 @@
   ("Comment"     (values :comment))
   ("comment"     (values :comment))
   ;types
+  ("Array"       (values :array))
   ("Date"        (values :date))
   ("DateTime"    (values :datetime))
-  ("UInt32"      (values :uint32))
   ("FixedString" (values :fixedstring))
+  ("Float"       (values :float))
   ("Float32"     (values :float32))
+  ("Nullable"    (values :nullable))
   ("String"      (values :string))
+  ("UInt32"      (values :uint32))
   ; engines
   ("MergeTree"   (values :mergetree))
   ("Replicated"  (values :replicated))
