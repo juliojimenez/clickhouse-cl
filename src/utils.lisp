@@ -75,10 +75,23 @@
 	for j from 0 upto (- (length title-row-split) 1)
 	  do (replace new-title-row (nth j title-row-split) :start1 (+ i 2)))
   (vector-push-extend #\Newline new-title-row)
-  
+  (setq new-bottom-border (make-array 0
+				   :element-type 'character
+                                   :fill-pointer 0
+                                   :adjustable t))
+  (loop for i from 0 to (car (last positions))
+	when (= i 0)
+	  do (vector-push-extend #\├ new-bottom-border)
+	when (= i (car (last positions)))
+	  do (vector-push-extend #\┤ new-bottom-border)
+	when (and (member i positions) (> i 0) (< i (car (last positions))))
+	  do (vector-push-extend #\┼ new-bottom-border)
+	when (not (member i positions))
+	  do (vector-push-extend #\─ new-bottom-border))
+  (vector-push-extend #\Newline new-bottom-border)
   (setf clean-split (cdddr clean-split))
   (setq clean-split-string (format nil "~{~a~%~}" clean-split))
-  (setf clean (concatenate 'string new-top-border new-title-row bottom-border clean-split-string))
+  (setf clean (concatenate 'string new-top-border new-title-row new-bottom-border clean-split-string))
   (values clean))
 
 (defun tab-separated-formatter (input)
