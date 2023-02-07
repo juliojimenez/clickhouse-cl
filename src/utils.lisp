@@ -36,72 +36,84 @@
 
 (defun pretty-formatter (input)
   "Clean up Pretty format output"
-  (let ((clean-split (pretty-formatter-clean-input input)))
-  (setq top-border (first clean-split))
-  (setq title-row (second clean-split))
-  (setq bottom-border (third clean-split))
-  (setq data-row (fourth clean-split))
-  (setq positions (loop for i across data-row
-			for j from 0 upto (length data-row)
-			when (string= "│" i)
-			  collect j))
-  (setq new-top-border (make-array 0
-				   :element-type 'character
-                                   :fill-pointer 0
-                                   :adjustable t))
-  (loop for i from 0 to (car (last positions))
-	when (= i 0)
-	  do (vector-push-extend #\┌ new-top-border)
-	when (= i (car (last positions)))
-	  do (vector-push-extend #\┐ new-top-border)
-	when (and (member i positions) (> i 0) (< i (car (last positions))))
-	  do (vector-push-extend #\┬ new-top-border)
-	when (not (member i positions))
-	  do (vector-push-extend #\─ new-top-border))
-  (vector-push-extend #\Newline new-top-border)
-  (setq new-title-row (make-array 0
-				  :element-type 'character
-				  :fill-pointer 0
-				  :adjustable t))
-  (setq title-row-split (uiop:split-string title-row))
-  (setf title-row-split (loop for i in title-row-split
-			      when (and (not (string= i "")) (not (string= i "┃")))
-				collect i))
-  (loop for i from 0 to (car (last positions))
-	when (or (= i 0) (= i (car (last positions))))
-	  do (vector-push-extend #\│ new-title-row)
-	when (and (member i positions) (> i 0) (< i (car (last positions))))
-	  do (vector-push-extend #\│ new-title-row)
-	when (not (member i positions))
-	  do (vector-push-extend #\Space new-title-row))
-  (loop for i in positions
-	for j from 0 upto (- (length title-row-split) 1)
-	  do (replace new-title-row (nth j title-row-split) :start1 (+ i 2)))
-  (vector-push-extend #\Newline new-title-row)
-  (setq new-bottom-border (make-array 0
-				   :element-type 'character
-                                   :fill-pointer 0
-                                   :adjustable t))
-  (loop for i from 0 to (car (last positions))
-	when (= i 0)
-	  do (vector-push-extend #\├ new-bottom-border)
-	when (= i (car (last positions)))
-	  do (vector-push-extend #\┤ new-bottom-border)
-	when (and (member i positions) (> i 0) (< i (car (last positions))))
-	  do (vector-push-extend #\┼ new-bottom-border)
-	when (not (member i positions))
-	  do (vector-push-extend #\─ new-bottom-border))
-  (vector-push-extend #\Newline new-bottom-border)
-  (setf clean-split (cdddr clean-split))
-  (setq clean-split-string (format nil "~{~a~%~}" clean-split))
-  (setf clean (concatenate 'string new-top-border new-title-row new-bottom-border clean-split-string))
-  (values clean)))
+  (let* ((clean-split (pretty-formatter-clean-input input))
+	 (top-border (first clean-split))
+	 (title-row (second clean-split))
+	 (bottom-row (third clean-split))
+	 (data-row (fourth clean-split))
+	 (positions (pretty-formatter-positions data-row))
+	 (title-row-split (pretty-formatter-title-row-split title-row))
+	 (clean-split-string))
+    (setf clean-split (cdddr clean-split))
+    (setf clean-split-string (format nil "~{~a~%~}" clean-split))
+    (setf clean
+	  (concatenate
+	   'string
+	   (pretty-formatter-border positions
+				    #\BOX_DRAWINGS_LIGHT_DOWN_AND_RIGHT
+				    #\BOX_DRAWINGS_LIGHT_DOWN_AND_LEFT
+				    #\BOX_DRAWINGS_LIGHT_DOWN_AND_HORIZONTAL
+				    #\BOX_DRAWINGS_LIGHT_HORIZONTAL)
+	   (pretty-formatter-title-row positions title-row-split)
+	   (pretty-formatter-border positions
+				    #\BOX_DRAWINGS_LIGHT_VERTICAL_AND_RIGHT
+				    #\BOX_DRAWINGS_LIGHT_VERTICAL_AND_LEFT
+				    #\BOX_DRAWINGS_LIGHT_VERTICAL_AND_HORIZONTAL
+				    #\BOX_DRAWINGS_LIGHT_HORIZONTAL)
+	   clean-split-string))
+    (values clean)))
 
 (defun pretty-formatter-clean-input (input)
   (let ((clean input))
     (setf clean (remove #\ESC input))
     (setf clean (regex-replace-all "\\[[0-1]{1}m" clean ""))
     (uiop:split-string clean :separator '(#\Newline))))
+
+(defun pretty-formatter-positions (data-row)
+  (loop for i across data-row
+	for j from 0 upto (length data-row)
+	when (string= "│" i)
+	  collect j))
+
+(defun pretty-formatter-title-row-split (title-row)
+  (loop for i in (uiop:split-string title-row)
+	when (and (not (string= i "")) (not (string= i "┃")))
+	  collect i))
+
+(defun pretty-formatter-title-row (positions title-row-split)
+  (let ((new-title-row (make-array 0
+				   :element-type 'character
+				   :fill-pointer 0
+				   :adjustable t)))
+    (loop for i from 0 to (car (last positions))
+	  when (or (= i 0) (= i (car (last positions))))
+	    do (vector-push-extend #\│ new-title-row)
+	  when (and (member i positions) (> i 0) (< i (car (last positions))))
+	    do (vector-push-extend #\│ new-title-row)
+	  when (not (member i positions))
+	    do (vector-push-extend #\Space new-title-row))
+    (loop for i in positions
+	  for j from 0 upto (- (length title-row-split) 1)
+	  do (replace new-title-row (nth j title-row-split) :start1 (+ i 2)))
+    (vector-push-extend #\Newline new-title-row)
+    (values new-title-row)))
+
+(defun pretty-formatter-border (positions start end middle line)
+  (let ((new-border (make-array 0
+				       :element-type 'character
+				       :fill-pointer 0
+				       :adjustable t)))
+    (loop for i from 0 to (car (last positions))
+	  when (= i 0)
+	    do (vector-push-extend start new-border)
+	  when (= i (car (last positions)))
+	    do (vector-push-extend end new-border)
+	  when (and (member i positions) (> i 0) (< i (car (last positions))))
+	    do (vector-push-extend middle new-border)
+	  when (not (member i positions))
+	    do (vector-push-extend line new-border))
+    (vector-push-extend #\Newline new-border)
+    (values new-border)))
 
 (defun tab-separated-formatter (input)
   "Process TabSeparated format into a list of lists."
