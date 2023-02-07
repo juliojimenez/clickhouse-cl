@@ -211,6 +211,7 @@
 			 ((equal chosen-format "TabSeparated") (setf *format* 'tabseparated))
 			 ((equal chosen-format "TabSeparatedRaw") (setf *format* 'tabseparatedraw))
 			 ((equal chosen-format "TabSeparatedWithNames") (setf *format* 'tabseparatedwithnames))
+			 ((equal chosen-format "TabSeparatedWithNamesAndTypes") (setf *format* 'tabseparatedwithnamesandtypes))
 			 (t (setf *format* nil))))))))
 			  
 (defun to-vector (val)
