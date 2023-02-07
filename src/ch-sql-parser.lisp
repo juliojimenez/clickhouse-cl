@@ -147,6 +147,7 @@
   ("MaterializedView"       (values :materializedview))
   ("Dictionary"             (values :dictionary))
   ("SummingMergeTree"       (values :summingmergetree))
+  ("Null"                   (values :null))
   ; table functions
   ("file"                   (values :file))
   ("url"                    (values :url))
