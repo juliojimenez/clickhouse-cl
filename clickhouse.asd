@@ -2,10 +2,11 @@
   :description "Common Lisp ClickHouse Client Library"
   :author "julio@clickhouse.com"
   :license "Apache-2.0"
-  :version "0.2.0"
-  :depends-on (#:dexador
+  :version "0.2.1"
+  :depends-on (#:boost-json
+	       #:dexador
 	       #:lexer
-	       #:boost-json)
+	       #:cl-ppcre)
   :components ((:module "src"
 		:components
 		((:file "utils" :depends-on ("ch-sql-parser"))
