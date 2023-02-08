@@ -1,10 +1,8 @@
 (defpackage :clickhouse.http
   (:use :cl :dexador)
-  (:shadow #:get
-           #:post
-           #:response-headers
-           #:delete
-           #:write-multipart-content)
+  (:shadowing-import-from "DEXADOR" "GET")
+  (:shadowing-import-from "DEXADOR" "POST")
+  (:shadowing-import-from "DEXADOR.BODY" "WRITE-MULTIPART-CONTENT")
   (:export :http-get
            :http-post))
   
