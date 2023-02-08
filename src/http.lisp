@@ -1,8 +1,9 @@
 (defpackage :clickhouse.http
-  (:use :cl)
+  (:use :cl :dexador)
   (:shadow #:get
            #:post
-           #:write-multipart-content)
+           #:response-headers
+           #:delete)
   (:export :http-get
            :http-post))
   
