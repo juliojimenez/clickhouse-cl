@@ -2,8 +2,6 @@
   (:use :cl)
   (:shadowing-import-from :dexador "GET" "POST")
   (:shadowing-import-from :dexador.body "WRITE-MULTIPART-CONTENT")
-  (:import-from :clickhouse.utils
-		            :format-url)
   (:export :http-get
            :http-post))
   
@@ -11,13 +9,13 @@
 
 (defun http-get (host-slot port-slot ssl-slot uri)
   (multiple-value-bind (body status response-headers uri stream)
-      (dexador:get (format-url host-slot port-slot ssl-slot uri)
+      (dexador:get (clickhouse.utils:format-url host-slot port-slot ssl-slot uri)
 		   :force-string t)
     (values body)))
 
 (defun http-post (host-slot port-slot ssl-slot content timeout)
   (multiple-value-bind (body status response-header uri stream)
-      (dexador:post (format-url host-slot port-slot ssl-slot "")
+      (dexador:post (clickhouse.utils:format-url host-slot port-slot ssl-slot "")
 		    :content content
 		    :force-string t
 		    :read-timeout (if timeout timeout 60))
