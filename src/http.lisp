@@ -3,7 +3,8 @@
   (:shadow #:get
            #:post
            #:response-headers
-           #:delete)
+           #:delete
+           #:write-multipart-content)
   (:export :http-get
            :http-post))
   
