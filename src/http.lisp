@@ -1,11 +1,12 @@
 (defpackage :clickhouse.http
-  (:use :cl :dexador)
+  (:use :cl)
+  (:import-from :dexador
+                :get
+                :post)
   (:import-from :clickhouse.utils
-		:format-url)
+		            :format-url)
   (:export :http-get
-	   :http-post)
-  (:shadowing-import-from :dexador "GET")
-  (:shadowing-import-from :dexador "DELETE"))
+           :http-post))
   
 (in-package :clickhouse.http)
 

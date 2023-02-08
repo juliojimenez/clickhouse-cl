@@ -231,7 +231,8 @@ clickhouse-cl supports automatic input and output format processing for the form
 | TabSeparatedRaw | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | TabSeparatedWithNames | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | TabSeparatedWithNamesAndTypes | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| JSON || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| CSV | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| JSON | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | Pretty || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
