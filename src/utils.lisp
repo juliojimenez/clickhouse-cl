@@ -6,6 +6,13 @@
 
 (in-package :clickhouse.utils)
 
+(defun csv-formatter (input)
+	"Process CSV format into a list of lists."
+	(let ((csv))
+		(dolist (x (uiop:split-string input :separator '(#\Comma)))
+			(push (uiop:split-string x :separator '(#\Comma)) csv))
+		(values csv)))
+
 (defun format-url (host-slot port-slot ssl-slot uri)
   "Formats a URL"
   (cond (ssl-slot (format nil "https://~a:~a~a" host-slot port-slot uri))
@@ -21,19 +28,21 @@
   (terpri)
   (let ((b (string-trim '(#\Newline) body)))
     (cond ((and (ver console) (ver formatting) (equalp formatting clickhouse.ch-sql-parser::'pretty))
-	   (format t "~d" (pretty-formatter b)))
-	  ((ver formatting) (cond ((equalp formatting clickhouse.ch-sql-parser::'json)
-				   (json-formats b))
-				  ((equalp formatting clickhouse.ch-sql-parser::'pretty)
-				   (pretty-formatter b))
-				  ((or
-				    (equalp formatting clickhouse.ch-sql-parser::'tabseparated)
-				    (equalp formatting clickhouse.ch-sql-parser::'tabseparatedraw)
-				    (equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnames)
-				    (equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnamesandtypes))
-				   (tab-separated-formatter b))))
-	  (console (format t "~d" b))
-	  (t (values b)))))
+	   			 (format t "~d" (pretty-formatter b)))
+					((ver formatting) (cond ((equalp formatting clickhouse.ch-sql-parser::'json)
+																	(json-formats b))
+																	((equalp formatting clickhouse.ch-sql-parser::'pretty)
+																	(pretty-formatter b))
+																	((or
+																		(equalp formatting clickhouse.ch-sql-parser::'tabseparated)
+																		(equalp formatting clickhouse.ch-sql-parser::'tabseparatedraw)
+																		(equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnames)
+																		(equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnamesandtypes))
+																	(tab-separated-formatter b))
+																	((equalp formatting clickhouse.ch-sql-parser::'csv)
+																	(csv-formatter b))))
+	  			(console (format t "~d" b))
+	  			(t (values b)))))
 
 (defun pretty-formatter (input)
   "Clean up Pretty format output"
@@ -118,10 +127,10 @@
 
 (defun tab-separated-formatter (input)
   "Process TabSeparated format into a list of lists."
-  (setq tab-separated nil)
-  (dolist (x (uiop:split-string input :separator '(#\Newline)))
-    (push (uiop:split-string x :separator '(#\Tab)) tab-separated))
-  (values tab-separated))
+	(let ((tab-separated))
+		(dolist (x (uiop:split-string input :separator '(#\Newline)))
+			(push (uiop:split-string x :separator '(#\Tab)) tab-separated))
+		(values tab-separated)))
 
 (defun ver (val)
   "Boolean coercion helper."
