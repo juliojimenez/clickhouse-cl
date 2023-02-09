@@ -246,6 +246,7 @@
               ((equal chosen-format "TabSeparatedWithNames") (setf *format* 'tabseparatedwithnames))
               ((equal chosen-format "TabSeparatedWithNamesAndTypes") (setf *format* 'tabseparatedwithnamesandtypes))
               ((equal chosen-format "CSV") (setf *format* 'csv))
+              ((equal chosen-format "CSVWithNames") (setf *format* 'csvwithnames))
               (t (setf *format* nil))))))))
 			  
 (defun to-vector (val)

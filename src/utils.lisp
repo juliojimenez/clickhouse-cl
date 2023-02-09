@@ -39,7 +39,9 @@
 																		(equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnames)
 																		(equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnamesandtypes))
 																	 (tab-separated-formatter b))
-																	((equalp formatting clickhouse.ch-sql-parser::'csv)
+																	((or
+																		(equalp formatting clickhouse.ch-sql-parser::'csv)
+																		(equalp formatting clickhouse.ch-sql-parser::'csvwithnames))
 																	 (csv-formatter b))))
 	  			(console (format t "~d" b))
 	  			(t (values b)))))
