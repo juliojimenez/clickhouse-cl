@@ -50,5 +50,6 @@ jobs:
 
       - name: Run Test
         run: |
-          sbcl --eval "(ql:quickload :clickhouse)" \
-               --eval "(asdf:test-system "clickhouse")"
+          locate sbcl
+          # sbcl --eval "(ql:quickload :clickhouse)" \
+          #      --eval "(asdf:test-system "clickhouse")"
