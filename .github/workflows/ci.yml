@@ -51,6 +51,8 @@ jobs:
 
       - name: Run Test
         run: |
+          find /home/runner -name clickhouse-cl
+          find /home/runner -name local-projects
           curl -O https://beta.quicklisp.org/quicklisp.lisp
           $SBCL/sbcl --load quicklisp.lisp \
                      --eval "(quicklisp-quickstart:install)" \
