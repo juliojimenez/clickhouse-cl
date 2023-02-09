@@ -50,6 +50,6 @@ jobs:
 
       - name: Run Test
         run: |
-          locate sbcl
+          find /home/runner -name '*sbcl*' | grep bin
           # sbcl --eval "(ql:quickload :clickhouse)" \
           #      --eval "(asdf:test-system "clickhouse")"
