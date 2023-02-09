@@ -33,6 +33,8 @@ jobs:
 
       - name: Set Up Lisp
         uses: 40ants/setup-lisp@v2
+        with:
+          asdf-system: clickhouse
 
       - name: Clean fasl
         run: |
