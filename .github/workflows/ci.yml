@@ -52,6 +52,12 @@ jobs:
 
       - name: Run Test
         run: |
-          # find /home/runner -name '*sbcl*' | grep bin
-          /home/runner/.roswell/impls/x86-64/linux/sbcl-bin/2.3.1/bin/sbcl --eval "(ql:quickload :clickhouse)" \
-                                                                           --eval "(asdf:test-system "clickhouse")"
+          curl -O https://beta.quicklisp.org/quicklisp.lisp
+          $SBCL/sbcl --load quicklisp.lisp \
+                     --eval "(quicklisp-quickstart:install)" \
+                     --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
+                     --eval "(ql:quickload :clickhouse)" \
+                     --eval "(asdf:test-system "clickhouse")"
+                     --quit
+        env:
+          SBCL: /home/runner/.roswell/impls/x86-64/linux/sbcl-bin/2.3.1/bin
