@@ -52,7 +52,7 @@ jobs:
       - name: Run Tests
         run: |
           curl -O https://beta.quicklisp.org/quicklisp.lisp
-          $SBCL/sbcl --load quicklisp.lisp \
+          $SBCL/sbcl --non-interactive --load quicklisp.lisp \
                      --eval "(quicklisp-quickstart:install)" \
                      --eval "(ql:add-to-init-file)" \
                      --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
