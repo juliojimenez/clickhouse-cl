@@ -33,8 +33,6 @@ jobs:
 
       - name: Set Up Lisp
         uses: 40ants/setup-lisp@v2
-        with:
-          asdf-system: clickhouse
 
       - name: Run Test 
         uses: 40ants/run-tests@v2
