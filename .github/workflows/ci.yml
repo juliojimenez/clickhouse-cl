@@ -31,6 +31,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Clean fasl
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y locate
+          sudo updatedb
+          locate .fasl | grep dexador
+
       - name: Set Up Lisp
         uses: 40ants/setup-lisp@v2
 
