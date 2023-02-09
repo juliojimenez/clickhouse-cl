@@ -49,16 +49,18 @@ jobs:
       #       (ql:quickload :clickhouse-test)
       #       (asdf:test-system "clickhouse")
 
-      - name: Run Test
+      - name: Run Tests
         run: |
-          find /home/runner -name clickhouse-cl
-          find /home/runner -name local-projects
           curl -O https://beta.quicklisp.org/quicklisp.lisp
           $SBCL/sbcl --load quicklisp.lisp \
                      --eval "(quicklisp-quickstart:install)" \
-                     --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
-                     --eval "(ql:quickload :clickhouse)" \
+                     --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)"
+                     --eval "(quit)"
+          cp -r $CLICKHOUSE $QUICKLISP/
+          $SBCL/sbcl --eval "(ql:quickload :clickhouse)" \
                      --eval "(asdf:test-system \"clickhouse\")" \
                      --eval "(quit)"
         env:
           SBCL: /home/runner/.roswell/impls/x86-64/linux/sbcl-bin/2.3.1/bin
+          QUICKLISP: /home/runner/.roswell/lisp/quicklisp/local-projects
+          CLICKHOUSE: /home/runner/work/clickhouse-cl/clickhouse-cl
