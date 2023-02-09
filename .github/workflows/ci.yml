@@ -54,10 +54,10 @@ jobs:
           curl -O https://beta.quicklisp.org/quicklisp.lisp
           $SBCL/sbcl --load quicklisp.lisp \
                      --eval "(quicklisp-quickstart:install)" \
-                     --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)"
+                     --eval "(ql:add-to-init-file)" \
                      --eval "(quit)"
-          cp -r $CLICKHOUSE $QUICKLISP/
-          $SBCL/sbcl --eval "(ql:quickload :clickhouse)" \
+          $SBCL/sbcl --eval --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
+                     --eval "(ql:quickload :clickhouse)" \
                      --eval "(asdf:test-system \"clickhouse\")" \
                      --eval "(quit)"
         env:
