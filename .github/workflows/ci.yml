@@ -55,8 +55,7 @@ jobs:
           $SBCL/sbcl --load quicklisp.lisp \
                      --eval "(quicklisp-quickstart:install)" \
                      --eval "(ql:add-to-init-file)" \
-                     --eval "(quit)"
-          $SBCL/sbcl --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
+                     --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
                      --eval "(ql:quickload :clickhouse)" \
                      --eval "(asdf:test-system \"clickhouse\")" \
                      --eval "(quit)"
