@@ -179,6 +179,7 @@
   ("SQLite"                 (values :sqlite))
   ("View"                   (values :view))
   ; functions
+  ("randomPrintableASCII"   (values :randomprintableascii))
   ("toDecimal128"           (values :todecimal128))
   ; table functions
   ("hdfs"                   (values :hdfs))
