@@ -33,10 +33,7 @@ jobs:
 
       - name: Clean fasl
         run: |
-          sudo apt-get update
-          sudo apt-get install -y mlocate
-          sudo updatedb
-          locate .fasl | grep dexador
+          find /home/runner -name dexador*.fasl
 
       - name: Set Up Lisp
         uses: 40ants/setup-lisp@v2
