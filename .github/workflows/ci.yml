@@ -36,7 +36,7 @@ jobs:
 
       - name: Clean fasl
         run: |
-          find /home/runner -name 'dexador*.fasl'
+          find /home/runner -name 'dexador*.fasl' -exec rm {} \;
 
       - name: Run Test 
         uses: 40ants/run-tests@v2
