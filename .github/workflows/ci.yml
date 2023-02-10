@@ -31,13 +31,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set Up Lisp
-        uses: 40ants/setup-lisp@v2
+      # - name: Set Up Lisp
+      #   uses: 40ants/setup-lisp@v2
 
-      - name: Clean fasl
-        run: |
-          find /home/runner -name 'dexador*.fasl' -exec rm {} \;
-          find /home/runner -name 'http*.fasl' -exec rm {} \;
+      # - name: Clean fasl
+      #   run: |
+      #     find /home/runner -name 'dexador*.fasl' -exec rm {} \;
+      #     find /home/runner -name 'http*.fasl' -exec rm {} \;
 
       # - name: Run Test 
       #   uses: 40ants/run-tests@v2
@@ -51,15 +51,18 @@ jobs:
 
       - name: Run Tests
         run: |
+          sudo apt-get install sbcl
           curl -O https://beta.quicklisp.org/quicklisp.lisp
-          $SBCL/sbcl --non-interactive --load quicklisp.lisp \
+          sbcl --non-interactive --load quicklisp.lisp \
                      --eval "(quicklisp-quickstart:install)" \
-                     --eval "(ql-util:without-prompting (ql:add-to-init-file))" \
-                     --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
-                     --eval "(ql:quickload :clickhouse)" \
-                     --eval "(asdf:test-system \"clickhouse\")" \
-                     --eval "(quit)"
+                     --eval "(ql-util:without-prompting (ql:add-to-init-file))"
+          find /home/runner/ -name '*local-projects*'
         env:
           SBCL: /home/runner/.roswell/impls/x86-64/linux/sbcl-bin/2.3.1/bin
           QUICKLISP: /home/runner/.roswell/lisp/quicklisp/local-projects
           CLICKHOUSE: /home/runner/work/clickhouse-cl/clickhouse-cl
+
+# --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
+#                      --eval "(ql:quickload :clickhouse)" \
+#                      --eval "(asdf:test-system \"clickhouse\")" \
+#                      --eval "(quit)"
