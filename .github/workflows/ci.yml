@@ -34,7 +34,7 @@ jobs:
                --eval "(ql-util:without-prompting (ql:add-to-init-file))"
           cp -r $CLICKHOUSE $QUICKLISP
           sbcl --non-interactive \
-               --eval "(ql:quickload :http)" \
+               --eval "(ql:register-local-projects)" \
                --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
                --eval "(ql:quickload :clickhouse)" \
                --eval "(asdf:test-system \"clickhouse\")" \
