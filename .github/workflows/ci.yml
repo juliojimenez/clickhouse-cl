@@ -56,10 +56,11 @@ jobs:
           sbcl --non-interactive --load quicklisp.lisp \
                      --eval "(quicklisp-quickstart:install)" \
                      --eval "(ql-util:without-prompting (ql:add-to-init-file))"
-          find /home/runner/ -name '*local-projects*'
+          cp -r $CLICKHOUSE $QUICKLISP
+          ls /home/runner/quicklisp/local-projects/clickhouse-cl
         env:
           SBCL: /home/runner/.roswell/impls/x86-64/linux/sbcl-bin/2.3.1/bin
-          QUICKLISP: /home/runner/.roswell/lisp/quicklisp/local-projects
+          QUICKLISP: /home/runner/quicklisp/local-projects/
           CLICKHOUSE: /home/runner/work/clickhouse-cl/clickhouse-cl
 
 # --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
