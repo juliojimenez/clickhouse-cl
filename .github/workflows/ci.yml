@@ -18,29 +18,31 @@ jobs:
           - 8123:8123
         options: --ulimit nofile=262144:262144
 
+    container:
+      image: juliojimenez/sbcl:latest
+      
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
       - name: Run Tests
         run: |
-          sudo apt-get install sbcl
-          curl -O https://beta.quicklisp.org/quicklisp.lisp
-          sbcl --no-sysinit \
-               --no-userinit \
-               --non-interactive \
-               --load quicklisp.lisp \
-               --eval "(quicklisp-quickstart:install)" \
-               --eval "(ql-util:without-prompting (ql:add-to-init-file))"
-          cp -r $CLICKHOUSE $QUICKLISP
-          sbcl --non-interactive \
-               --eval "(ql:register-local-projects)" \
-               --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
-               --eval "(ql:quickload :clickhouse)" \
-               --eval "(asdf:test-system \"clickhouse\")" \
-        env:
-          QUICKLISP: /home/runner/quicklisp/local-projects/
-          CLICKHOUSE: /home/runner/work/clickhouse-cl/clickhouse-cl
+          git clone https://github.com/juliojimenez/clickhouse-cl
+          ls
+      #     sudo apt-get install sbcl
+      #     curl -O https://beta.quicklisp.org/quicklisp.lisp
+      #     sbcl --no-sysinit \
+      #          --no-userinit \
+      #          --non-interactive \
+      #          --load quicklisp.lisp \
+      #          --eval "(quicklisp-quickstart:install)" \
+      #          --eval "(ql-util:without-prompting (ql:add-to-init-file))"
+      #     cp -r $CLICKHOUSE $QUICKLISP
+      #     sbcl --non-interactive \
+      #          --eval "(ql:register-local-projects)" \
+      #          --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
+      #          --eval "(ql:quickload :clickhouse)" \
+      #          --eval "(asdf:test-system \"clickhouse\")" \
+      #   env:
+      #     QUICKLISP: /home/runner/quicklisp/local-projects/
+      #     CLICKHOUSE: /home/runner/work/clickhouse-cl/clickhouse-cl
 
 # --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
 #                      --eval "(ql:quickload :clickhouse)" \
