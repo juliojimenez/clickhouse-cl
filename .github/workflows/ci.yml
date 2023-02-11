@@ -10,30 +10,29 @@ jobs:
   all_tests_suite:
     name: All Tests Suite
     runs-on: ubuntu-latest
-
+    
     services: 
       clickhouse:
         image: clickhouse/clickhouse-server
         ports:
           - 8123:8123
         options: --ulimit nofile=262144:262144
-
-    container:
-      image: juliojimenez/sbcl:latest
       
     steps:
-      - name: Run Tests
-        run: |
-          git clone https://github.com/juliojimenez/clickhouse-cl
-          sbcl --non-interactive \
-               --load quicklisp.lisp \
-               --eval "(ql:quickload :clickhouse)" \
-               --eval "(asdf:test-system \"clickhouse\")"
-      #   env:
-      #     QUICKLISP: /home/runner/quicklisp/local-projects/
-      #     CLICKHOUSE: /home/runner/work/clickhouse-cl/clickhouse-cl
+      - name: Checkout Repo
+        uses: actions/checkout@v3
 
-# --eval "(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)" \
-#                      --eval "(ql:quickload :clickhouse)" \
-#                      --eval "(asdf:test-system \"clickhouse\")" \
-#                      --eval "(quit)"
+      - name: Install Roswell
+        env:
+          LISP: sbcl-bin
+        run: |
+          curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
+
+      - name: Install Ultralisp
+        run: ros -e '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)'
+
+      - name: Install clickhouse-cl
+        run: ros -e '(ql:quickload :clickhouse)'
+
+      - name: Test
+        run: ros -e '(asdf:test-system :clickhouse)'
