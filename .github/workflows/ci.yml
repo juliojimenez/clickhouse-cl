@@ -8,7 +8,7 @@ on:
 
 env:
   COVERALLS: true
-  COVERALLS_REPO_TOKEN: ${ secret.GITHUB_TOKEN }
+  COVERALLS_REPO_TOKEN: ${{ secret.COVERALLS_TOKEN }}
 
 jobs:
   all_tests_suite:
@@ -35,9 +35,7 @@ jobs:
       - name: Install Dependencies
         run: |
           ros install ci-utils
-          ros -e '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)' \
-              -e '(ql:quickload :clickhouse)' \
-              -e '(ql:quickload :clickhouse-test)'
+          ros -e '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)'
 
       - name: Test
         run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse-test :all-tests
