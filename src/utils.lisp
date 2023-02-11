@@ -77,23 +77,27 @@
     (values clean)))
 
 (defun pretty-formatter-clean-input (input)
+	"Clean up input by removing control/escape characters."
   (let ((clean input))
     (setf clean (remove #\ESC input))
     (setf clean (regex-replace-all "\\[[0-1]{1}m" clean ""))
     (uiop:split-string clean :separator '(#\Newline))))
 
 (defun pretty-formatter-positions (data-row)
+	"Get position of column dividers from first data row."
   (loop for i across data-row
 	for j from 0 upto (length data-row)
 	when (string= "│" i)
 	  collect j))
 
 (defun pretty-formatter-title-row-split (title-row)
+	"Gets a list of column headers."
   (loop for i in (uiop:split-string title-row)
 	when (and (not (string= i "")) (not (string= i "┃")))
 	  collect i))
 
 (defun pretty-formatter-title-row (positions title-row-split)
+	"Formats the title row."
   (let ((new-title-row (make-array 0
 				   :element-type 'character
 				   :fill-pointer 0
@@ -112,6 +116,7 @@
     (values new-title-row)))
 
 (defun pretty-formatter-border (positions start end middle line)
+	"Formats either the top or bottom title row border."
   (let ((new-border (make-array 0
 				       :element-type 'character
 				       :fill-pointer 0

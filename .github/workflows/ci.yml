@@ -39,4 +39,4 @@ jobs:
               -e '(ql:quickload :clickhouse-test)'
 
       - name: Test
-        run: ros -e '(coveralls:with-coveralls () (asdf:test-system :clickhouse))'
+        run: ros -e '(cl-coveralls:with-coveralls () (asdf:test-system :clickhouse))'
