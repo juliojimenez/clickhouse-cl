@@ -6,6 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  COVERALLS: true
+
 jobs:
   all_tests_suite:
     name: All Tests Suite
@@ -31,10 +34,9 @@ jobs:
       - name: Install Dependencies
         run: |
           ros -e '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)'
+          ros -e '(ql:quickload :coveralls)'
           ros -e '(ql:quickload :clickhouse)'
-
-      - name: Install clickhouse-test
-        run: ros -e '(ql:quickload :clickhouse-test)'
+          ros -e '(ql:quickload :clickhouse-test)'
 
       - name: Test
-        run: ros -e '(asdf:test-system :clickhouse)'
+        run: ros -e '(coveralls:with-coveralls () (asdf:test-system :clickhouse))'
