@@ -31,6 +31,9 @@
   ("CREATE"                 (values :create))
   ("Create"                 (values :create))
   ("create"                 (values :create))
+  ("DROP"                   (values :drop))
+  ("Drop"                   (values :drop))
+  ("drop"                   (values :drop))
   ("INSERT"                 (values :insert))
   ("Insert"                 (values :insert))
   ("insert"                 (values :insert))
@@ -46,9 +49,6 @@
   ("UNION"                  (values :union))
   ("Union"                  (values :union))
   ("union"                  (values :union))
-  ("DROP"                   (values :drop))
-  ("Drop"                   (values :drop))
-  ("drop"                   (values :drop))
   ("RENAME"                 (values :rename))
   ("Rename"                 (values :rename))
   ("rename"                 (values :rename))
@@ -251,4 +251,5 @@
               (t (setf *format* nil))))))))
 			  
 (defun to-vector (val)
+  "Coerce a list to a vector."
   (coerce val 'vector))
