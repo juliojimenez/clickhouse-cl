@@ -33,10 +33,11 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          ros install ci-utils
           ros -e '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)' \
               -e '(ql:quickload :cl-coveralls)' \
               -e '(ql:quickload :clickhouse)' \
               -e '(ql:quickload :clickhouse-test)'
 
       - name: Test
-        run: ros -e '(cl-coveralls:with-coveralls () (asdf:test-system :clickhouse))'
+        run: ros -e '(asdf:test-system :clickhouse)'
