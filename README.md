@@ -23,7 +23,20 @@ Common Lisp ClickHouse Client Library
   - [Query](#query)
 - [Bugs, Features, and Vulnerabilities Reporting](#bugs-features-and-vulnerabilities-reporting)
 
-## Loading using QuickLisp
+## Install
+
+### Ultralisp.org
+
+clickhouse-cl is on [Ultralisp.org](https://ultralisp.org)!
+
+```
+CL-USER> (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
+...
+CL-USER> (ql:quickload :clickhouse)
+...
+```
+
+### git clone
 
 Clone this repo wherever your quicklisp `local-projects` folder is configured.
 
