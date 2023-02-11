@@ -39,6 +39,6 @@ jobs:
               -e '(ql:quickload :clickhouse-test)'
 
       - name: Test
-        run: run-fiveam -e t -l clickhouse-test :all-tests
+        run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse-test :all-tests
         
 # ros -e '(ci-utils/coveralls:with-coveralls () (asdf:test-system :clickhouse))'
