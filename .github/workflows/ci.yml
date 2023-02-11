@@ -25,7 +25,8 @@ jobs:
       - name: Run Tests
         run: |
           git clone https://github.com/juliojimenez/clickhouse-cl
-          sbcl --eval "(ql:quickload :clickhouse)" \
+          sbcl --non-interactive \
+               --eval "(ql:quickload :clickhouse)" \
                --eval "(asdf:test-system \"clickhouse\")"
       #   env:
       #     QUICKLISP: /home/runner/quicklisp/local-projects/
