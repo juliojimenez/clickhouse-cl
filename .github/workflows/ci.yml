@@ -30,10 +30,9 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          ros install ci-utils
-          ros -e '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)'
+          ros -e '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)' \
+              -e '(ql:quickload :clickhouse)' \
+              -e '(ql:quickload :clickhouse-test)'
 
       - name: Test
-        run: /home/runner/.roswell/bin/run-fiveam -e t -l clickhouse-test :all-tests
-        
-# ros -e '(ci-utils/coveralls:with-coveralls () (asdf:test-system :clickhouse))'
+        run: ros -e '(asdf:test-system :clickhouse)'
