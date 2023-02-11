@@ -4,7 +4,9 @@
 
 Common Lisp ClickHouse Client Library
 
-- [Loading using QuickLisp](#loading-using-quicklisp)
+- [Install](#install)
+  - [Ultralisp.org](#ultralisporg)
+  - [git clone](#git-clone)
 - [No Line Breaks](#no-line-breaks-emacs)
 - [`database` Class](#database-class)
   - [Slots](#slots)
