@@ -34,5 +34,8 @@ jobs:
       - name: Install clickhouse-cl
         run: ros -e '(ql:quickload :clickhouse)'
 
+      - name: Install clickhouse-test
+        run: ros -e '(ql:quickload :clickhouse-test)'
+
       - name: Test
         run: ros -e '(asdf:test-system :clickhouse)'
