@@ -35,7 +35,6 @@ jobs:
         run: |
           ros install ci-utils
           ros -e '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)' \
-              -e '(ql:quickload :cl-coveralls)' \
               -e '(ql:quickload :clickhouse)' \
               -e '(ql:quickload :clickhouse-test)'
 
