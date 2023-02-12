@@ -47,17 +47,14 @@ Clone this repo wherever your quicklisp `local-projects` folder is configured.
 ~/quicklisp/local-projects/$ cd clickhouse-cl
 ~/quicklisp/local-projects/clickhouse-cl/$
 ```
-Some dependencies live on the awesome [Ultralisp.org](https://ultralisp.org/) distribution, load it like this...
+Some dependencies are on [Ultralisp.org](https://ultralisp.org/), make sure you have it...
 
 ```lisp
 CL-USER> (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
-; Fetching #<URL "http://dist.ultralisp.org/">
 ...
-#<QL-DIST:DIST ultralisp 20230130142500>
-CL-USER> 
 ```
 
-In the emacs SLIME REPL or SBCL (or however you Lisp :wink:, as long as you QuickLisp), load the library with...
+In the emacs SLIME REPL or SBCL, load clickhouse-cl with...
 
 ```lisp
 CL-USER> (ql:quickload :clickhouse)
@@ -250,6 +247,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | CSVWithNames | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | CSVWithNamesAndTypes | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | JSON | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| JSONAsString | :heavy_check_mark: ||||
 | Pretty || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
