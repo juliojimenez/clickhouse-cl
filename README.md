@@ -127,6 +127,8 @@ CL-USER> (ch::ping *db*)
 "Ok."
 ```
 
+The `:ping t` keyword parameter explicitly calls the instance `/ping` endpoint.
+
 ```lisp
 CL-USER>  (ch::ping *db* :ping t)
 "Ok."
