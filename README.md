@@ -174,51 +174,6 @@ system
 NIL
 ```
 
-```lisp
-CL-USER> (ch:query *db* "SELECT trip_id, passenger_count, pickup_ntaname FROM trips LIMIT 10")
-"1201746944	1	Upper West Side
-1200864931	5	Midtown-Midtown South
-1200018648	1	Airport
-1201452450	5	East Village
-1202368372	2	West Village
-1201973571	2	Clinton
-1200831168	1	Hudson Yards-Chelsea-Flatiron-Union Square
-1201362116	1	Clinton
-1203091619	1	Midtown-Midtown South
-1200639419	1	Hudson Yards-Chelsea-Flatiron-Union Square"
-```
-
-```lisp
-CL-USER> (ch:query *db* "SELECT trip_id, passenger_count, pickup_ntaname FROM trips LIMIT 10" :console t)
-1201746944	1	Upper West Side
-1200864931	5	Midtown-Midtown South
-1200018648	1	Airport
-1201452450	5	East Village
-1202368372	2	West Village
-1201973571	2	Clinton
-1200831168	1	Hudson Yards-Chelsea-Flatiron-Union Square
-1201362116	1	Clinton
-1203091619	1	Midtown-Midtown South
-1200639419	1	Hudson Yards-Chelsea-Flatiron-Union Square
-NIL
-```
-
-```lisp
-CL-USER> (ch:query *db* "SELECT trip_id, passenger_count, pickup_ntaname FROM trips LIMIT 10 FORMAT TabSeparatedWithName" :console t)
-trip_id	passenger_count	pickup_ntaname
-1201746944	1	Upper West Side
-1200864931	5	Midtown-Midtown South
-1200018648	1	Airport
-1201452450	5	East Village
-1202368372	2	West Village
-1201973571	2	Clinton
-1200831168	1	Hudson Yards-Chelsea-Flatiron-Union Square
-1201362116	1	Clinton
-1203091619	1	Midtown-Midtown South
-1200639419	1	Hudson Yards-Chelsea-Flatiron-Union Square
-NIL
-```
-
 ### Timeouts
 
 The default *query* method timeout is 60 seconds. Use the `:timeout seconds` keyword parameter to change the default for long running operations.
@@ -261,6 +216,8 @@ clickhouse-cl supports automatic input and output format processing for the form
 ### Functions
 
 #### jget
+
+Helper function used to access key values in formats that result in a `BOOST-JSON:JSON-OBJECT`.
 
 jget *obj* *key*
 
