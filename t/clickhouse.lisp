@@ -1,6 +1,7 @@
 (defpackage :clickhouse-test
   (:use :cl :fiveam)
   (:import-from :clickhouse.utils
+                :csv-formatter
                 :format-url
                 :ver)
   (:export #:all-tests
@@ -15,6 +16,9 @@
 (in-suite all-tests)
 
 ; clickhouse.utils
+
+(test csv-formatter-simple
+  (is (equalp 'cons (type-of (csv-formatter "c1,c2,c3")))))
 
 (test format-url-non-ssl
   (is (string= "http://localhost:8123" (format-url "localhost" 8123 nil ""))))

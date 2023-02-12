@@ -28,14 +28,11 @@ jobs:
         run: |
           curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
 
-      - name: Install Ultralisp
-        run: ros -e '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)'
-
-      - name: Install clickhouse-cl
-        run: ros -e '(ql:quickload :clickhouse)'
-
-      - name: Install clickhouse-test
-        run: ros -e '(ql:quickload :clickhouse-test)'
+      - name: Install Dependencies
+        run: |
+          ros -e '(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)' \
+              -e '(ql:quickload :clickhouse)' \
+              -e '(ql:quickload :clickhouse-test)'
 
       - name: Test
         run: ros -e '(asdf:test-system :clickhouse)'

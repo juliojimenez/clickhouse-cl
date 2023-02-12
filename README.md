@@ -1,10 +1,12 @@
-[![LINTER](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml) [![CRITIC](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml)
+[![CI](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml) [![LINTER](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml) [![CRITIC](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml)
 
 # clickhouse-cl
 
 Common Lisp ClickHouse Client Library
 
-- [Loading using QuickLisp](#loading-using-quicklisp)
+- [Install](#install)
+  - [Ultralisp.org](#ultralisporg)
+  - [git clone](#git-clone)
 - [No Line Breaks](#no-line-breaks-emacs)
 - [`database` Class](#database-class)
   - [Slots](#slots)
@@ -23,7 +25,20 @@ Common Lisp ClickHouse Client Library
   - [Query](#query)
 - [Bugs, Features, and Vulnerabilities Reporting](#bugs-features-and-vulnerabilities-reporting)
 
-## Loading using QuickLisp
+## Install
+
+### Ultralisp.org
+
+clickhouse-cl is on [Ultralisp.org](https://ultralisp.org)!
+
+```
+CL-USER> (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
+...
+CL-USER> (ql:quickload :clickhouse)
+...
+```
+
+### git clone
 
 Clone this repo wherever your quicklisp `local-projects` folder is configured.
 
@@ -233,6 +248,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | TabSeparatedWithNamesAndTypes | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | CSV | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | CSVWithNames | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| CSVWithNamesAndTypes | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | JSON | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | Pretty || :heavy_check_mark: || Best viewed with `:console t` |
 
