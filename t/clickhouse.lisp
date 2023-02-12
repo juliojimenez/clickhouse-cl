@@ -40,6 +40,18 @@
 (test prettify-nil
   (is (string= "1." (clickhouse.utils:prettify "1." :console nil))))
 
+(test pretty-formatter
+  (is (string= "┌───┐
+│ 1 │
+├───┤
+│ 1 │
+└───┘
+" (clickhouse.utils::pretty-formatter "┏━━━┓
+┃ [1m1[0m ┃
+┡━━━┩
+│ 1 │
+└───┘"))))
+
 (test tab-separated-formatter
   (is (equalp
        '("7" "8" "9")
