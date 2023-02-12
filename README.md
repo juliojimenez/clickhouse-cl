@@ -7,6 +7,7 @@ Common Lisp ClickHouse Client Library
 - [Install](#install)
   - [Ultralisp.org](#ultralisporg)
   - [git clone](#git-clone)
+  - [Releases](#releases)
 - [No Line Breaks](#no-line-breaks-emacs)
 - [`database` Class](#database-class)
   - [Slots](#slots)
@@ -67,6 +68,10 @@ To load "clickhouse":
 (:CLICKHOUSE)
 CL-USER>
 ```
+
+### Releases
+
+You can also download a [release](https://github.com/juliojimenez/clickhouse-cl/releases), extract it into your `local-projects`, and follow the same steps above (minus the git clone, of course).
 
 ## No Line Breaks (Emacs)
 
