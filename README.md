@@ -253,6 +253,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | CSVWithNamesAndTypes | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | JSON | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | JSONAsString | :heavy_check_mark: ||||
+| JSONStrings | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | Pretty || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
