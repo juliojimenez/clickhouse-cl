@@ -28,3 +28,4 @@ jobs:
           release_name: Release v${{ inputs.release_version }}
           draft: false
           prerelease: false
+          generateReleaseNotes: true
