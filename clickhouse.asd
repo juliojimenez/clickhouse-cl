@@ -2,7 +2,7 @@
   :description "Common Lisp ClickHouse Client Library"
   :author "julio@clickhouse.com"
   :license "Apache-2.0"
-  :version "0.3.0"
+  :version "0.4.0"
   :depends-on (#:boost-json
 	       #:dexador
 	       #:lexer
@@ -20,7 +20,7 @@
   :description "CI for Common Lisp ClickHouse Client Library"
   :author "julio@clickhouse.com"
   :license "Apache-2.0"
-  :version "0.1.0"
+  :version "0.2.0"
   :depends-on ("40ants-ci")
   :components ((:module "src"
 		:components
