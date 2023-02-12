@@ -52,6 +52,13 @@
 │ 1 │
 └───┘"))))
 
+(test pretty-formatter-clean-input
+  (is (equalp 'cons (type-of (clickhouse.utils::pretty-formatter-clean-input "┏━━━┓
+┃ [1m1[0m ┃
+┡━━━┩
+│ 1 │
+└───┘")))))
+
 (test tab-separated-formatter
   (is (equalp
        '("7" "8" "9")

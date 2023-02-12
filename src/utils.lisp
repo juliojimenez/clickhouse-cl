@@ -29,7 +29,9 @@
   (let ((b (string-trim '(#\Newline) body)))
     (cond ((and (ver console) (ver formatting) (equalp formatting clickhouse.ch-sql-parser::'pretty))
 	   			 (format t "~d" (pretty-formatter b)))
-					((ver formatting) (cond ((equalp formatting clickhouse.ch-sql-parser::'json)
+					((ver formatting) (cond ((or
+					                          (equalp formatting clickhouse.ch-sql-parser::'json)
+																		(equalp formatting clickhouse.ch-sql-parser::'jsonstrings))
 																	 (json-formats b))
 																	((equalp formatting clickhouse.ch-sql-parser::'pretty)
 																	 (pretty-formatter b))
