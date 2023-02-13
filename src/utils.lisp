@@ -31,7 +31,8 @@
 	   			 (format t "~d" (pretty-formatter b)))
 					((ver formatting) (cond ((or
 					                          (equalp formatting clickhouse.ch-sql-parser::'json)
-																		(equalp formatting clickhouse.ch-sql-parser::'jsonstrings))
+																		(equalp formatting clickhouse.ch-sql-parser::'jsonstrings)
+																		(equalp formatting clickhouse.ch-sql-parser::'jsoncolumns))
 																	 (json-formats b))
 																	((equalp formatting clickhouse.ch-sql-parser::'pretty)
 																	 (pretty-formatter b))

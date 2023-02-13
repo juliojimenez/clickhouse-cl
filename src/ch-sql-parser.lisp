@@ -268,6 +268,7 @@
 		    ;(print chosen-format)
 		    (cond ((equal chosen-format "JSON") (setf *format* 'json))
               ((equal chosen-format "JSONStrings") (setf *format* 'jsonstrings))
+              ((equal chosen-format "JSONColumns") (setf *format* 'jsoncolumns))
               ((equal chosen-format "Pretty") (setf *format* 'pretty))
               ((equal chosen-format "TabSeparated") (setf *format* 'tabseparated))
               ((equal chosen-format "TabSeparatedRaw") (setf *format* 'tabseparatedraw))
