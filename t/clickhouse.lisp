@@ -59,6 +59,9 @@
 │ 1 │
 └───┘")))))
 
+(test pretty-formatter-positions
+  (is (equalp '(0 4) (clickhouse.utils::pretty-formatter-positions "│ 1 │"))))
+
 (test tab-separated-formatter
   (is (equalp
        '("7" "8" "9")
