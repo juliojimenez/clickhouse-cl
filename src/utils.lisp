@@ -97,8 +97,8 @@
 (defun pretty-formatter-title-row-split (title-row)
 	"Gets a list of column headers."
   (loop for i in (uiop:split-string title-row)
-	when (and (not (string= i "")) (not (string= i "┃")))
-	  collect i))
+				when (and (not (string= i "")) (not (string= i "┃")))
+	  		collect i))
 
 (defun pretty-formatter-title-row (positions title-row-split)
 	"Formats the title row."

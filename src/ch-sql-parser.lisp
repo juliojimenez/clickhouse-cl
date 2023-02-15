@@ -220,6 +220,7 @@
   ("remote"                 (values :remote))
   ("remoteSecure"           (values :remoteSecure))
   ("s3"                     (values :s3))
+  ("s3Cluster"              (values :s3cluster))
   ("sqlite"                 (values :sqlitefunc))
   ("url"                    (values :url))
   ; special characters
