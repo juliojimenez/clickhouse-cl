@@ -65,6 +65,10 @@
 (test pretty-formatter-title-row-split
   (is (equalp '("1") (clickhouse.utils::pretty-formatter-title-row-split "┃ 1 ┃"))))
 
+(test pretty-formatter-title-row
+  (is (equalp "│ 1 │
+" (clickhouse.utils::pretty-formatter-title-row '(0 4) '("1")))))
+
 (test tab-separated-formatter
   (is (equalp
        '("7" "8" "9")
