@@ -21,7 +21,7 @@ Common Lisp ClickHouse Client Library
 - [Formats](#formats)
   - [Functions](#functions)
     - [jget](#jget)
-- [Common Forms](#common-forms)
+- [Examples](#examples)
   - [Connection to a local database](#connection-to-a-local-database)
   - [Query](#query)
 - [Bugs, Features, and Vulnerabilities Reporting](#bugs-features-and-vulnerabilities-reporting)
@@ -201,8 +201,8 @@ clickhouse-cl supports automatic input and output format processing for the form
 
 | Format | Input | Output | Result | Functions |
 | ------ | ----- | ------ | ------ | --------- |
-| TabSeparated | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| TabSeparatedRaw | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| [TabSeparated](https://clickhouse.com/docs/en/interfaces/formats/#tabseparated) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| [TabSeparatedRaw](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedraw) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | TabSeparatedWithNames | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | TabSeparatedWithNamesAndTypes | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | CSV | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
@@ -214,6 +214,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | JSONColumns | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | JSONColumnsWithMetadata | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | JSONCompact | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| JSONCompactStrings || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | Pretty || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
@@ -236,7 +237,7 @@ CL-USER> (ch:jget *result* "rows")
 T
 ```
 
-## Common Forms
+## Examples
 
 ### Connection to a local database
 

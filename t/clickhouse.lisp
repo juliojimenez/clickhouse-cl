@@ -69,6 +69,24 @@
   (is (equalp "│ 1 │
 " (clickhouse.utils::pretty-formatter-title-row '(0 4) '("1")))))
 
+(test pretty-formatter-border-top
+  (is (equalp "┌───┐
+" (clickhouse.utils::pretty-formatter-border 
+    '(0 4)
+    #\BOX_DRAWINGS_LIGHT_DOWN_AND_RIGHT
+    #\BOX_DRAWINGS_LIGHT_DOWN_AND_LEFT
+    #\BOX_DRAWINGS_LIGHT_DOWN_AND_HORIZONTAL
+    #\BOX_DRAWINGS_LIGHT_HORIZONTAL))))
+
+(test pretty-formatter-border-bottom
+  (is (equalp "├───┤
+" (clickhouse.utils::pretty-formatter-border 
+    '(0 4)
+    #\BOX_DRAWINGS_LIGHT_VERTICAL_AND_RIGHT
+    #\BOX_DRAWINGS_LIGHT_VERTICAL_AND_LEFT
+    #\BOX_DRAWINGS_LIGHT_VERTICAL_AND_HORIZONTAL
+    #\BOX_DRAWINGS_LIGHT_HORIZONTAL))))
+
 (test tab-separated-formatter
   (is (equalp
        '("7" "8" "9")
