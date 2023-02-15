@@ -220,6 +220,7 @@
   ("remote"                 (values :remote))
   ("remoteSecure"           (values :remoteSecure))
   ("s3"                     (values :s3))
+  ("s3Cluster"              (values :s3cluster))
   ("sqlite"                 (values :sqlitefunc))
   ("url"                    (values :url))
   ; special characters
@@ -272,6 +273,7 @@
 		    (cond ((equal chosen-format "JSON") (setf *format* 'json))
               ((equal chosen-format "JSONStrings") (setf *format* 'jsonstrings))
               ((equal chosen-format "JSONColumns") (setf *format* 'jsoncolumns))
+              ((equal chosen-format "JSONColumnsWithMetadata") (setf *format* 'jsoncolumnswithmetadata))
               ((equal chosen-format "Pretty") (setf *format* 'pretty))
               ((equal chosen-format "TabSeparated") (setf *format* 'tabseparated))
               ((equal chosen-format "TabSeparatedRaw") (setf *format* 'tabseparatedraw))
