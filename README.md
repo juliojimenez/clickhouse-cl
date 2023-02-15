@@ -21,7 +21,7 @@ Common Lisp ClickHouse Client Library
 - [Formats](#formats)
   - [Functions](#functions)
     - [jget](#jget)
-- [Common Forms](#common-forms)
+- [Examples](#examples)
   - [Connection to a local database](#connection-to-a-local-database)
   - [Query](#query)
 - [Bugs, Features, and Vulnerabilities Reporting](#bugs-features-and-vulnerabilities-reporting)
@@ -237,7 +237,7 @@ CL-USER> (ch:jget *result* "rows")
 T
 ```
 
-## Common Forms
+## Examples
 
 ### Connection to a local database
 
