@@ -201,8 +201,8 @@ clickhouse-cl supports automatic input and output format processing for the form
 
 | Format | Input | Output | Result | Functions |
 | ------ | ----- | ------ | ------ | --------- |
-| TabSeparated | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| TabSeparatedRaw | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| [TabSeparated](https://clickhouse.com/docs/en/interfaces/formats/#tabseparated) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| [TabSeparatedRaw](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedraw) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | TabSeparatedWithNames | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | TabSeparatedWithNamesAndTypes | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | CSV | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
