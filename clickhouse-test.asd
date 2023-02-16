@@ -3,7 +3,7 @@
 
   :author "julio@clickhouse.com"
   :license  "Apache-2.0"
-  :version "0.0.18"
+  :version "0.0.19"
   :depends-on (#:clickhouse
 	             #:fiveam)
   :components ((:module "t"
