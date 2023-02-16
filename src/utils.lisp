@@ -31,7 +31,6 @@
 			(setf new-input (concatenate 'string new-input row ",")))
 		(setf new-input (string-right-trim "," new-input))
 		(setf new-input (concatenate 'string new-input "]"))
-		(print new-input)
   	(boost-json:json-decode new-input)))
 
 (defun prettify (body &key console formatting)
