@@ -26,12 +26,12 @@
 (defun jsoneachrow-formats (input)
   "Properly formats and decodes input into a BOOST-JSON:JSON-OBJECT."
 	(let ((input-split (uiop:split-string input :separator '(#\Newline)))
-				(new-input ""))
-		(push "{" new-input)
+				(new-input "["))
 		(dolist (row input-split)
-			(push row new-input)
-			(push "," new-input))
-		(push "}" new-input)
+			(setf new-input (concatenate 'string new-input row ",")))
+		(setf new-input (string-right-trim "," new-input))
+		(setf new-input (concatenate 'string new-input "]"))
+		(print new-input)
   	(boost-json:json-decode new-input)))
 
 (defun prettify (body &key console formatting)
