@@ -107,6 +107,9 @@
 (test make-query
   (is (string= "SELECT 1" (clickhouse.ch-sql-parser:make-query "SELECT 1"))))
 
+(test syntax-parser
+  (is (equal "SELECT" (lexer:token-lexeme (first (clickhouse.ch-sql-parser::syntax-parser "SELECT 1"))))))
+
 ; database class and methods
 
 (test make-database
