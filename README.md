@@ -203,8 +203,8 @@ clickhouse-cl supports automatic input and output format processing for the form
 | ------ | ----- | ------ | ------ | --------- |
 | [TabSeparated](https://clickhouse.com/docs/en/interfaces/formats/#tabseparated) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [TabSeparatedRaw](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedraw) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| TabSeparatedWithNames | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| TabSeparatedWithNamesAndTypes | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| [TabSeparatedWithNames](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| [TabSeparatedWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | CSV | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | CSVWithNames | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | CSVWithNamesAndTypes | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
@@ -215,6 +215,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | JSONColumnsWithMetadata | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | JSONCompact | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | JSONCompactStrings || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| JSONCompactColumns | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | Pretty || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
