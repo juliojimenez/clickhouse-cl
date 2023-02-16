@@ -277,6 +277,7 @@
               ((equal chosen-format "JSONCompact") (setf *format* 'jsoncompact))
               ((equal chosen-format "JSONCompactStrings") (setf *format* 'jsoncompactstrings))
               ((equal chosen-format "JSONCompactColumns") (setf *format* 'jsoncompactcolumns))
+              ((equal chosen-format "JSONEachRow") (setf *format* 'jsoneachrow))
               ((equal chosen-format "Pretty") (setf *format* 'pretty))
               ((equal chosen-format "TabSeparated") (setf *format* 'tabseparated))
               ((equal chosen-format "TabSeparatedRaw") (setf *format* 'tabseparatedraw))

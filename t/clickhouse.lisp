@@ -11,6 +11,8 @@
 
 (defparameter *db-test* nil)
 
+(defvar *format* nil)
+
 (def-suite all-tests :description "all tests suite.")
 
 (in-suite all-tests)
@@ -104,11 +106,14 @@
 
 ; clickhouse.ch-sql-parser
 
+(test auto-formatter
+  (is (equalp *format* (clickhouse.ch-sql-parser::auto-formatter "SELECT 1 FORMAT JSONEachRow"))))
+
 (test make-query
   (is (string= "SELECT 1" (clickhouse.ch-sql-parser:make-query "SELECT 1"))))
 
 (test syntax-parser
-  (is (equal "SELECT" (lexer:token-lexeme (first (clickhouse.ch-sql-parser::syntax-parser "SELECT 1"))))))
+  (is (equalp "SELECT" (lexer:token-lexeme (first (clickhouse.ch-sql-parser::syntax-parser "SELECT 1"))))))
 
 ; database class and methods
 
