@@ -115,6 +115,9 @@
 (test syntax-parser
   (is (equalp "SELECT" (lexer:token-lexeme (first (clickhouse.ch-sql-parser::syntax-parser "SELECT 1"))))))
 
+(test to-vector
+  (is (equalp '(simple-vector 3) (type-of (clickhouse.ch-sql-parser::to-vector '(1 2 3))))))
+
 ; database class and methods
 
 (test make-database
