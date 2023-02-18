@@ -32,9 +32,10 @@
   (is (string= "https://localhost:8443/ping" (format-url "localhost" 8443 t "/ping"))))
 
 (test json-formats
-  (is (string=
-       "pass"
-       (clickhouse:jget (clickhouse.utils::json-formats "{ \"testing\": \"pass\" }") "testing"))))
+  (is (string= "pass" (clickhouse:jget (clickhouse.utils::json-formats "{ \"testing\": \"pass\" }") "testing"))))
+
+(test jsoneachrow-formats
+  (is (equalp 1 (length (clickhouse.utils::jsoneachrow-formats "{ \"testing\": \"pass\" }")))))
 
 (test prettify-console
   (is (equalp nil (clickhouse.utils:prettify "1." :console t))))
