@@ -2,7 +2,7 @@
   :description "Common Lisp ClickHouse Client Library"
   :author "julio@clickhouse.com"
   :license "Apache-2.0"
-  :version "0.13.0"
+  :version "0.14.0"
   :depends-on (#:boost-json
 	             #:dexador
 	             #:lexer
