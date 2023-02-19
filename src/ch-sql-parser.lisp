@@ -291,6 +291,7 @@
                           ((equal chosen-format "JSONCompactEachRow") (setf *format* 'jsoncompacteachrow))
                           ((equal chosen-format "JSONCompactEachRowWithNames") (setf *format* 'jsoncompacteachrowwithnames))
                           ((equal chosen-format "JSONCompactEachRowWithNamesAndTypes") (setf *format* 'jsoncompacteachrowwithnamesandtypes))
+                          ((equal chosen-format "JSONCompactStringsEachRow") (setf *format* 'jsoncompactstringseachrow))
                           ((equal chosen-format "Pretty") (setf *format* 'pretty))
                           (t (setf *format* nil))))))))
 			  
