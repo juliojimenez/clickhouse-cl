@@ -215,12 +215,13 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [JSONColumnsWithMetadata](https://clickhouse.com/docs/en/interfaces/formats/#jsoncolumnswithmetadata) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | [JSONCompact](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompact) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | [JSONCompactStrings](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstrings) || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| JSONCompactColumns | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| JSONEachRow | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| JSONEachRowWithProgress || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| JSONStringsEachRow | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| JSONStringsEachRowWithProgress || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| Pretty || :heavy_check_mark: || Best viewed with `:console t` |
+| [JSONCompactColumns](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactcolumns) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| [JSONEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsoneachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| [JSONEachRowWithProgress](https://clickhouse.com/docs/en/interfaces/formats/#jsoneachrowwithprogress) || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| [JSONStringsEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsonstringseachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| [JSONStringsEachRowWithProgress](https://clickhouse.com/docs/en/interfaces/formats/#jsonstringseachrowwithprogress) || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| [JSONCompactEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompacteachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| [Pretty](https://clickhouse.com/docs/en/interfaces/formats/#pretty) || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
 

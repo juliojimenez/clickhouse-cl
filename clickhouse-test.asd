@@ -1,9 +1,8 @@
 (asdf:defsystem #:clickhouse-test
   :description "clickhouse Tests"
-
   :author "julio@clickhouse.com"
   :license  "Apache-2.0"
-  :version "0.0.21"
+  :version "0.0.22"
   :depends-on (#:clickhouse
 	             #:fiveam)
   :components ((:module "t"
