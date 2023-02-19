@@ -282,6 +282,7 @@
                           ((equal chosen-format "JSONStringsEachRow") (setf *format* 'jsonstringseachrow))
                           ((equal chosen-format "JSONStringsEachRowWithProgress") (setf *format* 'jsonstringseachrowwithprogress))
                           ((equal chosen-format "JSONCompactEachRow") (setf *format* 'jsoncompacteachrow))
+                          ((equal chosen-format "JSONCompactEachRowWithNames") (setf *format* 'jsoncompacteachrowwithnames))
                           ((equal chosen-format "Pretty") (setf *format* 'pretty))
                           ((equal chosen-format "TabSeparated") (setf *format* 'tabseparated))
                           ((equal chosen-format "TabSeparatedRaw") (setf *format* 'tabseparatedraw))
