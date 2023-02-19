@@ -17,7 +17,7 @@
 
 (in-suite all-tests)
 
-; clickhouse.utils
+;; clickhouse.utils
 
 (test csv-formatter-simple
   (is (equalp 'cons (type-of (csv-formatter "c1,c2,c3")))))
@@ -105,7 +105,7 @@
 (test ver-t
   (is (equalp t (ver "okie dokie"))))
 
-; clickhouse.ch-sql-parser
+;; clickhouse.ch-sql-parser
 
 (test auto-formatter
   (is (equalp *format* (clickhouse.ch-sql-parser::auto-formatter "SELECT 1 FORMAT JSONEachRow"))))
@@ -119,7 +119,13 @@
 (test to-vector
   (is (equalp '(simple-vector 3) (type-of (clickhouse.ch-sql-parser::to-vector '(1 2 3))))))
 
-; database class and methods
+;; http
+
+(test http-get
+  (is (string= "Ok.
+" (clickhouse.http::http-get "localhost" 8123 nil "/ping"))))
+
+;; database class and methods
 
 (test make-database
   (finishes (defparameter *db-test* (make-instance 'clickhouse:database))))
