@@ -51,7 +51,8 @@
 																	((or
 																			(equalp formatting clickhouse.ch-sql-parser::'jsoneachrow)
 																			(equalp formatting clickhouse.ch-sql-parser::'jsoneachrowwithprogress)
-																			(equalp formatting clickhouse.ch-sql-parser::'jsonstringseachrow))
+																			(equalp formatting clickhouse.ch-sql-parser::'jsonstringseachrow)
+																			(equalp formatting clickhouse.ch-sql-parser::'jsonstringseachrowwithprogress))
 																		(jsoneachrow-formats b))
 																	((equalp formatting clickhouse.ch-sql-parser::'pretty)
 																	 (pretty-formatter b))
