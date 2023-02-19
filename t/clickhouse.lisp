@@ -125,6 +125,10 @@
   (is (string= "Ok.
 " (clickhouse.http::http-get "localhost" 8123 nil "/ping"))))
 
+(test http-post
+  (is (string= "1
+" (clickhouse.http::http-post "localhost" 8123 nil "SELECT 1" nil))))
+
 ;; database class and methods
 
 (test make-database
