@@ -15,7 +15,6 @@
                  (:file "clickhouse" :depends-on ("http" "ch-sql-parser")))))
   :in-order-to ((test-op (test-op "clickhouse-test"))))
 
-
 (asdf:defsystem #:clickhouse/ci
   :description "CI for Common Lisp ClickHouse Client Library"
   :author "julio@clickhouse.com"
