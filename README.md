@@ -1,4 +1,4 @@
-[![CI](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml) [![LINTER](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml) [![CRITIC](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml)
+[![CI](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml) [![LINTER](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml) [![CRITIC](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml) [![Release](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/release.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/release.yml)
 
 # clickhouse-cl
 
@@ -224,6 +224,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [JSONCompactEachRowWithNames](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompacteachrowwithnames) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | [JSONCompactEachRowWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompacteachrowwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | [JSONCompactStringsEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstringseachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| [JSONCompactStringsEachRowWithNames](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstringseachrowwithnames) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | [Pretty](https://clickhouse.com/docs/en/interfaces/formats/#pretty) || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
@@ -259,7 +260,7 @@ This would be applicable to a recently [installed](https://clickhouse.com/docs/e
 ### Query
 
 ```
-(ch::query *db* "SELECT 1")
+(ch:query *db* "SELECT 1")
 ```
 
 # Bugs, Features, and Vulnerabilities Reporting
