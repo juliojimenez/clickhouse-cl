@@ -99,6 +99,9 @@
 4	5	6
 7	8	9")))))
 
+(test tskv-formatter
+  (is (equalp '((("y" "x") ("x" "9"))) (clickhouse.utils::tskv-formatter "x=9	y=x"))))
+
 (test ver-nil
   (is (equalp nil (ver nil))))
 
