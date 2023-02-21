@@ -227,7 +227,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [JSONCompactStringsEachRowWithNames](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstringseachrowwithnames) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | [JSONCompactStringsEachRowWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstringseachrowwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | [JSONObjectEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsonobjecteachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [TSKV](https://clickhouse.com/docs/en/interfaces/formats#tskv) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
+| [TSKV](https://clickhouse.com/docs/en/interfaces/formats#tskv) | :heavy_check_mark: | :heavy_check_mark: | '('('(k . v)*)*) ||
 | [Pretty](https://clickhouse.com/docs/en/interfaces/formats/#pretty) || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
