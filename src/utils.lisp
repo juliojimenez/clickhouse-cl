@@ -70,6 +70,9 @@
 																			(equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnamesandtypes))
 																	 (tab-separated-formatter b))
 																	((or
+																			(equalp formatting clickhouse.ch-sql-parser::'tskv))
+																	 (tskv-formatter b))
+																	((or
 																			(equalp formatting clickhouse.ch-sql-parser::'csv)
 																			(equalp formatting clickhouse.ch-sql-parser::'csvwithnames)
 																			(equalp formatting clickhouse.ch-sql-parser::'csvwithnamesandtypes))
@@ -168,6 +171,18 @@
 	(let ((tab-separated))
 		(dolist (x (uiop:split-string input :separator '(#\Newline)))
 			(push (uiop:split-string x :separator '(#\Tab)) tab-separated))
+		(values tab-separated)))
+
+(defun tskv-formatter (input)
+  "Process TSKV format into a list of cons."
+	(let ((tab-separated))
+		(dolist (x (uiop:split-string input :separator '(#\Newline)))
+			(let ((row (uiop:split-string x :separator '(#\Tab)))
+						(cons-row))
+				(dolist (kv row)
+					(let ((e (uiop:split-string kv :separator '(#\=))))
+						(push (cons (car e) (cdr e)) cons-row)))
+				(push cons-row tab-separated)))
 		(values tab-separated)))
 
 (defun ver (val)
