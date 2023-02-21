@@ -37,7 +37,12 @@
   "Output conditioner and formatter resolver."
   (terpri)
   (let ((b (string-trim '(#\Newline) body)))
-    (cond ((and (ver console) (ver formatting) (equalp formatting clickhouse.ch-sql-parser::'pretty))
+    (cond ((and 
+							(ver console) 
+							(ver formatting) 
+							(or
+								(equalp formatting clickhouse.ch-sql-parser::'pretty)
+								(equalp formatting clickhouse.ch-sql-parser::'prettynoescapes)))
 	   			 (format t "~d" (pretty-formatter b)))
 					((ver formatting) (cond ((or
 																			(equalp formatting clickhouse.ch-sql-parser::'json)
