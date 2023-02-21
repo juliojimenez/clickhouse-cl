@@ -297,6 +297,7 @@
                           ((equal chosen-format "JSONObjectEachRow") (setf *format* 'jsonobjecteachrow))
                           ((equal chosen-format "TSKV") (setf *format* 'tskv))
                           ((equal chosen-format "Pretty") (setf *format* 'pretty))
+                          ((equal chosen-format "PrettyNoEscapes") (setf *format* 'prettynoescapes))
                           (t (setf *format* nil))))))))
 			  
 (defun to-vector (val)

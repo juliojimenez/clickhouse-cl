@@ -61,7 +61,9 @@
 																			(equalp formatting clickhouse.ch-sql-parser::'jsoncompactstringseachrowwithnames)
 																			(equalp formatting clickhouse.ch-sql-parser::'jsoncompactstringseachrowwithnamesandtypes))
 																		(jsoneachrow-formats b))
-																	((equalp formatting clickhouse.ch-sql-parser::'pretty)
+																	((or
+																			(equalp formatting clickhouse.ch-sql-parser::'pretty)
+																			(equalp formatting clickhouse.ch-sql-parser::'prettynoescapes))
 																	 (pretty-formatter b))
 																	((or
 																			(equalp formatting clickhouse.ch-sql-parser::'tabseparated)
