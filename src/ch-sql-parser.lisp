@@ -298,6 +298,7 @@
                           ((equal chosen-format "TSKV") (setf *format* 'tskv))
                           ((equal chosen-format "Pretty") (setf *format* 'pretty))
                           ((equal chosen-format "PrettyNoEscapes") (setf *format* 'prettynoescapes))
+                          ((equal chosen-format "PrettyMonoBlock") (setf *format* 'prettymonoblock))
                           (t (setf *format* nil))))))))
 			  
 (defun to-vector (val)
