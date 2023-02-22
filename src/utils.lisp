@@ -43,7 +43,8 @@
 							(or
 								(equalp formatting clickhouse.ch-sql-parser::'pretty)
 								(equalp formatting clickhouse.ch-sql-parser::'prettynoescapes)
-								(equalp formatting clickhouse.ch-sql-parser::'prettymonoblock)))
+								(equalp formatting clickhouse.ch-sql-parser::'prettymonoblock)
+								(equalp formatting clickhouse.ch-sql-parser::'prettynoescapesmonoblock)))
 	   			 (format t "~d" (pretty-formatter b)))
 					((ver formatting) (cond ((or
 																			(equalp formatting clickhouse.ch-sql-parser::'json)
@@ -70,7 +71,8 @@
 																	((or
 																			(equalp formatting clickhouse.ch-sql-parser::'pretty)
 																			(equalp formatting clickhouse.ch-sql-parser::'prettynoescapes)
-																			(equalp formatting clickhouse.ch-sql-parser::'prettymonoblock))
+																			(equalp formatting clickhouse.ch-sql-parser::'prettymonoblock)
+																			(equalp formatting clickhouse.ch-sql-parser::'prettynoescapesmonoblock))
 																	 (pretty-formatter b))
 																	((or
 																			(equalp formatting clickhouse.ch-sql-parser::'tabseparated)
