@@ -46,6 +46,12 @@
 								(equalp formatting clickhouse.ch-sql-parser::'prettymonoblock)
 								(equalp formatting clickhouse.ch-sql-parser::'prettynoescapesmonoblock)))
 	   			 (format t "~d" (pretty-formatter b)))
+					((and 
+							(ver console) 
+							(ver formatting) 
+							(or
+								(equalp formatting clickhouse.ch-sql-parser::'prettycompact)))
+	   			 (format t "~d" (prettycompact-formatter b)))
 					((ver formatting) (cond ((or
 																			(equalp formatting clickhouse.ch-sql-parser::'json)
 																			(equalp formatting clickhouse.ch-sql-parser::'jsonstrings)
@@ -75,6 +81,9 @@
 																			(equalp formatting clickhouse.ch-sql-parser::'prettynoescapesmonoblock))
 																	 (pretty-formatter b))
 																	((or
+																			(equalp formatting clickhouse.ch-sql-parser::'prettycompact))
+																	 (prettycompact-formatter b))
+																	((or
 																			(equalp formatting clickhouse.ch-sql-parser::'tabseparated)
 																			(equalp formatting clickhouse.ch-sql-parser::'tabseparatedraw)
 																			(equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnames)
@@ -92,7 +101,7 @@
 	  			(t (values b)))))
 
 (defun pretty-formatter (input)
-  "Clean up Pretty format output"
+  "Clean up Pretty* format output"
   (let* ((clean-split (pretty-formatter-clean-input input))
 	 (top-border (first clean-split))
 	 (title-row (second clean-split))
@@ -119,6 +128,14 @@
 				    #\BOX_DRAWINGS_LIGHT_HORIZONTAL)
 	   clean-split-string))
     (values clean)))
+
+(defun prettycompact-formatter (input)
+	"Clean up PrettyCompact* format output"
+	(let ((clean-split (pretty-formatter-clean-input input))
+				(new-input))
+		(dolist (row clean-split)
+			(setf new-input (concatenate 'string new-input row '(#\Newline))))
+	(values new-input)))
 
 (defun pretty-formatter-clean-input (input)
 	"Clean up input by removing control/escape characters."

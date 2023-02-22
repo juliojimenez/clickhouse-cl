@@ -55,6 +55,14 @@
 │ 1 │
 └───┘"))))
 
+(test prettycompact-formatter
+  (is (string= "┌─x─┬─y─┐
+│ 0 │ f │
+└───┴───┘
+" (clickhouse.utils::prettycompact-formatter "┌─[1mx[0m─┬─[1my[0m─┐
+│ 0 │ f │
+└───┴───┘"))))
+
 (test pretty-formatter-clean-input
   (is (equalp 'cons (type-of (clickhouse.utils::pretty-formatter-clean-input "┏━━━┓
 ┃ [1m1[0m ┃
