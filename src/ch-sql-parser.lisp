@@ -303,6 +303,7 @@
                           ((equal chosen-format "PrettyCompact") (setf *format* 'prettycompact))
                           ((equal chosen-format "PrettyCompactNoEscapes") (setf *format* 'prettycompactnoescapes))
                           ((equal chosen-format "PrettyCompactMonoBlock") (setf *format* 'prettycompactmonoblock))
+                          ((equal chosen-format "PrettyCompactNoEscapesMonoBlock") (setf *format* 'prettycompactnoescapesmonoblock))
                           (t (setf *format* nil))))))))
 			  
 (defun to-vector (val)
