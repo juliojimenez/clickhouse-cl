@@ -240,6 +240,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [PrettyCompactNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettycompactnoescapesmonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
 | [PrettySpace](https://clickhouse.com/docs/en/interfaces/formats/#prettyspace) || :heavy_check_mark: || Best viewed with `:console t` |
 | [PrettySpaceNoEscapes](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapes) || :heavy_check_mark: || Best viewed with `:console t` |
+| [PrettySpaceMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacemonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
 

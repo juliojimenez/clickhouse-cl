@@ -157,6 +157,9 @@
   ("WHERE"                  (values :where))
   ("Where"                  (values :where))
   ("where"                  (values :where))
+  ("WITH"                   (values :with))
+  ("With"                   (values :with))
+  ("with"                   (values :with))
   ;types
   ("Array"                  (values :array))
   ("Bool"                   (values :bool))
@@ -250,6 +253,7 @@
   ("%}"                     (values :rcurl))
   ("%["                     (values :lbracket))
   ("%]"                     (values :rbracket))
+  ("%?"                     (values :question))
   ; identifiers
   ("%a%w*"                  (values :ident $$))
   ("%a"                     (values :ident $$))
@@ -307,6 +311,7 @@
                           ((equal chosen-format "PrettyCompactNoEscapesMonoBlock") (setf *format* 'prettycompactnoescapesmonoblock))
                           ((equal chosen-format "PrettySpace") (setf *format* 'prettyspace))
                           ((equal chosen-format "PrettySpaceNoEscapes") (setf *format* 'prettyspacenoescapes))
+                          ((equal chosen-format "PrettySpaceMonoBlock") (setf *format* 'prettyspacemonoblock))
                           (t (setf *format* nil))))))))
 			  
 (defun to-vector (val)
