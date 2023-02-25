@@ -243,6 +243,7 @@
   ("\\"                     (values :bslash))
   ("'"                      (values :singleq))
   ("\""                     (values :doubleq))
+  ("`"                      (values :backtick))
   ("%("                     (values :lparen))
   ("%)"                     (values :rparen))
   ("%{"                     (values :lcurl))
@@ -305,6 +306,7 @@
                           ((equal chosen-format "PrettyCompactMonoBlock") (setf *format* 'prettycompactmonoblock))
                           ((equal chosen-format "PrettyCompactNoEscapesMonoBlock") (setf *format* 'prettycompactnoescapesmonoblock))
                           ((equal chosen-format "PrettySpace") (setf *format* 'prettyspace))
+                          ((equal chosen-format "PrettySpaceNoEscapes") (setf *format* 'prettyspacenoescapes))
                           (t (setf *format* nil))))))))
 			  
 (defun to-vector (val)
