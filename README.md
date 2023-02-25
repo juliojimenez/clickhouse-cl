@@ -1,5 +1,7 @@
 [![CI](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml) [![LINTER](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml) [![CRITIC](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml) [![Release](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/release.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/release.yml)
 
+<img src="logo.png"  width="64" height="64">
+
 # clickhouse-cl
 
 Common Lisp ClickHouse Client Library
@@ -237,6 +239,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [PrettyCompactMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettycompactmonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
 | [PrettyCompactNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettycompactnoescapesmonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
 | [PrettySpace](https://clickhouse.com/docs/en/interfaces/formats/#prettyspace) || :heavy_check_mark: || Best viewed with `:console t` |
+| [PrettySpaceNoEscapes](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapes) || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
 
