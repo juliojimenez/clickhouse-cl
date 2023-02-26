@@ -122,7 +122,7 @@ CL-USER>
 
 #### ping
 
-ch::ping *obj* :ping *bool* :console *bool*
+ch:ping *obj* :ping *bool* :console *bool*
 
 ```lisp
 CL-USER> (ch::ping *db*)
@@ -138,7 +138,7 @@ CL-USER>  (ch::ping *db* :ping t)
 
 #### replicas-status
 
-ch::replicas-status *obj* :console *bool* 
+ch:replicas-status *obj* :console *bool* 
 
 ```lisp
 CL-USER> (ch::replicas-status *db*)
@@ -147,7 +147,7 @@ CL-USER> (ch::replicas-status *db*)
 
 #### query
 
-ch::query *obj* *query* :console *bool* :no-format *bool* :timeout *int*
+ch:query *obj* *query* :console *bool* :no-format *bool* :timeout *int*
 
 ```lisp
 CL-USER> (ch::query *db* "SELECT 1")
@@ -241,6 +241,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [PrettySpace](https://clickhouse.com/docs/en/interfaces/formats/#prettyspace) || :heavy_check_mark: || Best viewed with `:console t` |
 | [PrettySpaceNoEscapes](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapes) || :heavy_check_mark: || Best viewed with `:console t` |
 | [PrettySpaceMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacemonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
+| [PrettySpaceNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapesmonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
 
