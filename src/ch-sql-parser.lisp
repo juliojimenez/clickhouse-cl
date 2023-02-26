@@ -312,6 +312,7 @@
                           ((equal chosen-format "PrettySpace") (setf *format* 'prettyspace))
                           ((equal chosen-format "PrettySpaceNoEscapes") (setf *format* 'prettyspacenoescapes))
                           ((equal chosen-format "PrettySpaceMonoBlock") (setf *format* 'prettyspacemonoblock))
+                          ((equal chosen-format "PrettySpaceNoEscapesMonoBlock") (setf *format* 'prettyspacenoescapesmonoblock))
                           (t (setf *format* nil))))))))
 			  
 (defun to-vector (val)
