@@ -207,6 +207,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [TabSeparatedRaw](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedraw) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [TabSeparatedWithNames](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [TabSeparatedWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| [TabSeparatedRawWithNames](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedrawwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [CSV](https://clickhouse.com/docs/en/interfaces/formats/#csv) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [CSVWithNames](https://clickhouse.com/docs/en/interfaces/formats/#csvwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [CSVWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#csvwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
@@ -243,7 +244,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [PrettySpaceMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacemonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
 | [PrettySpaceNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapesmonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
 | [LineAsString](https://clickhouse.com/docs/en/interfaces/formats/#lineasstring) | :heavy_check_mark: ||||
-| [Markdown](https://clickhouse.com/docs/en/interfaces/formats/#markdown) || :heavy_check_mark: |||
+| [Markdown](https://clickhouse.com/docs/en/interfaces/formats/#markdown) || :heavy_check_mark: || Best viewed with `:console t` |
 
 ### Functions
 
