@@ -279,6 +279,7 @@
                           ((equal chosen-format "TabSeparatedRaw") (setf *format* 'tabseparatedraw))
                           ((equal chosen-format "TabSeparatedWithNames") (setf *format* 'tabseparatedwithnames))
                           ((equal chosen-format "TabSeparatedWithNamesAndTypes") (setf *format* 'tabseparatedwithnamesandtypes))
+                          ((equal chosen-format "TabSeparatedRawWithNames") (setf *format* 'tabseparatedrawwithnames))
                           ((equal chosen-format "CSV") (setf *format* 'csv))
                           ((equal chosen-format "CSVWithNames") (setf *format* 'csvwithnames))
                           ((equal chosen-format "CSVWithNamesAndTypes") (setf *format* 'csvwithnamesandtypes))
