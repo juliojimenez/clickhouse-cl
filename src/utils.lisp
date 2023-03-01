@@ -103,7 +103,8 @@
 																			(equalp formatting clickhouse.ch-sql-parser::'tabseparated)
 																			(equalp formatting clickhouse.ch-sql-parser::'tabseparatedraw)
 																			(equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnames)
-																			(equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnamesandtypes))
+																			(equalp formatting clickhouse.ch-sql-parser::'tabseparatedwithnamesandtypes)
+																			(equalp formatting clickhouse.ch-sql-parser::'tabseparatedrawwithnames))
 																	 (tab-separated-formatter b))
 																	((or
 																			(equalp formatting clickhouse.ch-sql-parser::'tskv))
