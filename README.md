@@ -208,6 +208,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [TabSeparatedWithNames](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [TabSeparatedWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [TabSeparatedRawWithNames](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedrawwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| [TabSeparatedRawWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedrawwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [CSV](https://clickhouse.com/docs/en/interfaces/formats/#csv) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [CSVWithNames](https://clickhouse.com/docs/en/interfaces/formats/#csvwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [CSVWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#csvwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
