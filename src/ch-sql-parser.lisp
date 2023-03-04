@@ -284,6 +284,7 @@
                           ((equal chosen-format "CSV") (setf *format* 'csv))
                           ((equal chosen-format "CSVWithNames") (setf *format* 'csvwithnames))
                           ((equal chosen-format "CSVWithNamesAndTypes") (setf *format* 'csvwithnamesandtypes))
+                          ((equal chosen-format "SQLInsert") (setf *format* 'sqlinsert))
                           ((equal chosen-format "JSON") (setf *format* 'json))
                           ((equal chosen-format "JSONStrings") (setf *format* 'jsonstrings))
                           ((equal chosen-format "JSONColumns") (setf *format* 'jsoncolumns))
