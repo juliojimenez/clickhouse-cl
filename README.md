@@ -23,6 +23,7 @@ Common Lisp ClickHouse Client Library
 - [Formats](#formats)
   - [Functions](#functions)
     - [jget](#jget)
+- [Input Parameters](#input-parameters)
 - [Examples](#examples)
   - [Connection to a local database](#connection-to-a-local-database)
   - [Query](#query)
@@ -138,7 +139,7 @@ CL-USER>  (ch::ping *db* :ping t)
 
 #### replicas-status
 
-ch:replicas-status *obj* :console *bool* 
+ch:replicas-status *obj* :console *bool* :verbose *bool*
 
 ```lisp
 CL-USER> (ch::replicas-status *db*)
@@ -254,7 +255,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 
 Helper function used to access key values in formats that result in a `BOOST-JSON:JSON-OBJECT`.
 
-jget *obj* *key*
+ch:jget *obj* *key*
 
 ```lisp
 CL-USER> (defparameter *db* (make-instance 'ch:database))
@@ -266,6 +267,18 @@ CL-USER> *result*
 CL-USER> (ch:jget *result* "rows")
 10
 T
+```
+
+## Input Parameters
+
+This feature is an oversimplification of input parameters as seen in clickhouse-client.
+
+To interpolate inputs into a query, use the function `input-parameters` with the input marker `$i`.
+
+ch:input-parameters query &rest input
+
+```
+ (ch:query *db* (ch:input-parameters "SELECT $i" "1") :console t)
 ```
 
 ## Examples

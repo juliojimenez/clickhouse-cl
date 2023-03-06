@@ -9,11 +9,14 @@
   (:import-from :clickhouse.utils
                 :prettify
                 :ver)
+  (:import-from :cl-ppcre
+                :regex-replace)
   (:export :database
+           :input-parameters
+           :jget
            :ping
-           :replicas-status
            :query
-           :jget))
+           :replicas-status))
 
 (in-package :clickhouse)
 
@@ -50,7 +53,7 @@
   "Pings the database server."
   (with-slots ((h host) (p port) (s ssl)) obj
     (prettify
-     (if (ver ping)
+      (if (ver ping)
 	 (http-get h p s "/ping")
 	 (http-get h p s "/"))
      :console console)))
@@ -58,12 +61,13 @@
 (defgeneric replicas-status (obj &key)
   (:documentation "Get replicas status."))
 
-(defmethod replicas-status ((obj database) &key console)
+(defmethod replicas-status ((obj database) &key console verbose)
   "Get replicas status."
   (with-slots ((h host) (p port) (s ssl)) obj
     (prettify
-     (http-get h p s "/replicas_status")
-     :console console)))
+      (cond (verbose (http-get h p s "/replicas_status?verbose=1"))
+            (t       (http-get h p s "/replicas_status")))
+      :console console)))
 
 (defgeneric query (obj query &key)
   (:documentation "Execute a query."))
@@ -79,3 +83,8 @@
   "Get JSON value."
   `(boost-json:json-getf ,obj ,key))
 
+(defun input-parameters (query &rest input)
+  (let ((new-query query))
+    (dolist (in input)
+      (setf new-query (regex-replace "\\$i" new-query in)))
+    (values new-query)))
