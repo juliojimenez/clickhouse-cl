@@ -147,32 +147,36 @@
 
 (test ping-implicit
   (is (string= "Ok." (progn (defparameter *db-test* (make-instance 'clickhouse:database))
-			    (clickhouse:ping *db-test*)))))
+			                      (clickhouse:ping *db-test*)))))
 
 (test ping-explicit
   (is (string= "Ok." (progn (defparameter *db-test* (make-instance 'clickhouse:database))
-			    (clickhouse:ping *db-test* :ping t)))))
+			                      (clickhouse:ping *db-test* :ping t)))))
 
 (test ping-implicit-console
   (is (equalp nil (progn (defparameter *db-test* (make-instance 'clickhouse:database))
-			    (clickhouse:ping *db-test* :console t)))))
+			                   (clickhouse:ping *db-test* :console t)))))
 
 (test ping-explicit-console
   (is (equalp nil (progn (defparameter *db-test* (make-instance 'clickhouse:database))
-			    (clickhouse:ping *db-test* :ping t :console t)))))
+			                   (clickhouse:ping *db-test* :ping t :console t)))))
 
 (test replicas-status
   (is (string= "Ok." (progn (defparameter *db-test* (make-instance 'clickhouse:database))
-			    (clickhouse:replicas-status *db-test*)))))
+			                      (clickhouse:replicas-status *db-test*)))))
 
 (test replica-status-console
   (is (equalp nil (progn (defparameter *db-test* (make-instance 'clickhouse:database))
-			 (clickhouse:replicas-status *db-test* :console t)))))
+			                   (clickhouse:replicas-status *db-test* :console t)))))
 
 (test easy-query
   (is (string= "1" (progn (defparameter *db-test* (make-instance 'clickhouse:database))
-			  (clickhouse:query *db-test* "SELECT 1")))))
+			                    (clickhouse:query *db-test* "SELECT 1")))))
 
 (test easy-query-console
   (is (equalp nil (progn (defparameter *db-test* (make-instance 'clickhouse:database))
-			 (clickhouse:query *db-test* "SELECT 1" :console t)))))
+			                   (clickhouse:query *db-test* "SELECT 1" :console t)))))
+
+(test query-console-input
+  (is (equalp nil (progn (defparameter *db-test* (make-instance 'clickhouse:database))
+			                   (ch:query *db-test* (ch:input-parameters "SELECT $i" "1") :console t)))))
