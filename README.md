@@ -27,6 +27,7 @@ Common Lisp ClickHouse Client Library
 - [Examples](#examples)
   - [Connection to a local database](#connection-to-a-local-database)
   - [Query](#query)
+  - [Connecting to ClickHouse Cloud](#connecting-to-clickhouse-cloud)
 - [Bugs, Features, and Vulnerabilities Reporting](#bugs-features-and-vulnerabilities-reporting)
 
 ## Install
@@ -36,9 +37,9 @@ Common Lisp ClickHouse Client Library
 clickhouse-cl is on [Ultralisp.org](https://ultralisp.org)!
 
 ```
-CL-USER> (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
+> (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
 ...
-CL-USER> (ql:quickload :clickhouse)
+> (ql:quickload :clickhouse)
 ...
 ```
 
@@ -54,14 +55,14 @@ Clone this repo wherever your quicklisp `local-projects` folder is configured.
 Some dependencies are on [Ultralisp.org](https://ultralisp.org/), make sure you have it...
 
 ```lisp
-CL-USER> (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
+> (ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
 ...
 ```
 
 In the emacs SLIME REPL or SBCL, load clickhouse-cl with...
 
 ```lisp
-CL-USER> (ql:quickload :clickhouse)
+> (ql:quickload :clickhouse)
 To load "clickhouse":
   Load 1 ASDF system:
     clickhouse
@@ -69,7 +70,6 @@ To load "clickhouse":
 [package clickhouse]
 
 (:CLICKHOUSE)
-CL-USER>
 ```
 
 ### Releases
@@ -92,7 +92,7 @@ If that doesn't work, checkout this [StackExchange](https://superuser.com/questi
 | port | y | 8123 | Database port, i.e. 8443 or 8123 |
 | ssl | y | nil | SSL option, boolean, t or nil. |
 | username | y | default | Database username |
-| password | y | | Database password |
+| password | y | nil | Database password |
 
 ### Usage
 
@@ -113,11 +113,10 @@ Binding an instance of `database`.
 Reading and setting a slot.
 
 ```lisp
-CL-USER> (ch::password *db*)
+> (ch::password *db*)
 "1amAsecretPassWord"
-CL-USER> (setf (ch::password *db*) "chang3m3plea5e")
+> (setf (ch::password *db*) "chang3m3plea5e")
 "chang3m3plea5e"
-CL-USER>
 ```
 ### Methods
 
@@ -126,14 +125,14 @@ CL-USER>
 ch:ping *obj* :ping *bool* :console *bool*
 
 ```lisp
-CL-USER> (ch::ping *db*)
+> (ch::ping *db*)
 "Ok."
 ```
 
 The `:ping t` keyword parameter explicitly calls the instance `/ping` endpoint.
 
 ```lisp
-CL-USER>  (ch::ping *db* :ping t)
+> (ch::ping *db* :ping t)
 "Ok."
 ```
 
@@ -142,7 +141,7 @@ CL-USER>  (ch::ping *db* :ping t)
 ch:replicas-status *obj* :console *bool* :verbose *bool*
 
 ```lisp
-CL-USER> (ch::replicas-status *db*)
+> (ch::replicas-status *db*)
 "Ok."
 ```
 
@@ -151,7 +150,7 @@ CL-USER> (ch::replicas-status *db*)
 ch:query *obj* *query* :console *bool* :no-format *bool* :timeout *int*
 
 ```lisp
-CL-USER> (ch::query *db* "SELECT 1")
+> (ch::query *db* "SELECT 1")
 "1"
 ```
 
@@ -160,7 +159,7 @@ CL-USER> (ch::query *db* "SELECT 1")
 All methods can take the keyword parameter `:console t`, providing a cleaner output when interacting directly with the library in the REPL.
 
 ```lisp
-CL-USER> (ch:query *db* "SHOW DATABASES")
+> (ch:query *db* "SHOW DATABASES")
 "INFORMATION_SCHEMA
 default
 information_schema
@@ -168,7 +167,7 @@ system"
 ```
 
 ```lisp
-CL-USER> (ch:query *db* "SHOW DATABASES" :console t)
+> (ch:query *db* "SHOW DATABASES" :console t)
 INFORMATION_SCHEMA
 default
 information_schema
@@ -258,13 +257,13 @@ Helper function used to access key values in formats that result in a `BOOST-JSO
 ch:jget *obj* *key*
 
 ```lisp
-CL-USER> (defparameter *db* (make-instance 'ch:database))
+> (defparameter *db* (make-instance 'ch:database))
 *DB*
-CL-USER> (defparameter *result* (ch:query *db* "SELECT trip_id, passenger_count FROM trips LIMIT 10 FORMAT JSON"))
+> (defparameter *result* (ch:query *db* "SELECT trip_id, passenger_count FROM trips LIMIT 10 FORMAT JSON"))
 *RESULT*
-CL-USER> *result*
+> *result*
 #<BOOST-JSON:JSON-OBJECT {"meta":#,"data":#,"rows":10,"rows_before_limit_at_least":10,"statistics":#}>
-CL-USER> (ch:jget *result* "rows")
+> (ch:jget *result* "rows")
 10
 T
 ```
@@ -283,7 +282,7 @@ ch:input-parameters query &rest input
 
 ## Examples
 
-### Connection to a local database
+### Connecting to a local database
 
 This would be applicable to a recently [installed](https://clickhouse.com/docs/en/getting-started/quick-start/) database, prior to applying a password and/or adding any users.
 
@@ -295,6 +294,44 @@ This would be applicable to a recently [installed](https://clickhouse.com/docs/e
 
 ```
 (ch:query *db* "SELECT 1")
+```
+
+### Connecting to ClickHouse Cloud
+
+This example connects to a [ClickHouse Cloud](https://clickhouse.com/cloud) database loaded with the [NYC Taxi](https://clickhouse.com/docs/en/getting-started/example-datasets/nyc-taxi/) dataset.
+
+```
+> (ql:quickload :clickhouse)
+> (defparameter *db* (make-instance 'clickhouse:database
+				                            :host "iqr3flp7yf.us-east-1.aws.clickhouse.cloud"
+				                            :port 8443
+				                            :ssl t
+				                            :username "default"
+				                            :password ")UwB2oL|QQpi"))
+> (ch:query *db* "SELECT count()
+                  FROM nyc_taxi 
+                  FORMAT PrettySpaceNoEscapes" :console t)
+
+  count()
+
+ 20000000
+NIL
+> (ch:query *db* "SELECT 
+                    trip_id,
+                    total_amount,
+                    trip_distance
+                  FROM nyc_taxi
+                  LIMIT 5 
+                  FORMAT PrettySpaceNoEscapes" :console t)
+
+    trip_id   total_amount   trip_distance
+
+ 1199999902          19.56            2.59 
+ 1199999919           10.3             2.4 
+ 1199999944           24.3            5.13 
+ 1199999969           9.95             1.2 
+ 1199999990            9.8            2.17 
+NIL
 ```
 
 # Bugs, Features, and Vulnerabilities Reporting
