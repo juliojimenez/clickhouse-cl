@@ -303,11 +303,11 @@ This example connects to a [ClickHouse Cloud](https://clickhouse.com/cloud) data
 ```
 > (ql:quickload :clickhouse)
 > (defparameter *db* (make-instance 'clickhouse:database
-				                            :host "iqr3flp7yf.us-east-1.aws.clickhouse.cloud"
-				                            :port 8443
-				                            :ssl t
-				                            :username "default"
-				                            :password ")UwB2oL|QQpi"))
+				    :host "iqr3flp7yf.us-east-1.aws.clickhouse.cloud"
+				    :port 8443
+				    :ssl t
+				    :username "default"
+				    :password ")UwB2oL|QQpi"))
 > (ch:query *db* "SELECT count()
                   FROM nyc_taxi 
                   FORMAT PrettySpaceNoEscapes" :console t)
