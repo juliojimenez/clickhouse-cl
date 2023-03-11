@@ -298,7 +298,7 @@ This would be applicable to a recently [installed](https://clickhouse.com/docs/e
 
 ### Connecting to ClickHouse Cloud
 
-This example connects to a [ClickHouse Cloud](https://clickhouse.com/cloud) database loaded with the NYC Taxi dataset.
+This example connects to a [ClickHouse Cloud](https://clickhouse.com/cloud) database loaded with the [NYC Taxi](https://clickhouse.com/docs/en/getting-started/example-datasets/nyc-taxi/) dataset.
 
 ```
 > (ql:quickload :clickhouse)
