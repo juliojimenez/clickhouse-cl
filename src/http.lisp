@@ -15,11 +15,17 @@
 		   :force-string t)
     (values body)))
 
-(defun http-post (host-slot port-slot ssl-slot content timeout)
+(defun http-post (host-slot port-slot ssl-slot user-slot pass-slot content timeout)
   "HTTP handler for POST endpoints."
   (multiple-value-bind (body status response-header uri stream)
       (post (clickhouse.utils:format-url host-slot port-slot ssl-slot "")
+        :basic-auth (user-pass user-slot pass-slot)
 		    :content content
 		    :force-string t
 		    :read-timeout (if timeout timeout 60))
     (values body)))
+
+(defun user-pass (user pass)
+  (if (and user pass)
+      (cons user pass)
+      nil))

@@ -138,7 +138,7 @@
 
 (test http-post
   (is (string= "1
-" (clickhouse.http::http-post "localhost" 8123 nil "SELECT 1" nil))))
+" (clickhouse.http::http-post "localhost" 8123 nil "default" nil "SELECT 1" nil))))
 
 ;; database class and methods
 
