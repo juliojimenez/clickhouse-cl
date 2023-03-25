@@ -101,6 +101,8 @@
 																			(equalp formatting clickhouse.ch-sql-parser::'markdown)
 																			(equalp formatting clickhouse.ch-sql-parser::'sqlinsert))
 																	 (prettycompact-formatter b))
+																	((equalp formatting clickhouse.ch-sql-parser::'values)
+																	 (values-formatter b))
 																	((or
 																			(equalp formatting clickhouse.ch-sql-parser::'tabseparated)
 																			(equalp formatting clickhouse.ch-sql-parser::'tabseparatedraw)
@@ -232,6 +234,9 @@
 						(push (cons (car e) (cdr e)) cons-row)))
 				(push cons-row tab-separated)))
 		(values tab-separated)))
+
+(defun values-formatter (input)
+	(values (all-matches-as-strings "\\(([^\\(\\)]*)\\)" input)))
 
 (defun ver (val)
   "Boolean coercion helper."
