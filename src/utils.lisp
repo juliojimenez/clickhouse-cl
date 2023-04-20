@@ -236,7 +236,15 @@
 		(values tab-separated)))
 
 (defun values-formatter (input)
-	(values (all-matches-as-strings "\\(([^\\(\\)]*)\\)" input)))
+	(let* ((vals-strings (all-matches-as-strings "\\(([^\\(\\)]*)\\)" input))
+				 (vals))
+		(dolist (val vals-strings)
+				 		(let ((clean-val val))
+							(setf clean-val (regex-replace-all "\\(" clean-val ""))
+							(setf clean-val (regex-replace-all "\\)" clean-val ""))
+							(setf clean-val (regex-replace-all "'" clean-val ""))
+							(push (uiop:split-string clean-val :separator '(#\Comma)) vals)))
+		(values vals)))
 
 (defun ver (val)
   "Boolean coercion helper."
