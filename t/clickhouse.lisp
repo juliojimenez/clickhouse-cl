@@ -110,6 +110,9 @@
 (test tskv-formatter
   (is (equalp '((("y" "x") ("x" "9"))) (clickhouse.utils::tskv-formatter "x=9	y=x"))))
 
+(test values-formatter
+  (is (equalp '(("1" "j") ("0" "f")) (clickhouse.utils::values-formatter "(0,'f'),(1,'j')"))))
+
 (test ver-nil
   (is (equalp nil (ver nil))))
 
