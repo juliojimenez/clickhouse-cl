@@ -30,7 +30,7 @@
     :initarg :port
     :initform 8123
     :accessor port
-    :documentation "ClickHouse database port, i.e. 8443 or 8123.")
+    :documentation "ClickHouse database port, i.e. 8443 or 8123 for HTTP, 9000 or 9440 for TCP (native).")
    (ssl
     :initarg :ssl
     :initform nil

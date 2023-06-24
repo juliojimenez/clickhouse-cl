@@ -89,7 +89,7 @@ If that doesn't work, checkout this [StackExchange](https://superuser.com/questi
 | Name | Accessor | Default | Description |
 | ---- | -------- | ------- | ----------- |
 | host | y | localhost | Database hostname |
-| port | y | 8123 | Database port, i.e. 8443 or 8123 |
+| port | y | 8123 | Database port, i.e. 8443, 8123, 9000, or 9440 |
 | ssl | y | nil | SSL option, boolean, t or nil. |
 | username | y | default | Database username |
 | password | y | nil | Database password |
