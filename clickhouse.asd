@@ -2,17 +2,19 @@
   :description "Common Lisp ClickHouse Client Library"
   :author "julio@clickhouse.com"
   :license "Apache-2.0"
-  :version "0.43.0"
+  :version "0.44.0"
   :depends-on (#:boost-json
 	             #:dexador
 	             #:lexer
-	             #:cl-ppcre)
+	             #:cl-ppcre
+               #:usocket)
   :components ((:module "src"
 		            :components
 		            ((:file "utils" :depends-on ("ch-sql-parser"))
                  (:file "ch-sql-parser")
                  (:file "http")
-                 (:file "clickhouse" :depends-on ("http" "ch-sql-parser")))))
+                 (:file "tcp")
+                 (:file "clickhouse" :depends-on ("tcp" "http" "ch-sql-parser")))))
   :in-order-to ((test-op (test-op "clickhouse-test"))))
 
 (asdf:defsystem #:clickhouse/ci

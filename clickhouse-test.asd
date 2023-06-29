@@ -2,7 +2,7 @@
   :description "clickhouse Tests"
   :author "julio@clickhouse.com"
   :license  "Apache-2.0"
-  :version "0.0.28"
+  :version "0.0.29"
   :depends-on (#:clickhouse
 	             #:fiveam)
   :components ((:module "t"

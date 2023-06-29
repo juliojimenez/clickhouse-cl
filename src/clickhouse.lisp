@@ -53,11 +53,13 @@
 (defmethod ping ((obj database) &key ping console)
   "Pings the database server."
   (with-slots ((h host) (p port) (s ssl)) obj
-    (prettify
-      (if (ver ping)
-	 (http-get h p s "/ping")
-	 (http-get h p s "/"))
-     :console console)))
+    (if (< p 9000)
+      (prettify
+        (if (ver ping)
+          (http-get h p s "/ping")
+          (http-get h p s "/"))
+        :console console)
+      (print "Not implemented yet for Native Protocol"))))
 
 (defgeneric replicas-status (obj &key)
   (:documentation "Get replicas status."))
@@ -65,10 +67,12 @@
 (defmethod replicas-status ((obj database) &key console verbose)
   "Get replicas status."
   (with-slots ((h host) (p port) (s ssl)) obj
-    (prettify
-      (cond (verbose (http-get h p s "/replicas_status?verbose=1"))
-            (t       (http-get h p s "/replicas_status")))
-      :console console)))
+    (if (< p 9000)
+      (prettify
+        (cond (verbose (http-get h p s "/replicas_status?verbose=1"))
+              (t       (http-get h p s "/replicas_status")))
+        :console console)
+      (print "Not implemented yet for Native Protocol"))))
 
 (defgeneric query (obj query &key)
   (:documentation "Execute a query."))
@@ -76,9 +80,11 @@
 (defmethod query ((obj database) query &key console no-format timeout)
   "Execute a query."
   (with-slots ((h host) (p port) (s ssl) (u username) (w password)) obj
-    (prettify
-     (http-post h p s u w (make-query query) timeout)
-     :console console :formatting (if no-format nil clickhouse.ch-sql-parser:*format*))))
+    (if (< p 9000)
+      (prettify
+        (http-post h p s u w (make-query query) timeout)
+        :console console :formatting (if no-format nil clickhouse.ch-sql-parser:*format*))
+      (print "Not implemented yet for Native Protocol"))))
 
 (defmacro jget (obj key)
   "Get JSON value."
