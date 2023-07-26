@@ -11,9 +11,13 @@
                 :ver)
   (:import-from :cl-ppcre
                 :regex-replace)
+  (:import-from :usocket
+                :socket-connect
+                :socket-stream)
   (:export :database
            :input-parameters
            :jget
+           :connect
            :ping
            :query
            :replicas-status))
@@ -46,6 +50,20 @@
     :initform nil
     :accessor password
     :documentation "Clickhouse database password.")))
+
+(defparameter *socket* nil)
+(defparameter *stream* nil)
+
+(defgeneric connect (obj)
+  (:documentation "Connect to ClickHouse Native"))
+
+(defmethod connect ((obj database))
+  (with-slots ((h host) (p port) (s ssl) (u username) (w password)) obj
+    (setq *socket* (usocket:socket-connect h p))
+    (setq *stream* (usocket:socket-stream *socket*))
+    (hello u w)
+    (loop :while (listen *stream*) 
+          :do (write-char (read-char *stream*)))))
 
 (defgeneric ping (obj &key)
   (:documentation "Pings the database server."))
@@ -95,3 +113,14 @@
     (dolist (in input)
       (setf new-query (regex-replace "\\$i" new-query in)))
     (values new-query)))
+
+(defun hello (u w)
+  (write-byte 0 *stream*)
+  (write-string "clickhouse-cl" *stream*)
+  (write-byte 0 *stream*)
+  (write-byte 44 *stream*)
+  (write-byte 54464 *stream*)
+  (write-string "default" *stream*)
+  (write-string u *stream*)
+  (write-string w *stream*)
+  (force-output *stream*))
