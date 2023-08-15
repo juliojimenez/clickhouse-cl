@@ -8,12 +8,15 @@
                 :http-post)
   (:import-from :clickhouse.utils
                 :prettify
+                :string-to-list
                 :ver)
   (:import-from :cl-ppcre
                 :regex-replace)
   (:import-from :usocket
                 :socket-connect
-                :socket-stream)
+                :socket-stream
+                :wait-for-input
+                :listen)
   (:export :database
            :input-parameters
            :jget
@@ -47,7 +50,7 @@
     :documentation "ClickHouse database username, default username is default.")
    (password
     :initarg :password
-    :initform nil
+    :initform ""
     :accessor password
     :documentation "Clickhouse database password.")))
 
@@ -62,8 +65,10 @@
     (setq *socket* (usocket:socket-connect h p :element-type '(unsigned-byte 8)))
     (setq *stream* (usocket:socket-stream *socket*))
     (hello u w)
-    (loop :while (listen *stream*) 
-          :do (write-char (read-char *stream*)))))
+    ;; (usocket:wait-for-input (list *socket*) :timeout 5)
+    (loop for c = (read-byte *stream* nil nil)
+          while (listen *stream*)
+          do (print c))))
 
 (defgeneric ping (obj &key)
   (:documentation "Pings the database server."))
@@ -115,27 +120,31 @@
     (values new-query)))
 
 (defun hello (u w)
-  (let ((client-char-list (string-to-list "clickhouse-cl"))
-        (db-char-list (string-to-list "default"))
+  (let* ((client-char-list (string-to-list "clickHouse-cl"))
+        (db-char-list (string-to-list ""))
         (user-char-list (string-to-list u))
         (pass-char-list (string-to-list w)))
   (write-byte 0 *stream*)
+  (write-byte (length client-char-list) *stream*)
   (dolist (character client-char-list)
-    (let ((charcode (char-code character))
-      (write-byte charcode *stream*))))
+    (let ((charcode (char-code character)))
+      (write-byte charcode *stream*)))
   (write-byte 0 *stream*)
   (write-byte 44 *stream*)
-  (write-byte (ldb (byte 4 12) 54464) *stream*)
-  (write-byte (ldb (byte 4 8) 54464) *stream*)
-  (write-byte (ldb (byte 4 4) 54464) *stream*)
-  (write-byte (ldb (byte 4 0) 54464) *stream*)
-  (dolist (character db-char-list)
-    (let ((charcode (char-code character))
-      (write-byte charcode *stream*))))
+  (write-byte (ldb (byte 8 8) 54465) *stream*)
+  (write-byte (ldb (byte 8 0) 54465) *stream*)
+  (write-byte 3 *stream*)
+  (if (> (length db-char-list) 0)
+      (dolist (character db-char-list)
+        (let ((charcode (char-code character)))
+          (write-byte charcode *stream*)))
+      (write-byte 0 *stream*))
+  (write-byte (length u) *stream*)
   (dolist (character user-char-list)
-    (let ((charcode (char-code character))
-      (write-byte charcode *stream*))))
+    (let ((charcode (char-code character)))
+      (write-byte charcode *stream*)))
+  (write-byte (length w) *stream*)
   (dolist (character pass-char-list)
-    (let ((charcode (char-code character))
-      (write-byte charcode *stream*))))
+    (let ((charcode (char-code character)))
+      (write-byte charcode *stream*)))
   (force-output *stream*)))

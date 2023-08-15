@@ -216,6 +216,9 @@
     (vector-push-extend #\Newline new-border)
     (values new-border)))
 
+(defun string-to-list (s)
+  (coerce s 'list))
+
 (defun tab-separated-formatter (input)
   "Process TabSeparated format into a list of lists."
 	(let ((tab-separated))
