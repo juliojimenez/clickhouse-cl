@@ -6,6 +6,10 @@
 
 (in-package :clickhouse.utils)
 
+(defun client-id (server-hello-response)
+  (car (all-matches-as-strings "[a-f0-9]{12}" server-hello-response))
+)
+
 (defun csv-formatter (input)
 	"Process CSV format into a list of lists."
 	(let ((csv))
@@ -182,9 +186,9 @@
 (defun pretty-formatter-title-row (positions title-row-split)
 	"Formats the title row."
   (let ((new-title-row (make-array 0
-				   :element-type 'character
-				   :fill-pointer 0
-				   :adjustable t)))
+                          :element-type 'character
+                          :fill-pointer 0
+                          :adjustable t)))
     (loop for i from 0 to (car (last positions))
 					when (or (= i 0) (= i (car (last positions))))
 						do (vector-push-extend #\│ new-title-row)
@@ -205,14 +209,14 @@
 				       :fill-pointer 0
 				       :adjustable t)))
     (loop for i from 0 to (car (last positions))
-	  when (= i 0)
-	    do (vector-push-extend start new-border)
-	  when (= i (car (last positions)))
-	    do (vector-push-extend end new-border)
-	  when (and (member i positions) (> i 0) (< i (car (last positions))))
-	    do (vector-push-extend middle new-border)
-	  when (not (member i positions))
-	    do (vector-push-extend line new-border))
+          when (= i 0)
+            do (vector-push-extend start new-border)
+          when (= i (car (last positions)))
+            do (vector-push-extend end new-border)
+          when (and (member i positions) (> i 0) (< i (car (last positions))))
+            do (vector-push-extend middle new-border)
+          when (not (member i positions))
+            do (vector-push-extend line new-border))
     (vector-push-extend #\Newline new-border)
     (values new-border)))
 

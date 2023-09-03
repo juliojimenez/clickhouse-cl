@@ -9,7 +9,8 @@
   (:import-from :clickhouse.utils
                 :prettify
                 :string-to-list
-                :ver)
+                :ver
+                :client-id)
   (:import-from :cl-ppcre
                 :regex-replace)
   (:import-from :usocket
@@ -56,19 +57,30 @@
 
 (defparameter *socket* nil)
 (defparameter *stream* nil)
+(defparameter *client-id* nil)
 
 (defgeneric connect (obj)
-  (:documentation "Connect to ClickHouse Native"))
+  (:documentation "Connect to ClickHouse Binary Protocol"))
 
 (defmethod connect ((obj database))
-  (with-slots ((h host) (p port) (s ssl) (u username) (w password)) obj
-    (setq *socket* (usocket:socket-connect h p :element-type '(unsigned-byte 8)))
-    (setq *stream* (usocket:socket-stream *socket*))
-    (hello u w)
-    ;; (usocket:wait-for-input (list *socket*) :timeout 5)
-    (loop for c = (read-byte *stream* nil nil)
-          while (listen *stream*)
-          do (print c))))
+  "Connect to binary protocol"
+  (let ((raw-response nil)
+        (string-response (make-array 0
+                            :element-type 'character
+                            :fill-pointer 0
+                            :adjustable t)))
+    (with-slots ((h host) (p port) (s ssl) (u username) (w password)) obj
+      (setq *socket* (usocket:socket-connect h p :element-type '(unsigned-byte 8)))
+      (setq *stream* (usocket:socket-stream *socket*))
+      (hello u w)
+      ;; (usocket:wait-for-input (list *socket*) :timeout 5)
+      (setq raw-response (loop for c = (read-byte *stream* nil nil)
+                        while (listen *stream*)
+                        collect c))
+      (dolist (character raw-response)
+        (if (and (> character 31) (< character 128))
+            (vector-push-extend (code-char character) string-response))))
+      (setq *client-id* (client-id string-response))))
 
 (defgeneric ping (obj &key)
   (:documentation "Pings the database server."))
