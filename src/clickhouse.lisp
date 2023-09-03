@@ -73,7 +73,6 @@
       (setq *socket* (usocket:socket-connect h p :element-type '(unsigned-byte 8)))
       (setq *stream* (usocket:socket-stream *socket*))
       (hello u w)
-      ;; (usocket:wait-for-input (list *socket*) :timeout 5)
       (setq raw-response (loop for c = (read-byte *stream* nil nil)
                         while (listen *stream*)
                         collect c))
