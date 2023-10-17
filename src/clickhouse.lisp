@@ -18,6 +18,11 @@
                 :socket-stream
                 :wait-for-input
                 :listen)
+  (:import-from :uuid
+                :make-v4-uuid
+                :socket-stream
+                :wait-for-input
+                :listen)
   (:export :database
            :input-parameters
            :jget
@@ -161,6 +166,10 @@
     (force-output *stream*)))
 
 (defun prepare-query ()
-  (let* (())
+  (let* ((query-id (format nil "~(~a)" (make-v4-uuid)))
+         (query-id-char-list (string-to-list query-id)))
     (write-byte 1 *stream*)
-    ))
+    (write-byte 36 *stream*)
+    (dolist (character query-id-char-list)
+      (let ((charcode (char-code character)))
+        (write-byte charcode *stream*)))))

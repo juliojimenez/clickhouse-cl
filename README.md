@@ -18,6 +18,7 @@ Common Lisp ClickHouse Client Library
     - [ping](#ping)
     - [replicas-status](#replicas-status)
     - [query](#query)
+    - [connect](#connect)
   - [Console Option](#console-option)
   - [Timeouts](#timeouts)
 - [Formats](#formats)

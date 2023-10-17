@@ -7,7 +7,8 @@
 	             #:dexador
 	             #:lexer
 	             #:cl-ppcre
-               #:usocket)
+               #:usocket
+               #:uuid)
   :components ((:module "src"
 		            :components
 		            ((:file "utils" :depends-on ("ch-sql-parser"))
