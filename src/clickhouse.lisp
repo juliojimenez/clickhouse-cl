@@ -80,8 +80,8 @@
       (setq *stream* (usocket:socket-stream *socket*))
       (hello u w)
       (setq raw-response (loop for c = (read-byte *stream* nil nil)
-                        while (listen *stream*)
-                        collect c))
+                               while (listen *stream*)
+                               collect c))
       (dolist (character raw-response)
         (if (and (> character 31) (< character 128))
             (vector-push-extend (code-char character) string-response))))
@@ -124,7 +124,14 @@
       (prettify
         (http-post h p s u w (make-query query) timeout)
         :console console :formatting (if no-format nil clickhouse.ch-sql-parser:*format*))
-      (print "Not implemented yet for Binary Protocol"))))
+      (progn
+        (prepare-query query)
+        (setq raw-response (loop for c = (read-byte *stream* nil nil)
+                                 while (listen *stream*)
+                                 collect c))
+        (dolist (character raw-response)
+          (if (and (> character 31) (< character 128))
+              (vector-push-extend (code-char character) string-response)))))))
 
 (defmacro jget (obj key)
   "Get JSON value."
@@ -203,4 +210,7 @@
     (write-byte 2 *stream*)
     (write-byte 0 *stream*)
     (write-byte (length query-list))
-    ))
+    (dolist (character query-list)
+      (let ((charcode (char-code character)))
+        (write-byte charcode *stream*)))
+    (force-output *stream*)))
