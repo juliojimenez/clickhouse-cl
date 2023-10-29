@@ -167,7 +167,8 @@
     (force-output *stream*)))
 
 (defun prepare-query (query)
-  (let* ((query-id (format nil "~(~a)" (make-v4-uuid)))
+  (let* ((query-list (string-to-list query))
+         (query-id (format nil "~(~a)" (make-v4-uuid)))
          (query-id-char-list (string-to-list query-id))
          (host-ip-char-list (string-to-list "0.0.0.0:0"))
          (client-char-list (string-to-list *client*)))
