@@ -202,4 +202,5 @@
       (write-byte 0 *stream*))
     (write-byte 2 *stream*)
     (write-byte 0 *stream*)
+    (write-byte (length query-list))
     ))
