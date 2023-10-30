@@ -19,10 +19,7 @@
                 :wait-for-input
                 :listen)
   (:import-from :uuid
-                :make-v4-uuid
-                :socket-stream
-                :wait-for-input
-                :listen)
+                :make-v4-uuid)
   (:export :database
            :input-parameters
            :jget
@@ -125,13 +122,20 @@
         (http-post h p s u w (make-query query) timeout)
         :console console :formatting (if no-format nil clickhouse.ch-sql-parser:*format*))
       (progn
-        (prepare-query query)
-        (setq raw-response (loop for c = (read-byte *stream* nil nil)
-                                 while (listen *stream*)
-                                 collect c))
-        (dolist (character raw-response)
-          (if (and (> character 31) (< character 128))
-              (vector-push-extend (code-char character) string-response)))))))
+        (let ((raw-response nil)
+              (string-response (make-array 0
+                                  :element-type 'character
+                                  :fill-pointer 0
+                                  :adjustable t)))
+          (prepare-query query)
+          (setq raw-response (loop for c = (read-byte *stream* nil nil)
+                                  while (listen *stream*)
+                                  collect c))
+          (print raw-response)
+          (dolist (character raw-response)
+            (if (and (> character 31) (< character 128))
+                (vector-push-extend (code-char character) string-response)))
+          (values string-response))))))
 
 (defmacro jget (obj key)
   "Get JSON value."
@@ -145,9 +149,9 @@
 
 (defun hello (u w)
   (let* ((client-char-list (string-to-list *client*))
-        (db-char-list (string-to-list ""))
-        (user-char-list (string-to-list u))
-        (pass-char-list (string-to-list w)))
+         (db-char-list (string-to-list ""))
+         (user-char-list (string-to-list u))
+         (pass-char-list (string-to-list w)))
     (write-byte 0 *stream*)
     (write-byte (length client-char-list) *stream*)
     (dolist (character client-char-list)
@@ -175,7 +179,7 @@
 
 (defun prepare-query (query)
   (let* ((query-list (string-to-list query))
-         (query-id (format nil "~(~a)" (make-v4-uuid)))
+         (query-id (format nil "~(~a~)" (make-v4-uuid)))
          (query-id-char-list (string-to-list query-id))
          (host-ip-char-list (string-to-list "0.0.0.0:0"))
          (client-char-list (string-to-list *client*)))
@@ -209,7 +213,7 @@
       (write-byte 0 *stream*))
     (write-byte 2 *stream*)
     (write-byte 0 *stream*)
-    (write-byte (length query-list))
+    (write-byte (length query-list) *stream*)
     (dolist (character query-list)
       (let ((charcode (char-code character)))
         (write-byte charcode *stream*)))
