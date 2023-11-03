@@ -154,7 +154,9 @@
          (db-char-list (string-to-list ""))
          (user-char-list (string-to-list u))
          (pass-char-list (string-to-list w)))
+    ;; Hello - Client handshake start
     (write-byte 0 *stream*)
+    ;; Client Name - i.e. clickhouse-cl
     (write-byte (length client-char-list) *stream*)
     (dolist (character client-char-list)
       (let ((charcode (char-code character)))
