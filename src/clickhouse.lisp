@@ -57,10 +57,11 @@
     :accessor password
     :documentation "Clickhouse database password.")))
 
-(defparameter *client* "clickhouse-cl")
 (defparameter *socket* nil)
 (defparameter *stream* nil)
+(defparameter *client* "clickhouse-cl")
 (defparameter *client-id* nil)
+(defparameter *major-version* 0)
 
 (defgeneric connect (obj)
   (:documentation "Connect to ClickHouse Binary Protocol"))
@@ -161,7 +162,8 @@
     (dolist (character client-char-list)
       (let ((charcode (char-code character)))
         (write-byte charcode *stream*)))
-    (write-byte 0 *stream*)
+    ;; Major Version
+    (write-byte *major-version* *stream*)
     (write-byte 44 *stream*)
     (write-byte (ldb (byte 8 8) 54465) *stream*)
     (write-byte (ldb (byte 8 0) 54465) *stream*)
