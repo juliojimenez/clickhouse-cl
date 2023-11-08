@@ -62,6 +62,7 @@
 (defparameter *client* "clickhouse-cl")
 (defparameter *client-id* nil)
 (defparameter *major-version* 0)
+(defparameter *minor-version* 44)
 
 (defgeneric connect (obj)
   (:documentation "Connect to ClickHouse Binary Protocol"))
@@ -164,7 +165,8 @@
         (write-byte charcode *stream*)))
     ;; Major Version
     (write-byte *major-version* *stream*)
-    (write-byte 44 *stream*)
+    ;; Minor Version
+    (write-byte *minor-version* *stream*)
     (write-byte (ldb (byte 8 8) 54465) *stream*)
     (write-byte (ldb (byte 8 0) 54465) *stream*)
     (write-byte 3 *stream*)
