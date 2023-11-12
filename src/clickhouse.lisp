@@ -63,6 +63,7 @@
 (defparameter *client-id* nil)
 (defparameter *major-version* 0)
 (defparameter *minor-version* 44)
+(defparameter *revision* 54465)
 
 (defgeneric connect (obj)
   (:documentation "Connect to ClickHouse Binary Protocol"))
@@ -167,9 +168,12 @@
     (write-byte *major-version* *stream*)
     ;; Minor Version
     (write-byte *minor-version* *stream*)
-    (write-byte (ldb (byte 8 8) 54465) *stream*)
-    (write-byte (ldb (byte 8 0) 54465) *stream*)
+    ;; Revision
+    (write-byte (ldb (byte 8 8) *revision*) *stream*)
+    (write-byte (ldb (byte 8 0) *revision*) *stream*)
+    ;; 
     (write-byte 3 *stream*)
+    ;; Database Name
     (if (> (length db-char-list) 0)
         (dolist (character db-char-list)
           (let ((charcode (char-code character)))
