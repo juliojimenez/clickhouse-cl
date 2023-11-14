@@ -171,7 +171,7 @@
     ;; Revision
     (write-byte (ldb (byte 8 8) *revision*) *stream*)
     (write-byte (ldb (byte 8 0) *revision*) *stream*)
-    ;; 
+    ;; What does this 3 mean? Idk.
     (write-byte 3 *stream*)
     ;; Database Name
     (if (> (length db-char-list) 0)
@@ -179,10 +179,12 @@
           (let ((charcode (char-code character)))
             (write-byte charcode *stream*)))
         (write-byte 0 *stream*))
+    ;; User
     (write-byte (length u) *stream*)
     (dolist (character user-char-list)
       (let ((charcode (char-code character)))
         (write-byte charcode *stream*)))
+    ;; Password
     (write-byte (length w) *stream*)
     (dolist (character pass-char-list)
       (let ((charcode (char-code character)))
