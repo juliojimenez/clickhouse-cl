@@ -198,6 +198,7 @@
          (host-ip-char-list (string-to-list "0.0.0.0:0"))
          (client-id-char-list (string-to-list *client-id*))
          (client-char-list (string-to-list *client*)))
+    ;; Query
     (write-byte 1 *stream*)
     (write-byte (length query-id-char-list) *stream*)
     (dolist (character query-id-char-list)
