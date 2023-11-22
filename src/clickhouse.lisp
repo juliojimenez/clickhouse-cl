@@ -200,6 +200,7 @@
          (client-char-list (string-to-list *client*)))
     ;; Query
     (write-byte 1 *stream*)
+    ;; Query ID (UUID)
     (write-byte (length query-id-char-list) *stream*)
     (dolist (character query-id-char-list)
       (let ((charcode (char-code character)))
