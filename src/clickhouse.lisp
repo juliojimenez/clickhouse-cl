@@ -207,6 +207,7 @@
         (write-byte charcode *stream*)))
     ;; Query Kind (None=0, Initial=1, Secondary=2) Should this be 0?
     (write-byte 1 *stream*)
+    ;; Initial User
     (write-byte 0 *stream*)
     (write-byte (length query-id-char-list) *stream*)
     (dolist (character query-id-char-list)
