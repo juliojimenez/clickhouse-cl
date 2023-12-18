@@ -209,6 +209,7 @@
     (write-byte 1 *stream*)
     ;; Initial User
     (write-byte 0 *stream*)
+    ;; Query ID
     (write-byte (length query-id-char-list) *stream*)
     (dolist (character query-id-char-list)
       (let ((charcode (char-code character)))
