@@ -214,6 +214,7 @@
     (dolist (character query-id-char-list)
       (let ((charcode (char-code character)))
         (write-byte charcode *stream*)))
+    ;; Initial Address - 0.0.0.0:0
     (write-byte (length host-ip-char-list) *stream*)
     (dolist (character host-ip-char-list)
       (let ((charcode (char-code character)))
