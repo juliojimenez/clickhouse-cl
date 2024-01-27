@@ -219,8 +219,10 @@
     (dolist (character host-ip-char-list)
       (let ((charcode (char-code character)))
         (write-byte charcode *stream*)))
+    ;; Initial time - 0 
     (dotimes (n 8)
       (write-byte 0 *stream*))
+    ;; TCP Protocol - 1
     (write-byte 1 *stream*)
     (write-byte 0 *stream*)
     (write-byte (length client-id-char-list) *stream*)
