@@ -224,6 +224,7 @@
       (write-byte 0 *stream*))
     ;; TCP Protocol - 1
     (write-byte 1 *stream*)
+    ;; Client Host Name - 0 (as in nada)
     (write-byte 0 *stream*)
     (write-byte (length client-id-char-list) *stream*)
     (dolist (character client-id-char-list)
