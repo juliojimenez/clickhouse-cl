@@ -226,6 +226,7 @@
     (write-byte 1 *stream*)
     ;; Client Host Name - 0 (as in nada)
     (write-byte 0 *stream*)
+    ;; Client Name - set by hello
     (write-byte (length client-id-char-list) *stream*)
     (dolist (character client-id-char-list)
       (let ((charcode (char-code character)))
