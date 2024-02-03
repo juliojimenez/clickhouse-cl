@@ -219,7 +219,7 @@
     (dolist (character host-ip-char-list)
       (let ((charcode (char-code character)))
         (write-byte charcode *stream*)))
-    ;; Initial time - 0 
+    ;; Initial time - 0
     (dotimes (n 8)
       (write-byte 0 *stream*))
     ;; TCP Protocol - 1
@@ -231,6 +231,7 @@
     (dolist (character client-id-char-list)
       (let ((charcode (char-code character)))
         (write-byte charcode *stream*)))
+    ;; Client Name - clickhouse-cl
     (write-byte (length client-char-list) *stream*)
     (dolist (character client-char-list)
       (let ((charcode (char-code character)))
