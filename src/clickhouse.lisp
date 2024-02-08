@@ -236,8 +236,11 @@
     (dolist (character client-char-list)
       (let ((charcode (char-code character)))
         (write-byte charcode *stream*)))
+    ;; Client Major Version - 0
     (write-byte 0 *stream*)
+    ;; Client Minor Version - 44
     (write-byte 44 *stream*)
+    ;; Client Revision - 54465
     (write-byte (ldb (byte 8 8) 54465) *stream*)
     (write-byte (ldb (byte 8 0) 54465) *stream*)
     (write-byte 3 *stream*)
