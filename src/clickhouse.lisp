@@ -59,11 +59,11 @@
 
 (defparameter *socket* nil)
 (defparameter *stream* nil)
-(defparameter *client* "clickhouse-cl")
+(defparameter *client* "clickhouse-cl    ")
 (defparameter *client-id* nil)
-(defparameter *major-version* 0)
-(defparameter *minor-version* 44)
-(defparameter *revision* 54465)
+(defparameter *major-version* 24)
+(defparameter *minor-version* 1)
+(defparameter *revision* 49833)
 
 (defgeneric connect (obj)
   (:documentation "Connect to ClickHouse Binary Protocol"))
@@ -139,8 +139,7 @@
           (dolist (character raw-response)
             (if (and (> character 31) (< character 128))
                 (vector-push-extend (code-char character) string-response)))
-          (print string-response)
-          (setq *client-id* string-response))))))
+          (print string-response))))))
 
 (defmacro jget (obj key)
   "Get JSON value."
@@ -236,17 +235,17 @@
     (dolist (character client-char-list)
       (let ((charcode (char-code character)))
         (write-byte charcode *stream*)))
-    ;; Client Major Version - 0
-    (write-byte 0 *stream*)
-    ;; Client Minor Version - 44
-    (write-byte 44 *stream*)
-    ;; Client Revision - 54465
-    (write-byte (ldb (byte 8 8) 54465) *stream*)
-    (write-byte (ldb (byte 8 0) 54465) *stream*)
+    ;; Client Major Version
+    (write-byte *major-version* *stream*)
+    ;; Client Minor Version
+    (write-byte *minor-version* *stream*)
+    ;; Client Revision
+    (write-byte (ldb (byte 8 8) *revision*) *stream*)
+    (write-byte (ldb (byte 8 0) *revision*) *stream*)
     (write-byte 3 *stream*)
     (dotimes (n 2)
       (write-byte 0 *stream*))
-    (write-byte 4 *stream*)
+    (write-byte 5 *stream*)
     (dotimes (n 6)
       (write-byte 0 *stream*))
     (write-byte 2 *stream*)
