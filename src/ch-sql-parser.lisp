@@ -137,6 +137,9 @@
   ("IN"                     (values :in))
   ("In"                     (values :in))
   ("in"                     (values :in))
+  ("INFILE"                 (values :infile))
+  ("Infile"                 (values :infile))
+  ("infile"                 (values :infile))
   ("INSERT"                 (values :insert))
   ("Insert"                 (values :insert))
   ("insert"                 (values :insert))
@@ -263,6 +266,7 @@
   ("avg"                    (values :avg))
   ("randomPrintableASCII"   (values :randomprintableascii))
   ("toDecimal128"           (values :todecimal128))
+  ("file"                   (values :file))
   ; table functions
   ("file"                   (values :file))
   ("hdfs"                   (values :hdfs))

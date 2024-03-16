@@ -25,6 +25,21 @@
 		    :read-timeout (if timeout timeout 60))
     (values body)))
 
+(defun http-post-file (host-slot port-slot ssl-slot user-slot pass-slot file table format timeout)
+  "HTTP handler for POSTing files."
+  (multiple-value-bind (body status response-header uri stream)
+      (post (clickhouse.utils:format-url 
+              host-slot 
+              port-slot 
+              ssl-slot 
+              (format nil "/?query=INSERT+INTO+~a+FORMAT+~a" table format))
+        :basic-auth (user-pass user-slot pass-slot)
+		    :content (dexador.backend.multipart:make-multipart-form-data
+                   (list (dexador.backend.multipart:make-form-data-file "file" file)))
+		    :force-string t
+		    :read-timeout (if timeout timeout 60))
+    (values body)))
+
 (defun user-pass (user pass)
   (if (and user pass)
       (cons user pass)
