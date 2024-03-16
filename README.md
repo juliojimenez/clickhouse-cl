@@ -246,6 +246,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [PrettySpaceNoEscapes](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapes) || :heavy_check_mark: || Best viewed with `:console t` |
 | [PrettySpaceMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacemonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
 | [PrettySpaceNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapesmonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
+| [Parquet](https://clickhouse.com/docs/en/sql-reference/formats#data-format-parquet) | :heavy_check_mark: ||||
 | [LineAsString](https://clickhouse.com/docs/en/interfaces/formats/#lineasstring) | :heavy_check_mark: ||||
 | [Markdown](https://clickhouse.com/docs/en/interfaces/formats/#markdown) || :heavy_check_mark: || Best viewed with `:console t` |
 
