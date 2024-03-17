@@ -4,7 +4,8 @@
   (:shadowing-import-from "DEXADOR" "POST")
   (:shadowing-import-from "DEXADOR" "DELETE")
   (:export :http-get
-           :http-post))
+           :http-post
+           :http-post-file))
   
 (in-package :clickhouse.http)
 
@@ -34,8 +35,7 @@
               ssl-slot 
               (format nil "/?query=INSERT+INTO+~a+FORMAT+~a" table format))
         :basic-auth (user-pass user-slot pass-slot)
-		    :content (dexador.backend.multipart:make-multipart-form-data
-                   (list (dexador.backend.multipart:make-form-data-file "file" file)))
+		    :content (pathname file)
 		    :force-string t
 		    :read-timeout (if timeout timeout 60))
     (values body)))
