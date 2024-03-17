@@ -5,13 +5,15 @@
                 :make-query)
   (:import-from :clickhouse.http
                 :http-get
-                :http-post)
+                :http-post
+                :http-post-file)
   (:import-from :clickhouse.utils
                 :prettify
                 :ver)
   (:import-from :cl-ppcre
                 :regex-replace)
   (:export :database
+           :infile
            :input-parameters
            :jget
            :ping
@@ -78,6 +80,16 @@
   (with-slots ((h host) (p port) (s ssl) (u username) (w password)) obj
     (prettify
      (http-post h p s u w (make-query query) timeout)
+     :console console :formatting (if no-format nil clickhouse.ch-sql-parser:*format*))))
+
+(defgeneric infile (obj file table format &key)
+  (:documentation "Insert file to a table."))
+
+(defmethod infile ((obj database) file table format &key console no-format timeout)
+  "Insert file to a table."
+  (with-slots ((h host) (p port) (s ssl) (u username) (w password)) obj
+    (prettify
+     (http-post-file h p s u w file table format timeout)
      :console console :formatting (if no-format nil clickhouse.ch-sql-parser:*format*))))
 
 (defmacro jget (obj key)

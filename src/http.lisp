@@ -4,7 +4,8 @@
   (:shadowing-import-from "DEXADOR" "POST")
   (:shadowing-import-from "DEXADOR" "DELETE")
   (:export :http-get
-           :http-post))
+           :http-post
+           :http-post-file))
   
 (in-package :clickhouse.http)
 
@@ -21,6 +22,20 @@
       (post (clickhouse.utils:format-url host-slot port-slot ssl-slot "")
         :basic-auth (user-pass user-slot pass-slot)
 		    :content content
+		    :force-string t
+		    :read-timeout (if timeout timeout 60))
+    (values body)))
+
+(defun http-post-file (host-slot port-slot ssl-slot user-slot pass-slot file table format timeout)
+  "HTTP handler for POSTing files."
+  (multiple-value-bind (body status response-header uri stream)
+      (post (clickhouse.utils:format-url 
+              host-slot 
+              port-slot 
+              ssl-slot 
+              (format nil "/?query=INSERT+INTO+~a+FORMAT+~a" table format))
+        :basic-auth (user-pass user-slot pass-slot)
+		    :content (pathname file)
 		    :force-string t
 		    :read-timeout (if timeout timeout 60))
     (values body)))

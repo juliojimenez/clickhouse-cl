@@ -125,14 +125,14 @@ Reading and setting a slot.
 ch:ping *obj* :ping *bool* :console *bool*
 
 ```lisp
-> (ch::ping *db*)
+> (ch:ping *db*)
 "Ok."
 ```
 
 The `:ping t` keyword parameter explicitly calls the instance `/ping` endpoint.
 
 ```lisp
-> (ch::ping *db* :ping t)
+> (ch:ping *db* :ping t)
 "Ok."
 ```
 
@@ -141,7 +141,7 @@ The `:ping t` keyword parameter explicitly calls the instance `/ping` endpoint.
 ch:replicas-status *obj* :console *bool* :verbose *bool*
 
 ```lisp
-> (ch::replicas-status *db*)
+> (ch:replicas-status *db*)
 "Ok."
 ```
 
@@ -150,8 +150,16 @@ ch:replicas-status *obj* :console *bool* :verbose *bool*
 ch:query *obj* *query* :console *bool* :no-format *bool* :timeout *int*
 
 ```lisp
-> (ch::query *db* "SELECT 1")
+> (ch:query *db* "SELECT 1")
 "1"
+```
+
+#### infile
+
+ch:infile *obj* *file* *table* *format* :no-format *bool* :timeout *int*
+
+```lisp
+> (ch:infile *db* "/Users/path/example.parquet" "sometable" "Parquet")
 ```
 
 ### Console Option
@@ -246,6 +254,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [PrettySpaceNoEscapes](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapes) || :heavy_check_mark: || Best viewed with `:console t` |
 | [PrettySpaceMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacemonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
 | [PrettySpaceNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapesmonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
+| [Parquet](https://clickhouse.com/docs/en/sql-reference/formats#data-format-parquet) | :heavy_check_mark: ||||
 | [LineAsString](https://clickhouse.com/docs/en/interfaces/formats/#lineasstring) | :heavy_check_mark: ||||
 | [Markdown](https://clickhouse.com/docs/en/interfaces/formats/#markdown) || :heavy_check_mark: || Best viewed with `:console t` |
 
