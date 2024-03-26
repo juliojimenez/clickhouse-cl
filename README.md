@@ -18,6 +18,7 @@ Common Lisp ClickHouse Client Library
     - [ping](#ping)
     - [replicas-status](#replicas-status)
     - [query](#query)
+    - [infile](#infile)
   - [Console Option](#console-option)
   - [Timeouts](#timeouts)
 - [Formats](#formats)
@@ -222,6 +223,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [CSVWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#csvwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
 | [SQLInsert](https://clickhouse.com/docs/en/interfaces/formats/#sqlinsert) || :heavy_check_mark: | string ||
 | [Values](https://clickhouse.com/docs/en/interfaces/formats#data-format-values) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
+| [Vertical](https://clickhouse.com/docs/en/sql-reference/formats#vertical) || :heavy_check_mark: |||
 | [JSON](https://clickhouse.com/docs/en/interfaces/formats/#json) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
 | [JSONAsString](https://clickhouse.com/docs/en/interfaces/formats/#jsonasstring) | :heavy_check_mark: ||||
 | [JSONStrings](https://clickhouse.com/docs/en/interfaces/formats/#jsonstrings) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
