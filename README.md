@@ -259,6 +259,7 @@ clickhouse-cl supports automatic input and output format processing for the form
 | [Parquet](https://clickhouse.com/docs/en/sql-reference/formats#data-format-parquet) | :heavy_check_mark: ||||
 | [ParquetMetadata](https://clickhouse.com/docs/en/sql-reference/formats#parquetmetadata-data-format-parquet-metadata) | :heavy_check_mark: ||||
 | [Null](https://clickhouse.com/docs/en/sql-reference/formats#null) || :heavy_check_mark: |||
+| [XML](https://clickhouse.com/docs/en/sql-reference/formats#xml) || :heavy_check_mark: | string | Best viewed with `:console t` |
 | [LineAsString](https://clickhouse.com/docs/en/interfaces/formats/#lineasstring) | :heavy_check_mark: | :heavy_check_mark: | string ||
 | [Markdown](https://clickhouse.com/docs/en/interfaces/formats/#markdown) || :heavy_check_mark: || Best viewed with `:console t` |
 
