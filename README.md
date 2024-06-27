@@ -210,58 +210,59 @@ The default *query* method timeout is 60 seconds. Use the `:timeout seconds` key
 
 clickhouse-cl supports automatic input and output format processing for the formats below. If such processing is not desired, the keyword parameter `:no-format t` is added to the [**query**](#query) method.
 
-| Format | Input | Output | Result | Functions |
-| ------ | ----- | ------ | ------ | --------- |
-| [TabSeparated](https://clickhouse.com/docs/en/interfaces/formats/#tabseparated) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| [TabSeparatedRaw](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedraw) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| [TabSeparatedWithNames](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| [TabSeparatedWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| [TabSeparatedRawWithNames](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedrawwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| [TabSeparatedRawWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedrawwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| [CSV](https://clickhouse.com/docs/en/interfaces/formats/#csv) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| [CSVWithNames](https://clickhouse.com/docs/en/interfaces/formats/#csvwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| [CSVWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#csvwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| [SQLInsert](https://clickhouse.com/docs/en/interfaces/formats/#sqlinsert) || :heavy_check_mark: | string ||
-| [Values](https://clickhouse.com/docs/en/interfaces/formats#data-format-values) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) ||
-| [Vertical](https://clickhouse.com/docs/en/sql-reference/formats#vertical) || :heavy_check_mark: |||
-| [JSON](https://clickhouse.com/docs/en/interfaces/formats/#json) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONAsString](https://clickhouse.com/docs/en/interfaces/formats/#jsonasstring) | :heavy_check_mark: ||||
-| [JSONStrings](https://clickhouse.com/docs/en/interfaces/formats/#jsonstrings) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONColumns](https://clickhouse.com/docs/en/interfaces/formats/#jsoncolumns) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONColumnsWithMetadata](https://clickhouse.com/docs/en/interfaces/formats/#jsoncolumnswithmetadata) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONCompact](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompact) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONCompactStrings](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstrings) || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONCompactColumns](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactcolumns) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsoneachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONEachRowWithProgress](https://clickhouse.com/docs/en/interfaces/formats/#jsoneachrowwithprogress) || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONStringsEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsonstringseachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONStringsEachRowWithProgress](https://clickhouse.com/docs/en/interfaces/formats/#jsonstringseachrowwithprogress) || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONCompactEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompacteachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONCompactEachRowWithNames](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompacteachrowwithnames) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONCompactEachRowWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompacteachrowwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONCompactStringsEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstringseachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONCompactStringsEachRowWithNames](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstringseachrowwithnames) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONCompactStringsEachRowWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstringseachrowwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [JSONObjectEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsonobjecteachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT | jget *obj* *key* |
-| [TSKV](https://clickhouse.com/docs/en/interfaces/formats#tskv) | :heavy_check_mark: | :heavy_check_mark: | '('('(k . v)*)*) ||
-| [Pretty](https://clickhouse.com/docs/en/interfaces/formats/#pretty) || :heavy_check_mark: || Best viewed with `:console t` |
-| [PrettyNoEscapes](https://clickhouse.com/docs/en/interfaces/formats#prettynoescapes) || :heavy_check_mark: || Best viewed with `:console t` |
-| [PrettyMonoBlock](https://clickhouse.com/docs/en/interfaces/formats#prettymonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
-| [PrettyNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats#prettynoescapesmonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
-| [PrettyCompact](https://clickhouse.com/docs/en/interfaces/formats#prettycompact) || :heavy_check_mark: || Best viewed with `:console t` |
-| [PrettyCompactNoEscapes](https://clickhouse.com/docs/en/interfaces/formats/#prettycompactnoescapes) || :heavy_check_mark: || Best viewed with `:console t` |
-| [PrettyCompactMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettycompactmonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
-| [PrettyCompactNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettycompactnoescapesmonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
-| [PrettySpace](https://clickhouse.com/docs/en/interfaces/formats/#prettyspace) || :heavy_check_mark: || Best viewed with `:console t` |
-| [PrettySpaceNoEscapes](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapes) || :heavy_check_mark: || Best viewed with `:console t` |
-| [PrettySpaceMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacemonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
-| [PrettySpaceNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapesmonoblock) || :heavy_check_mark: || Best viewed with `:console t` |
-| [Parquet](https://clickhouse.com/docs/en/sql-reference/formats#data-format-parquet) | :heavy_check_mark: ||||
-| [ParquetMetadata](https://clickhouse.com/docs/en/sql-reference/formats#parquetmetadata-data-format-parquet-metadata) | :heavy_check_mark: ||||
-| [Null](https://clickhouse.com/docs/en/sql-reference/formats#null) || :heavy_check_mark: |||
-| [XML](https://clickhouse.com/docs/en/sql-reference/formats#xml) || :heavy_check_mark: | string | Best viewed with `:console t` |
-| [LineAsString](https://clickhouse.com/docs/en/interfaces/formats/#lineasstring) | :heavy_check_mark: | :heavy_check_mark: | string ||
-| [Markdown](https://clickhouse.com/docs/en/interfaces/formats/#markdown) || :heavy_check_mark: || Best viewed with `:console t` |
+| Format | Input | Output | Result |
+| ------ | ----- | ------ | ------ |
+| [TabSeparated](https://clickhouse.com/docs/en/interfaces/formats/#tabseparated) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) |
+| [TabSeparatedRaw](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedraw) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) |
+| [TabSeparatedWithNames](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) |
+| [TabSeparatedWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) |
+| [TabSeparatedRawWithNames](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedrawwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) |
+| [TabSeparatedRawWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#tabseparatedrawwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) |
+| [Template](https://clickhouse.com/docs/en/sql-reference/formats#format-template) | :heavy_check_mark: | :heavy_check_mark: | string |
+| [CSV](https://clickhouse.com/docs/en/interfaces/formats/#csv) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) |
+| [CSVWithNames](https://clickhouse.com/docs/en/interfaces/formats/#csvwithnames) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) |
+| [CSVWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#csvwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) |
+| [SQLInsert](https://clickhouse.com/docs/en/interfaces/formats/#sqlinsert) || :heavy_check_mark: | string |
+| [Values](https://clickhouse.com/docs/en/interfaces/formats#data-format-values) | :heavy_check_mark: | :heavy_check_mark: | '('(string*)*) |
+| [Vertical](https://clickhouse.com/docs/en/sql-reference/formats#vertical) || :heavy_check_mark: | string |
+| [JSON](https://clickhouse.com/docs/en/interfaces/formats/#json) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONAsString](https://clickhouse.com/docs/en/interfaces/formats/#jsonasstring) | :heavy_check_mark: || string |
+| [JSONStrings](https://clickhouse.com/docs/en/interfaces/formats/#jsonstrings) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONColumns](https://clickhouse.com/docs/en/interfaces/formats/#jsoncolumns) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONColumnsWithMetadata](https://clickhouse.com/docs/en/interfaces/formats/#jsoncolumnswithmetadata) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONCompact](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompact) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONCompactStrings](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstrings) || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONCompactColumns](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactcolumns) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsoneachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONEachRowWithProgress](https://clickhouse.com/docs/en/interfaces/formats/#jsoneachrowwithprogress) || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONStringsEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsonstringseachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONStringsEachRowWithProgress](https://clickhouse.com/docs/en/interfaces/formats/#jsonstringseachrowwithprogress) || :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONCompactEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompacteachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONCompactEachRowWithNames](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompacteachrowwithnames) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONCompactEachRowWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompacteachrowwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONCompactStringsEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstringseachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONCompactStringsEachRowWithNames](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstringseachrowwithnames) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONCompactStringsEachRowWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats/#jsoncompactstringseachrowwithnamesandtypes) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [JSONObjectEachRow](https://clickhouse.com/docs/en/interfaces/formats/#jsonobjecteachrow) | :heavy_check_mark: | :heavy_check_mark: | BOOST-JSON:JSON-OBJECT |
+| [TSKV](https://clickhouse.com/docs/en/interfaces/formats#tskv) | :heavy_check_mark: | :heavy_check_mark: | '('('(k . v)*)*) |
+| [Pretty](https://clickhouse.com/docs/en/interfaces/formats/#pretty) || :heavy_check_mark: | string |
+| [PrettyNoEscapes](https://clickhouse.com/docs/en/interfaces/formats#prettynoescapes) || :heavy_check_mark: | string |
+| [PrettyMonoBlock](https://clickhouse.com/docs/en/interfaces/formats#prettymonoblock) || :heavy_check_mark: | string |
+| [PrettyNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats#prettynoescapesmonoblock) || :heavy_check_mark: | string |
+| [PrettyCompact](https://clickhouse.com/docs/en/interfaces/formats#prettycompact) || :heavy_check_mark: | string |
+| [PrettyCompactNoEscapes](https://clickhouse.com/docs/en/interfaces/formats/#prettycompactnoescapes) || :heavy_check_mark: | string |
+| [PrettyCompactMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettycompactmonoblock) || :heavy_check_mark: | string |
+| [PrettyCompactNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettycompactnoescapesmonoblock) || :heavy_check_mark: | string |
+| [PrettySpace](https://clickhouse.com/docs/en/interfaces/formats/#prettyspace) || :heavy_check_mark: | string |
+| [PrettySpaceNoEscapes](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapes) || :heavy_check_mark: | string |
+| [PrettySpaceMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacemonoblock) || :heavy_check_mark: | string |
+| [PrettySpaceNoEscapesMonoBlock](https://clickhouse.com/docs/en/interfaces/formats/#prettyspacenoescapesmonoblock) || :heavy_check_mark: | string |
+| [Parquet](https://clickhouse.com/docs/en/sql-reference/formats#data-format-parquet) | :heavy_check_mark: |||
+| [ParquetMetadata](https://clickhouse.com/docs/en/sql-reference/formats#parquetmetadata-data-format-parquet-metadata) | :heavy_check_mark: |||
+| [Null](https://clickhouse.com/docs/en/sql-reference/formats#null) || :heavy_check_mark: ||
+| [XML](https://clickhouse.com/docs/en/sql-reference/formats#xml) || :heavy_check_mark: | string |
+| [LineAsString](https://clickhouse.com/docs/en/interfaces/formats/#lineasstring) | :heavy_check_mark: | :heavy_check_mark: | string |
+| [Markdown](https://clickhouse.com/docs/en/interfaces/formats/#markdown) || :heavy_check_mark: | string |
 
 ### Functions
 
