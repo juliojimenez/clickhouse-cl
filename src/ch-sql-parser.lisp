@@ -309,6 +309,7 @@
   ("%["                     (values :lbracket))
   ("%]"                     (values :rbracket))
   ("%?"                     (values :question))
+  ("%$"                     (values :dollar))
   ; identifiers
   ("%a%w*"                  (values :ident $$))
   ("%a"                     (values :ident $$))
