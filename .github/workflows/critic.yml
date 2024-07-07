@@ -33,7 +33,6 @@ jobs:
 
     - name: Install Dependencies with Qlot
       run: |
-        # qlot update || qlot update
         qlot install
       shell: bash
 
