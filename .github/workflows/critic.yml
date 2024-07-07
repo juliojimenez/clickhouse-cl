@@ -28,9 +28,8 @@ jobs:
     - name: Specify Dependencies in QLFile
       run: |
         echo "" >> qlfile
-        echo "[projects]" >> qlfile
-        echo '40ants/40ants-critic' >> qlfile
-        echo 'eclector' >> qlfile
+        echo 'ultralisp 40ants/40ants-critic' >> qlfile
+        echo 'ultralisp eclector' >> qlfile
       shell: bash
 
     - name: Install Dependencies with Qlot
