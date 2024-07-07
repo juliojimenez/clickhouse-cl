@@ -27,8 +27,7 @@ jobs:
 
     - name: Specify Dependencies in QLFile
       run: |
-        echo "" >> qlfile
-        echo 'ultralisp 40ants/40ants-critic' >> qlfile
+        echo 'ultralisp 40ants-critic' >> qlfile
         echo 'ultralisp eclector' >> qlfile
       shell: bash
 
@@ -39,7 +38,7 @@ jobs:
       shell: bash
 
     - name: Install LISP-CRITIC Wrapper
-      run: qlot exec ros install 40ants/40ants-critic
+      run: qlot exec ros install 40ants-critic
       shell: bash
 
     - name: Run Critic for "clickhouse" system
