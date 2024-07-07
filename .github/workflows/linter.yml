@@ -25,7 +25,7 @@
         },
         {
           "name": "Change dist to Ultralisp if qlfile does not exist",
-          "run": "if [[ ! -e qlfile ]]; then echo 'dist ultralisp http://dist.ultralisp.org' > qlfile; fi",
+          "run": "echo 'dist ultralisp http://dist.ultralisp.org' > qlfile",
           "shell": "bash"
         },
         {
