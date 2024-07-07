@@ -131,7 +131,8 @@
 	 (data-row (fourth clean-split))
 	 (positions (pretty-formatter-positions data-row))
 	 (title-row-split (pretty-formatter-title-row-split title-row))
-	 (clean-split-string))
+	 (clean-split-string)
+	 (clean))
     (setf clean-split (cdddr clean-split))
     (setf clean-split-string (format nil "~{~a~%~}" clean-split))
     (setf clean
