@@ -18,7 +18,7 @@
         },
         {
           "name": "Setup Common Lisp Environment",
-          "uses": "40ants/setup-lisp@v2",
+          "uses": "40ants/setup-lisp@v4",
           "with": {
             "asdf-system": "clickhouse"
           }
