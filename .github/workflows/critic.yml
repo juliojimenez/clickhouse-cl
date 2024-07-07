@@ -27,7 +27,7 @@ jobs:
 
     - name: Specify Dependencies in QLFile
       run: |
-        echo '40ants-critic' >> qlfile
+        echo '40ants/40ants-critic' >> qlfile
         echo 'eclector' >> qlfile
       shell: bash
 
