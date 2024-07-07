@@ -35,7 +35,7 @@
         },
         {
           "name": "Install LISP-CRITIC wrapper",
-          "run": "qlot exec ros install 40ants-critic",
+          "run": "qlot exec ros install 40ants/40ants-critic",
           "shell": "bash"
         },
         {
