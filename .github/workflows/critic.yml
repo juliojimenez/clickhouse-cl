@@ -27,12 +27,16 @@ jobs:
 
     - name: Specify Dependencies in QLFile
       run: |
+        echo "" >> qlfile
+        echo "[projects]" >> qlfile
         echo '40ants/40ants-critic' >> qlfile
         echo 'eclector' >> qlfile
       shell: bash
 
     - name: Install Dependencies with Qlot
-      run: qlot install
+      run: |
+        qlot update || qlot update
+        qlot install
       shell: bash
 
     - name: Install LISP-CRITIC Wrapper
