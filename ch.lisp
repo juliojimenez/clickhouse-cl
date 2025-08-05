@@ -154,3 +154,89 @@
   "Get value from JSON object (alist) by key string."
   (cdr (assoc key object :test #'string=)))
 
+;;;; Simple HTTP Client (replaces dexador)
+
+(defun make-http-request (method host port path &key content headers ssl timeout)
+  "Make HTTP request. Returns response body as string."
+  (declare (ignore ssl timeout)) ; TODO: implement SSL and timeout
+  (let ((socket nil)
+        (stream nil))
+    (unwind-protect
+        (progn
+          ;; Create socket based on Lisp implementation
+          #+sbcl
+          (progn
+            (setf socket (make-instance 'sb-bsd-sockets:inet-socket
+                                       :type :stream
+                                       :protocol :tcp))
+            (sb-bsd-sockets:socket-connect socket
+                                          (sb-bsd-sockets:host-ent-address
+                                           (sb-bsd-sockets:get-host-by-name host))
+                                          port)
+            (setf stream (sb-bsd-sockets:socket-make-stream socket
+                                                          :input t
+                                                          :output t
+                                                          :element-type 'character)))
+          #+ccl
+          (setf stream (ccl:make-socket :remote-host host :remote-port port))
+          
+          #+ecl
+          (setf stream (ext:make-socket-stream host port))
+          
+          #+clisp
+          (setf stream (socket:socket-connect port host))
+          
+          #-(or sbcl ccl ecl clisp)
+          (error "HTTP client not implemented for this Lisp implementation")
+          
+          ;; Send HTTP request
+          (format stream "~A ~A HTTP/1.1~C~C" method path #\Return #\Linefeed)
+          (format stream "Host: ~A~C~C" host #\Return #\Linefeed)
+          (format stream "Connection: close~C~C" #\Return #\Linefeed)
+          (format stream "User-Agent: clickhouse-cl/1.0~C~C" #\Return #\Linefeed)
+          
+          ;; Add custom headers
+          (dolist (header headers)
+            (format stream "~A: ~A~C~C" (car header) (cdr header) #\Return #\Linefeed))
+          
+          ;; Add content if present
+          (when content
+            (let ((content-length (length content)))
+              (format stream "Content-Length: ~D~C~C" content-length #\Return #\Linefeed)
+              (format stream "Content-Type: text/plain; charset=utf-8~C~C" #\Return #\Linefeed)))
+          
+          (format stream "~C~C" #\Return #\Linefeed) ; End headers
+          
+          ;; Send body
+          (when content
+            (write-string content stream))
+          
+          (force-output stream)
+          
+          ;; Read response
+          (let ((status-line (read-line stream nil nil)))
+            (unless (and status-line (search "200" status-line))
+              (error 'connection-error 
+                     :message (format nil "HTTP Error: ~A" (or status-line "No response")))))
+          
+          ;; Skip headers
+          (loop for line = (read-line stream nil nil)
+                while (and line 
+                          (> (length line) 0) 
+                          (not (string= (string-trim '(#\Return) line) ""))))
+          
+          ;; Read body
+          (let ((body (make-string-output-stream)))
+            (loop for line = (read-line stream nil nil)
+                  while line
+                  do (progn
+                       (write-string line body)
+                       (write-char #\Newline body)))
+            (get-output-stream-string body)))
+      
+      ;; Cleanup
+      (when stream
+        (ignore-errors (close stream)))
+      #+sbcl
+      (when socket
+        (ignore-errors (sb-bsd-sockets:socket-close socket))))))
