@@ -265,3 +265,24 @@
                        (length upper-query))))
           (string-trim '(#\Space #\Tab #\Newline #\Return)
                       (subseq query start end)))))))
+
+;;;; ============================================================================
+;;;; CONDITIONS (ERROR HANDLING)
+;;;; ============================================================================
+
+(define-condition clickhouse-error (error)
+  ((message :initarg :message :reader clickhouse-error-message))
+  (:report (lambda (condition stream)
+             (format stream "ClickHouse Error: ~A" (clickhouse-error-message condition)))))
+
+(define-condition connection-error (clickhouse-error)
+  ()
+  (:report (lambda (condition stream)
+             (format stream "ClickHouse Connection Error: ~A" (clickhouse-error-message condition)))))
+
+(define-condition query-error (clickhouse-error)
+  ((query :initarg :query :reader query-error-query))
+  (:report (lambda (condition stream)
+             (format stream "ClickHouse Query Error: ~A~%Query: ~A" 
+                    (clickhouse-error-message condition)
+                    (query-error-query condition)))))
