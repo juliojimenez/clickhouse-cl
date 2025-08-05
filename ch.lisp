@@ -240,3 +240,28 @@
       #+sbcl
       (when socket
         (ignore-errors (sb-bsd-sockets:socket-close socket))))))
+
+(defun encode-string-to-octets (string)
+  "Convert string to octets for content-length calculation."
+  #+sbcl (sb-ext:string-to-octets string :external-format :utf-8)
+  #+ccl (ccl:encode-string-to-octets string :external-format :utf-8)
+  #+ecl (ext:string-to-octets string :external-format :utf-8)
+  #+clisp (ext:convert-string-to-bytes string charset:utf-8)
+  #-(or sbcl ccl ecl clisp) (map 'vector #'char-code string))
+
+;;;; Simple Regex Functions (replaces cl-ppcre for basic needs)
+(defun regex-match (pattern string)
+  "Simple regex matching. Returns match position or NIL."
+  (search pattern string :test #'char-equal))
+
+(defun extract-format-from-query (query)
+  "Extract FORMAT clause from SQL query using simple string parsing."
+  (let ((upper-query (string-upcase query)))
+    (let ((format-pos (search "FORMAT " upper-query)))
+      (when format-pos
+        (let* ((start (+ format-pos 7)) ; length of "FORMAT "
+               (end (or (position #\Space upper-query :start start)
+                       (position #\; upper-query :start start)
+                       (length upper-query))))
+          (string-trim '(#\Space #\Tab #\Newline #\Return)
+                      (subseq query start end)))))))
