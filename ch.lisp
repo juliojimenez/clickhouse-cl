@@ -10,8 +10,7 @@
 ;;;; License: Apache-2.0
 ;;;; Version: 0.49.0
 
-(defpackage :clickhouse
-  (:nicknames :ch)
+(defpackage :ch
   (:use :cl)
   (:export
    ;; Database
@@ -32,7 +31,7 @@
    #:connection-error
    #:query-error))
 
-(in-package :clickhouse)
+(in-package :ch)
 
 ;;;; ============================================================================
 ;;;; VENDORED DEPENDENCIES
