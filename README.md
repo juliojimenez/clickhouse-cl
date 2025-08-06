@@ -10,10 +10,8 @@ For users on version 0.48.0 and below, check the [deprecated documentation](#dep
 
 # Loading clickhouse-cl
 
-In your Common Lisp REPL, load clickhouse-cl with...
-
 ```lisp
-cl-user>(load "ch.lisp")
+cl-user> (load "ch.lisp")
  
     ██  ██  ██  ██  λ
     ██  ██  ██  ██
@@ -31,6 +29,8 @@ Usage: (ch:make-database :host "localhost")
 T
 cl-user >
 ```
+
+
 
 ---
 
