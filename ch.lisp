@@ -286,3 +286,73 @@
              (format stream "ClickHouse Query Error: ~A~%Query: ~A" 
                     (clickhouse-error-message condition)
                     (query-error-query condition)))))
+
+;;;; ============================================================================
+;;;; DATABASE CLASS AND OPERATIONS
+;;;; ============================================================================
+
+(defclass database ()
+  ((host :initarg :host :initform "localhost" :accessor database-host
+         :documentation "ClickHouse server hostname")
+   (port :initarg :port :initform 8123 :accessor database-port
+         :documentation "ClickHouse server port")
+   (ssl :initarg :ssl :initform nil :accessor database-ssl
+        :documentation "Use SSL connection")
+   (username :initarg :username :initform "default" :accessor database-username
+             :documentation "Database username")
+   (password :initarg :password :initform nil :accessor database-password
+             :documentation "Database password")
+   (database :initarg :database :initform "default" :accessor database-name
+             :documentation "Database name")
+   (timeout :initarg :timeout :initform 60 :accessor database-timeout
+            :documentation "Query timeout in seconds"))
+  (:documentation "ClickHouse database connection"))
+
+(defun make-database (&key (host "localhost") (port 8123) ssl 
+                          (username "default") password 
+                          (database "default") (timeout 60))
+  "Create a new database connection object."
+  (make-instance 'database 
+                 :host host :port port :ssl ssl
+                 :username username :password password
+                 :database database :timeout timeout))
+
+(defmethod print-object ((db database) stream)
+  (print-unreadable-object (db stream :type t)
+    (format stream "~A:~A/~A" 
+            (database-host db) 
+            (database-port db)
+            (database-name db))))
+
+;;;; ============================================================================
+;;;; HTTP INTERFACE
+;;;; ============================================================================
+
+(defun build-auth-header (username password)
+  "Build HTTP Basic Authentication header."
+  (when (and username password)
+    (let ((credentials (format nil "~A:~A" username password)))
+      (cons "Authorization" 
+            (format nil "Basic ~A" 
+                   #+sbcl (sb-ext:octets-to-string
+                          (sb-ext:string-to-octets credentials :external-format :utf-8))
+                   #-sbcl credentials)))))
+
+(defun make-clickhouse-request (db path &key content (method "GET"))
+  "Make HTTP request to ClickHouse server."
+  (handler-case
+      (let ((headers '()))
+        (let ((auth-header (build-auth-header (database-username db) (database-password db))))
+          (when auth-header
+            (push auth-header headers)))
+        
+        (make-http-request method
+                          (database-host db)
+                          (database-port db)
+                          path
+                          :content content
+                          :headers headers
+                          :ssl (database-ssl db)
+                          :timeout (database-timeout db)))
+    (error (e)
+      (error 'connection-error :message (format nil "~A" e)))))
