@@ -1,3 +1,43 @@
+<img src="logo.png"  width="64" height="64">
+
+# clickhouse-cl
+
+Common Lisp ClickHouse Client Library
+
+For users on version 0.48.0 and below, check the [deprecated documentation](#deprecated) below.
+
+- [Loading clickhouse-cl](#loading-clickhouse-cl)
+
+# Loading clickhouse-cl
+
+```lisp
+cl-user> (load "ch.lisp")
+ 
+    ██  ██  ██  ██  λ
+    ██  ██  ██  ██
+    ██  ██  ██  ██
+    ██  ██  ██  ██  ██
+    ██  ██  ██  ██  ██
+    ██  ██  ██  ██
+    ██  ██  ██  ██
+    ██  ██  ██  ██
+ 
+ClickHouse Common Lisp Client loaded successfully!
+Version: 0.49.0
+Usage: (ch:make-database :host "localhost")
+ 
+T
+cl-user >
+```
+
+
+
+---
+
+<a name="deprecated"></a><h1 style="color: darkred;">The documentation below is relevant to clickhouse-cl version 0.48.0 and below. clickhouse-cl version 0.49.0 and above no longer uses <span style="color: red;">asdf:defsystem</span> to load as a system.</h1>
+
+## This portion of the README is deprecated and will be removed at or around 2027-01-01.
+
 [![CI](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml) [![LINTER](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml) [![CRITIC](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml) [![Release](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/release.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/release.yml)
 
 <img src="logo.png"  width="64" height="64">
