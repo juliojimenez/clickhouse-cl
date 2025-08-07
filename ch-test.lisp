@@ -13,6 +13,8 @@
   (:export #:run-all-tests
            #:run-unit-tests
            #:run-integration-tests
+           #:run-performance-tests
+           #:print-test-summary
            #:example-usage
            #:*test-host*
            #:*test-port*

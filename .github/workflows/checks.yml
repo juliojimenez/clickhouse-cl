@@ -4,22 +4,8 @@ on:
   push:
 
 jobs:
-  unit_tests:
-    runs-on: ubuntu-latest
-    name: Unit Tests
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Install SBCL
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y sbcl
-
-      - name: Run Unit Tests
-        run: make unit-tests
-  integration_tests:
-    name: Integration Tests
+  tests:
+    name: Tests
     runs-on: ubuntu-latest
     
     services: 
@@ -44,5 +30,5 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y sbcl
 
-      - name: Run Integration Tests
-        run: make integration-tests
+      - name: Run Tests
+        run: make all-tests
