@@ -1,3 +1,5 @@
+[![Status Checks](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/checks.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/checks.yml)
+
 <img src="logo.png"  width="64" height="64">
 
 # clickhouse-cl
@@ -37,6 +39,12 @@ or...
 $ sbcl --load ch.lisp
 ```
 
+or...
+
+```bash
+$ make load
+```
+
 ## Tests
 
 ```lisp
@@ -52,6 +60,7 @@ ClickHouse-CL Test Suite Usage:
 (ch-tests:run-all-tests)            ; Run all tests
 (ch-tests:run-unit-tests)           ; Run unit tests only
 (ch-tests:run-integration-tests)    ; Run integration tests
+(ch-tests:run-performance-tests)    ; Run performance tests
 (ch-tests:print-test-summary)       ; Show detailed results
  
 Test Configuration:
