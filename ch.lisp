@@ -155,90 +155,7 @@
 
 ;;;; Simple HTTP Client (replaces dexador)
 
-(defun make-http-request (method host port path &key content headers ssl timeout)
-  "Make HTTP request. Returns response body as string."
-  (declare (ignore ssl timeout)) ; TODO: implement SSL and timeout
-  (let ((socket nil)
-        (stream nil))
-    (unwind-protect
-        (progn
-         ;; Create socket based on Lisp implementation
-         #+sbcl
-         (progn
-          (setf socket (make-instance 'sb-bsd-sockets:inet-socket
-                         :type :stream
-                         :protocol :tcp))
-          (sb-bsd-sockets:socket-connect socket
-            (sb-bsd-sockets:host-ent-address
-              (sb-bsd-sockets:get-host-by-name host))
-            port)
-          (setf stream (sb-bsd-sockets:socket-make-stream socket
-                                                          :input t
-                                                          :output t
-                                                          :element-type 'character)))
-         #+ccl
-         (setf stream (ccl:make-socket :remote-host host :remote-port port))
-
-         #+ecl
-         (setf stream (ext:make-socket-stream host port))
-
-         #+clisp
-         (setf stream (socket:socket-connect port host))
-
-         #-(or sbcl ccl ecl clisp)
-         (error "HTTP client not implemented for this Lisp implementation")
-
-         ;; Send HTTP request
-         (format stream "~A ~A HTTP/1.1~C~C" method path #\Return #\Linefeed)
-         (format stream "Host: ~A~C~C" host #\Return #\Linefeed)
-         (format stream "Connection: close~C~C" #\Return #\Linefeed)
-         (format stream "User-Agent: clickhouse-cl/1.0~C~C" #\Return #\Linefeed)
-
-         ;; Add custom headers
-         (dolist (header headers)
-           (format stream "~A: ~A~C~C" (car header) (cdr header) #\Return #\Linefeed))
-
-         ;; Add content if present
-         (when content
-               (let ((content-length (length content)))
-                 (format stream "Content-Length: ~D~C~C" content-length #\Return #\Linefeed)
-                 (format stream "Content-Type: text/plain; charset=utf-8~C~C" #\Return #\Linefeed)))
-
-         (format stream "~C~C" #\Return #\Linefeed) ; End headers
-
-         ;; Send body
-         (when content
-               (write-string content stream))
-
-         (force-output stream)
-
-         ;; Read response
-         (let ((status-line (read-line stream nil nil)))
-           (unless (and status-line (search "200" status-line))
-             (error 'connection-error
-               :message (format nil "HTTP Error: ~A" (or status-line "No response")))))
-
-         ;; Skip headers
-         (loop for line = (read-line stream nil nil)
-               while (and line
-                          (> (length line) 0)
-                          (not (string= (string-trim '(#\Return) line) ""))))
-
-         ;; Read body
-         (let ((body (make-string-output-stream)))
-           (loop for line = (read-line stream nil nil)
-                 while line
-                 do (progn
-                     (write-string line body)
-                     (write-char #\Newline body)))
-           (get-output-stream-string body)))
-
-      ;; Cleanup
-      (when stream
-            (ignore-errors (close stream)))
-      #+sbcl
-      (when socket
-            (ignore-errors (sb-bsd-sockets:socket-close socket))))))
+;;;; Simple HTTP Client (replaces dexador)
 
 (defun encode-string-to-octets (string)
   "Convert string to octets for content-length calculation."
@@ -246,7 +163,133 @@
   #+ccl (ccl:encode-string-to-octets string :external-format :utf-8)
   #+ecl (ext:string-to-octets string :external-format :utf-8)
   #+clisp (ext:convert-string-to-bytes string charset:utf-8)
-  #-(or sbcl ccl ecl clisp) (map 'vector #'char-code string))
+  #+allegro (excl:string-to-octets string :external-format :utf-8)
+  #+lispworks (system:string-to-octets string :external-format :utf-8)
+  #-(or sbcl ccl ecl clisp allegro lispworks) 
+  ;; Fallback: assume ASCII for simplicity (not perfect but works for basic cases)
+  (map 'vector #'char-code string))
+
+(defun string-byte-length (string)
+  "Get the byte length of a string when encoded as UTF-8."
+  (length (encode-string-to-octets string)))
+
+(defun make-http-request (method host port path &key content headers ssl timeout)
+  "Make HTTP request. Returns response body as string."
+  (declare (ignore ssl timeout)) ; TODO: implement SSL and timeout
+  (let ((socket nil)
+        (stream nil))
+    (unwind-protect
+        (progn
+          ;; Create socket based on Lisp implementation
+          #+sbcl
+          (progn
+            (setf socket (make-instance 'sb-bsd-sockets:inet-socket
+                                       :type :stream
+                                       :protocol :tcp))
+            (sb-bsd-sockets:socket-connect socket
+                                          (sb-bsd-sockets:host-ent-address
+                                           (sb-bsd-sockets:get-host-by-name host))
+                                          port)
+            (setf stream (sb-bsd-sockets:socket-make-stream socket
+                                                          :input t
+                                                          :output t
+                                                          :element-type 'character)))
+          #+ccl
+          (setf stream (ccl:make-socket :remote-host host :remote-port port))
+          
+          #+ecl
+          (setf stream (ext:make-socket-stream host port))
+          
+          #+clisp
+          (setf stream (socket:socket-connect port host))
+          
+          #-(or sbcl ccl ecl clisp)
+          (error "HTTP client not implemented for this Lisp implementation")
+          
+          ;; Send HTTP request
+          (format stream "~A ~A HTTP/1.1~C~C" method path #\Return #\Linefeed)
+          (format stream "Host: ~A~C~C" host #\Return #\Linefeed)
+          (format stream "Connection: close~C~C" #\Return #\Linefeed)
+          (format stream "User-Agent: clickhouse-cl/1.0~C~C" #\Return #\Linefeed)
+          
+          ;; Add custom headers
+          (dolist (header headers)
+            (format stream "~A: ~A~C~C" (car header) (cdr header) #\Return #\Linefeed))
+          
+          ;; Add content if present
+          (when content
+            (let ((content-length (string-byte-length content)))
+              (format stream "Content-Length: ~D~C~C" content-length #\Return #\Linefeed)
+              (format stream "Content-Type: text/plain; charset=utf-8~C~C" #\Return #\Linefeed)))
+          
+          (format stream "~C~C" #\Return #\Linefeed) ; End headers
+          
+          ;; Send body
+          (when content
+            (write-string content stream))
+          
+          (force-output stream)
+          
+          ;; Read response
+          (let ((status-line (read-line stream nil nil)))
+            (unless (and status-line (search "200" status-line))
+              (error 'connection-error 
+                     :message (format nil "HTTP Error: ~A" (or status-line "No response")))))
+          
+          ;; Skip headers and read body
+          (let ((content-length nil)
+                (chunked nil))
+            ;; Read headers
+            (loop for line = (read-line stream nil nil)
+                  while (and line 
+                            (> (length line) 0) 
+                            (not (string= (string-trim '(#\Return) line) "")))
+                  do (let ((header-line (string-trim '(#\Return) line)))
+                       (cond
+                         ((search "Content-Length:" header-line)
+                          (setf content-length (parse-integer (string-trim '(#\Space) 
+                                                                          (subseq header-line (+ (search ":" header-line) 1))))))
+                         ((search "Transfer-Encoding: chunked" header-line)
+                          (setf chunked t)))))
+            
+            ;; Read body based on encoding
+            (cond
+              (chunked
+               ;; Handle chunked encoding properly
+               (let ((body (make-string-output-stream)))
+                 (loop
+                   (let* ((size-line (read-line stream nil nil))
+                          (chunk-size (when size-line
+                                      (parse-integer size-line :radix 16 :junk-allowed t))))
+                     (unless (and chunk-size (> chunk-size 0)) 
+                       (return))
+                     (let ((chunk (make-string chunk-size)))
+                       (read-sequence chunk stream)
+                       (write-string chunk body))
+                     ;; Read trailing CRLF after chunk
+                     (read-line stream nil nil)))
+                 (get-output-stream-string body)))
+              (content-length
+               ;; Read exactly content-length characters
+               (let ((body (make-string content-length)))
+                 (read-sequence body stream)
+                 body))
+              (t
+               ;; Read until connection closes
+               (let ((body (make-string-output-stream)))
+                 (loop for line = (read-line stream nil nil)
+                       while line
+                       do (progn
+                            (write-string line body)
+                            (write-char #\Newline body)))
+                 (get-output-stream-string body))))))
+      
+      ;; Cleanup
+      (when stream
+        (ignore-errors (close stream)))
+      #+sbcl
+      (when socket
+        (ignore-errors (sb-bsd-sockets:socket-close socket))))))
 
 ;;;; Simple Regex Functions (replaces cl-ppcre for basic needs)
 (defun regex-match (pattern string)
@@ -258,12 +301,12 @@
   (let ((upper-query (string-upcase query)))
     (let ((format-pos (search "FORMAT " upper-query)))
       (when format-pos
-            (let* ((start (+ format-pos 7)) ; length of "FORMAT "
-                                           (end (or (position #\Space upper-query :start start)
-                                                    (position #\; upper-query :start start)
-                                                    (length upper-query))))
-              (string-trim '(#\Space #\Tab #\Newline #\Return)
-                           (subseq query start end)))))))
+        (let* ((start (+ format-pos 7)) ; length of "FORMAT "
+               (end (or (position #\Space upper-query :start start)
+                       (position #\; upper-query :start start)
+                       (length upper-query))))
+          (string-trim '(#\Space #\Tab #\Newline #\Return)
+                      (subseq query start end)))))))
 
 ;;;; ============================================================================
 ;;;; CONDITIONS (ERROR HANDLING)

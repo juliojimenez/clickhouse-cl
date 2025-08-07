@@ -9,7 +9,10 @@ Common Lisp ClickHouse Client Library
 For users on version 0.48.0 and below, check the [deprecated documentation](#deprecated) below.
 
 - [Loading clickhouse-cl](#loading-clickhouse-cl)
+  - [CLI](#cli)
+  - [make Load Shortcuts](#make-load-shortcuts)
 - [Tests](#tests)
+  - [make Test Shortcuts](#make-test-shortcuts)
 
 ## Loading clickhouse-cl
 
@@ -33,13 +36,13 @@ T
 cl-user >
 ```
 
-or...
+### CLI
 
 ```bash
 $ sbcl --load ch.lisp
 ```
 
-or...
+### make Load Shortcuts
 
 ```bash
 $ make load
@@ -75,6 +78,13 @@ To use different test server:
  
 NIL
 cl-user >
+```
+
+### make Test Shortcuts
+
+```bash
+$ make unit-tests
+$ make integration-tests
 ```
 
 ---
