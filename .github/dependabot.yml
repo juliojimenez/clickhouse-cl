@@ -5,4 +5,4 @@ updates:
     schedule:
       interval: daily
       time: "05:00"
-      timezone: UTC
+      timezone: America/New_York
