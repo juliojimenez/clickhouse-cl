@@ -27,16 +27,17 @@ jobs:
         image: clickhouse/clickhouse-server
         ports:
           - 8123:8123
+        env:
+          # Disable authentication for testing
+          CLICKHOUSE_DB: default
+          CLICKHOUSE_USER: default
+          CLICKHOUSE_PASSWORD: ""
+          CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
         options: --ulimit nofile=262144:262144
       
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-
-      - name: Install SBCL
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y sbcl
 
       - name: Install SBCL
         run: |
