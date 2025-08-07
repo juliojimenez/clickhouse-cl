@@ -1,0 +1,21 @@
+name: Status Checks
+
+on:
+  push:
+
+jobs:
+  unit_tests:
+    runs-on: ubuntu-latest
+    name: Unit Tests
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install SBCL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sbcl
+
+      - name: Run Unit Tests
+        run: make unit-tests
+  

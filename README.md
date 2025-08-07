@@ -7,8 +7,9 @@ Common Lisp ClickHouse Client Library
 For users on version 0.48.0 and below, check the [deprecated documentation](#deprecated) below.
 
 - [Loading clickhouse-cl](#loading-clickhouse-cl)
+- [Tests](#tests)
 
-# Loading clickhouse-cl
+## Loading clickhouse-cl
 
 ```lisp
 cl-user> (load "ch.lisp")
@@ -30,7 +31,42 @@ T
 cl-user >
 ```
 
+or...
 
+```bash
+$ sbcl --load ch.lisp
+```
+
+## Tests
+
+```lisp
+cl-user > (load "ch.lisp")
+cl-user > (load "ch-test.lisp")
+cl-user > (ch-tests:example-usage)
+ 
+ClickHouse-CL Test Suite Usage:
+===============================
+ 
+(load "ch.lisp")                    ; Load the main library
+(load "ch-tests.lisp")              ; Load test suite
+(ch-tests:run-all-tests)            ; Run all tests
+(ch-tests:run-unit-tests)           ; Run unit tests only
+(ch-tests:run-integration-tests)    ; Run integration tests
+(ch-tests:print-test-summary)       ; Show detailed results
+ 
+Test Configuration:
+  *test-host*: "localhost"
+  *test-port*: 8123
+  *test-username*: "default"
+ 
+To use different test server:
+  (setf ch-tests:*test-host* "your-server")
+  (setf ch-tests:*test-port* 8443)
+  (setf ch-tests:*test-username* "testuser")
+ 
+NIL
+cl-user >
+```
 
 ---
 
