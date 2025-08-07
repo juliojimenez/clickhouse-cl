@@ -157,6 +157,22 @@
 
 ;;;; Simple HTTP Client (replaces dexador)
 
+(defun encode-string-to-octets (string)
+  "Convert string to octets for content-length calculation."
+  #+sbcl (sb-ext:string-to-octets string :external-format :utf-8)
+  #+ccl (ccl:encode-string-to-octets string :external-format :utf-8)
+  #+ecl (ext:string-to-octets string :external-format :utf-8)
+  #+clisp (ext:convert-string-to-bytes string charset:utf-8)
+  #+allegro (excl:string-to-octets string :external-format :utf-8)
+  #+lispworks (system:string-to-octets string :external-format :utf-8)
+  #-(or sbcl ccl ecl clisp allegro lispworks) 
+  ;; Fallback: assume ASCII for simplicity (not perfect but works for basic cases)
+  (map 'vector #'char-code string))
+
+(defun string-byte-length (string)
+  "Get the byte length of a string when encoded as UTF-8."
+  (length (encode-string-to-octets string)))
+
 (defun make-http-request (method host port path &key content headers ssl timeout)
   "Make HTTP request. Returns response body as string."
   (declare (ignore ssl timeout)) ; TODO: implement SSL and timeout
@@ -274,22 +290,6 @@
       #+sbcl
       (when socket
         (ignore-errors (sb-bsd-sockets:socket-close socket))))))
-
-(defun encode-string-to-octets (string)
-  "Convert string to octets for content-length calculation."
-  #+sbcl (sb-ext:string-to-octets string :external-format :utf-8)
-  #+ccl (ccl:encode-string-to-octets string :external-format :utf-8)
-  #+ecl (ext:string-to-octets string :external-format :utf-8)
-  #+clisp (ext:convert-string-to-bytes string charset:utf-8)
-  #+allegro (excl:string-to-octets string :external-format :utf-8)
-  #+lispworks (system:string-to-octets string :external-format :utf-8)
-  #-(or sbcl ccl ecl clisp allegro lispworks) 
-  ;; Fallback: assume ASCII for simplicity (not perfect but works for basic cases)
-  (map 'vector #'char-code string))
-
-(defun string-byte-length (string)
-  "Get the byte length of a string when encoded as UTF-8."
-  (length (encode-string-to-octets string)))
 
 ;;;; Simple Regex Functions (replaces cl-ppcre for basic needs)
 (defun regex-match (pattern string)
