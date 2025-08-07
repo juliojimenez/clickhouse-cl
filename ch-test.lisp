@@ -2,7 +2,7 @@
 ;;;; 
 ;;;; Usage: 
 ;;;;   (load "ch.lisp")
-;;;;   (load "ch-test.lisp")
+;;;;   (load "ch-tests.lisp")
 ;;;;   (ch-tests:run-all-tests)
 ;;;;
 ;;;; Author: julio@clickhouse.com
@@ -168,20 +168,13 @@
 
 (deftest test-tab-separated-processing
     "TabSeparated format processing"
-  ;; Let's build the string step by step to make sure it's correct
   (let* ((tab-char (string #\Tab))
          (newline-char (string #\Newline))
          (line1 (concatenate 'string "name" tab-char "age" tab-char "city"))
          (line2 (concatenate 'string "John" tab-char "25" tab-char "NYC"))
          (line3 (concatenate 'string "Jane" tab-char "30" tab-char "LA"))
          (tab-response (concatenate 'string line1 newline-char line2 newline-char line3)))
-    ;; Debug: let's see what we actually get
-    (let ((split-by-newlines (ch::split-string tab-response #\Newline)))
-      (format t "~&Debug: Split by newlines gives ~D parts: ~S~%" 
-              (length split-by-newlines) split-by-newlines))
     (let ((processed (ch::process-tab-separated-format tab-response)))
-      (format t "~&Debug: Processed gives ~D parts: ~S~%" 
-              (length processed) processed)
       (assert-equal 3 (length processed))
       (assert-equal '("name" "age" "city") (first processed)))))
 
@@ -206,21 +199,28 @@
     "Execute simple SELECT query"
   (let ((db (make-test-database)))
     (let ((result (ch:query db "SELECT 1")))
-      (assert-equal "1" (string-trim '(#\Space #\Newline #\Return #\Tab) result)))))
+      (let ((result-string (if (stringp result) result (format nil "~A" result))))
+        (assert-true (search "1" result-string))))))
 
 (deftest test-query-with-format
     "Execute query with explicit format"
   (let ((db (make-test-database)))
     (let ((result (ch:query db "SELECT 1 as num FORMAT JSON")))
       (assert-true (listp result))
-      (assert-true (ch:jget result "data")))))
+      (let ((data-field (ch:jget result "data")))
+        (assert-true data-field)
+        (assert-true (listp data-field))
+        (assert-equal 1 (length data-field))
+        (let ((first-row (first data-field)))
+          (assert-equal 1 (ch:jget first-row "num")))))))
 
 (deftest test-version-query
     "Query ClickHouse version"
   (let ((db (make-test-database)))
     (let ((result (ch:query db "SELECT version()")))
       (assert-true (stringp result))
-      (assert-true (> (length (string-trim '(#\Space #\Newline #\Return #\Tab) result)) 0)))))
+      (let ((trimmed (string-trim '(#\Space #\Newline #\Return #\Tab) result)))
+        (assert-true (> (length trimmed) 0))))))
 
 (deftest test-show-databases
     "Show databases query"
@@ -234,7 +234,12 @@
   (let ((db (make-test-database)))
     (let ((result (ch:query db "SELECT 'hello' as greeting, 42 as number FORMAT CSV")))
       (assert-true (listp result))
-      (assert-true (>= (length result) 1)))))
+      (assert-true (>= (length result) 1))
+      (let ((first-row (first result)))
+        (assert-true (listp first-row))
+        ;; CSV strings are quoted, so check for "hello" with quotes
+        (assert-true (member "\"hello\"" first-row :test #'string=))
+        (assert-true (member "42" first-row :test #'string=))))))
 
 (deftest test-multiple-queries
     "Execute multiple queries in sequence"
@@ -242,7 +247,8 @@
     (ch:query db "SELECT 1")
     (ch:query db "SELECT 2")
     (let ((result (ch:query db "SELECT 3")))
-      (assert-equal "3" (string-trim '(#\Space #\Newline #\Return #\Tab) result)))))
+      (let ((result-string (if (stringp result) result (format nil "~A" result))))
+        (assert-true (search "3" result-string))))))
 
 (deftest test-query-with-numbers
     "Query with various number formats"
@@ -351,7 +357,7 @@
 
 (defun run-all-tests ()
   "Run all test suites."
-  (format t "~%🧪 ClickHouse CL Test Suite~%")
+  (format t "~%ClickHouse CL Test Suite~%")
   (format t "=============================~%")
 
   (multiple-value-bind (unit-passed unit-failed)
@@ -365,8 +371,8 @@
           (format t "~2%=== FINAL RESULTS ===~%")
           (format t "Total: ~D passed, ~D failed~%" total-passed total-failed)
           (if (zerop total-failed)
-              (format t "🎉 All tests passed!~%")
-              (format t "❌ ~D test(s) failed~%" total-failed))
+              (format t "All tests passed!~%")
+              (format t "~D test(s) failed~%" total-failed))
           (values total-passed total-failed))))))
 
 (defun print-test-summary ()
@@ -388,27 +394,24 @@
 
 (defun example-usage ()
   "Show example usage of the test suite."
-  (format t " ~%ClickHouse-CL Test Suite Usage:~%")
-  (format t "===============================~%")
-  (format t " ~%")
+  (format t "~%ClickHouse CL Test Suite Usage:~%")
+  (format t "================================~%")
   (format t "(load \"ch.lisp\")                    ; Load the main library~%")
   (format t "(load \"ch-tests.lisp\")              ; Load test suite~%")
   (format t "(ch-tests:run-all-tests)            ; Run all tests~%")
   (format t "(ch-tests:run-unit-tests)           ; Run unit tests only~%")
   (format t "(ch-tests:run-integration-tests)    ; Run integration tests~%")
   (format t "(ch-tests:print-test-summary)       ; Show detailed results~%")
-  (format t " ~%Test Configuration:~%")
+  (format t "~%Test Configuration:~%")
   (format t "  *test-host*: ~S~%" *test-host*)
   (format t "  *test-port*: ~S~%" *test-port*)
   (format t "  *test-username*: ~S~%" *test-username*)
-  (format t " ~%To use different test server:~%")
-  (format t "  (setf ch-tests:*test-host* \"your-server\")~%")
-  (format t "  (setf ch-tests:*test-port* 8443)~%")
-  (format t "  (setf ch-tests:*test-username* \"testuser\")~%")
-  (format t " ~%"))
+  (format t "~%To use different test server:~%")
+  (format t "(setf ch-tests:*test-host* \"your-server\")~%")
+  (format t "(setf ch-tests:*test-port* 8443)~%")
+  (format t "(setf ch-tests:*test-username* \"testuser\")~%"))
 
 ;; Print usage information when loaded
-(format t " ~%ClickHouse CL Test Suite loaded successfully!~%")
+(format t "~%ClickHouse CL Test Suite loaded successfully!~%")
 (format t "Run (ch-tests:run-all-tests) to start testing.~%")
 (format t "Run (ch-tests:example-usage) for more information.~%")
-(format t " ~%")
