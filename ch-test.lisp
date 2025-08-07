@@ -404,6 +404,7 @@
   (format t "(ch-tests:run-unit-tests)           ; Run unit tests only~%")
   (format t "(ch-tests:run-integration-tests)    ; Run integration tests~%")
   (format t "(ch-tests:print-test-summary)       ; Show detailed results~%")
+  (format t "(ch-tests:run-performance-tests)    ; Run performance tests~%")
   (format t "~%Test Configuration:~%")
   (format t "  *test-host*: ~S~%" *test-host*)
   (format t "  *test-port*: ~S~%" *test-port*)
