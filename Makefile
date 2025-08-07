@@ -4,10 +4,16 @@ load:
 	$(SBCL) --load ch.lisp
 
 unit-tests:
-	$(SBCL) --load ch.lisp --load ch-test.lisp --eval '(ch-tests:run-unit-tests)' --quit
+	$(SBCL) --load ch.lisp --load ch-test.lisp --eval '(ch-tests:run-unit-tests)' --eval '(ch-tests:print-test-summary)' --quit
 
 integration-tests:
-	$(SBCL) --load ch.lisp --load ch-test.lisp --eval '(ch-tests:run-integration-tests)' --quit
+	$(SBCL) --load ch.lisp --load ch-test.lisp --eval '(ch-tests:run-integration-tests)' --eval '(ch-tests:print-test-summary)' --quit
+
+performance-tests: 
+	$(SBCL) --load ch.lisp --load ch-test.lisp --eval '(ch-tests:run-performance-tests)' --eval '(ch-tests:print-test-summary)' --quit
+
+all-tests:
+	$(SBCL) --load ch.lisp --load ch-test.lisp --eval '(ch-tests:run-all-tests)' --quit
 
 #TODO: Adjust the rest of the Makefile for clickhouse-cl
 # I lifted this from another one of my projects, so it may not be fully applicable.

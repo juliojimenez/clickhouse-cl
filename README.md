@@ -85,6 +85,8 @@ cl-user >
 ```bash
 $ make unit-tests
 $ make integration-tests
+$ make performance-tests
+$ make all-tests
 ```
 
 ---
