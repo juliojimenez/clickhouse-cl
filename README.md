@@ -11,6 +11,7 @@ For users on version 0.48.0 and below, check the [deprecated documentation](#dep
 - [Loading clickhouse-cl](#loading-clickhouse-cl)
   - [CLI](#cli)
   - [make Load Shortcuts](#make-load-shortcuts)
+- [Examples](#examples)
 - [Tests](#tests)
   - [make Test Shortcuts](#make-test-shortcuts)
 
@@ -47,6 +48,63 @@ $ sbcl --load ch.lisp
 ```bash
 $ make load
 ```
+
+## Examples
+
+Load the clickhouse-cl library:
+
+```lisp
+(cl:load "ch.lisp")
+```
+
+Run any example:
+
+```lisp
+(load "examples/basic-connection.lisp")
+```
+
+Modify the connection parameters in examples to match your setup:
+
+```lisp
+(defparameter *host* "localhost")
+(defparameter *port* 8123)
+(defparameter *username* "default")
+(defparameter *password* nil)
+```
+
+Some examples use sample tables. Create them with:
+
+```sql
+-- Run this in your ClickHouse instance
+CREATE DATABASE IF NOT EXISTS examples;
+
+CREATE TABLE examples.users (
+    id UInt32,
+    name String,
+    email String,
+    age UInt8,
+    created_at DateTime
+) ENGINE = MergeTree()
+ORDER BY id;
+
+CREATE TABLE examples.events (
+    timestamp DateTime,
+    user_id UInt32,
+    event_type String,
+    properties Map(String, String)
+) ENGINE = MergeTree()
+ORDER BY (timestamp, user_id);
+```
+
+Each example is self-contained and includes:
+
+- Connection setup
+- Sample data (where applicable)
+- Demonstration code
+- Expected output
+- Cleanup code
+
+Most examples can be run directly by loading them into your Lisp environment.
 
 ## Tests
 
