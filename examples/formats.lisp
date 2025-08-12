@@ -18,7 +18,7 @@
   (error (e)
     (format t "Connection failed: ~A~%" e)
     (format t "Please ensure ClickHouse is running~%")
-    (return-from nil)))
+    (return)))
 
 (format t "Connection successful!~%")
 
