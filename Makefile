@@ -23,3 +23,6 @@ data-insertion:
 
 formats:
 	$(SBCL) --load ch.lisp --eval '(handler-case (load "examples/formats.lisp") (error (e) (format t "ERROR: ~A~%" e) (sb-ext:exit :code 1)))' --quit
+
+error-handling:
+	$(SBCL) --load ch.lisp --eval '(handler-case (load "examples/error-handling.lisp") (error (e) (format t "ERROR: ~A~%" e) (sb-ext:exit :code 1)))' --quit
