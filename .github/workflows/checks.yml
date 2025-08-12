@@ -41,7 +41,8 @@ jobs:
         example: [
           "basic-connection",
           "data-insertion",
-          "formats"
+          "formats",
+          "error-handling"
         ]
     services: 
       clickhouse:

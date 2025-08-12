@@ -28,8 +28,10 @@
 
    ;; Conditions
    #:clickhouse-error
+   #:clickhouse-error-message
    #:connection-error
-   #:query-error))
+   #:query-error
+   #:query-error-query))
 
 (in-package :ch)
 
