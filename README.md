@@ -153,9 +153,7 @@ $ make all-tests
 
 ## This portion of the README is deprecated and will be removed at or around 2027-01-01.
 
-[![CI](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/ci.yml) [![LINTER](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/linter.yml) [![CRITIC](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/critic.yml) [![Release](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/release.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/release.yml)
-
-<img src="logo.png"  width="64" height="64">
+<img src="images/logo.png"  width="64" height="64">
 
 # clickhouse-cl
 

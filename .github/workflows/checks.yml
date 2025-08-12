@@ -40,6 +40,7 @@ jobs:
       matrix:
         example: [
           "basic-connection",
+          "data-insertion",
           "formats"
         ]
     services: 
