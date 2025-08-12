@@ -12,25 +12,25 @@
 
 ;; Configuration - adjust these for your setup
 (defparameter *host* "localhost"
-  "ClickHouse server hostname")
+              "ClickHouse server hostname")
 
 (defparameter *port* 8123
-  "ClickHouse server port")
+              "ClickHouse server port")
 
 (defparameter *username* "default"
-  "Database username")
+              "Database username")
 
 (defparameter *password* nil
-  "Database password (nil for no password)")
+              "Database password (nil for no password)")
 
 (format t "~%1. Creating database connection...~%")
 
 ;; Create database connection
-(defparameter *db* (ch:make-database 
-                    :host *host*
-                    :port *port*
-                    :username *username*
-                    :password *password*))
+(defparameter *db* (ch:make-database
+                     :host *host*
+                     :port *port*
+                     :username *username*
+                     :password *password*))
 
 (format t "Connected to: ~A~%" *db*)
 
@@ -40,6 +40,9 @@
 (handler-case
     (let ((ping-result (ch:ping *db*)))
       (format t "Ping successful: ~A~%" ping-result))
+  (ch:clickhouse-error (e)
+                       (format t "Ping failed due to ClickHouse error: ~A~%" e)
+                       (format t "Check ClickHouse server logs for more details.~%"))
   (error (e)
     (format t "Ping failed: ~A~%" e)
     (format t "Make sure ClickHouse is running on ~A:~A~%" *host* *port*)))
