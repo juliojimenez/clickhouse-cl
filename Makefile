@@ -18,6 +18,9 @@ all-tests:
 basic-connection:
 	$(SBCL) --load ch.lisp --load examples/basic-connection.lisp --quit
 
+formats:
+	$(SBCL) --load ch.lisp --load examples/formats.lisp --quit
+
 #TODO: Adjust the rest of the Makefile for clickhouse-cl
 # I lifted this from another one of my projects, so it may not be fully applicable.
 ql-check-ci:
@@ -30,12 +33,4 @@ ql-install:
 		--load /tmp/ql.lisp \
 		--eval '(quicklisp-quickstart:install :path "~/.quicklisp")' \
 		--eval '(ql:add-to-init-file)' \
-		--quit
-
-ql-install-ci:
-	curl -o /tmp/ql.lisp http://beta.quicklisp.org/quicklisp.lisp
-	$(SBCL) --non-interactive --no-sysinit --no-userinit \
-		--load /tmp/ql.lisp \
-		--eval '(quicklisp-quickstart:install :path "~/.quicklisp")' \
-		--eval '(with-open-file (s "~/.sbclrc" :direction :output :if-exists :append :if-does-not-exist :create) (format s "(load \"~~/.quicklisp/setup.lisp\")~%"))' \
 		--quit

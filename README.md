@@ -1,6 +1,6 @@
 [![Status Checks](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/checks.yml/badge.svg)](https://github.com/juliojimenez/clickhouse-cl/actions/workflows/checks.yml)
 
-<img src="logo.png"  width="64" height="64">
+<img src="images/logo.png"  width="64" height="64">
 
 # clickhouse-cl
 
