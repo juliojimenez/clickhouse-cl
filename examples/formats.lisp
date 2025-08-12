@@ -18,7 +18,7 @@
   (error (e)
     (format t "Connection failed: ~A~%" e)
     (format t "Please ensure ClickHouse is running~%")
-    (return)))
+    (error "ClickHouse connection required for formats example")))
 
 (format t "Connection successful!~%")
 
