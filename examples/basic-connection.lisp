@@ -8,7 +8,7 @@
 ;; Make sure the library is loaded
 (unless (find-package :ch)
   (format t "Loading clickhouse-cl...~%")
-  (load "ch.lisp"))
+  (load (merge-pathnames "ch.lisp" (or *load-pathname* *default-pathname-defaults*))))
 
 ;; Configuration - adjust these for your setup
 (defparameter *host* "localhost"

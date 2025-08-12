@@ -15,6 +15,9 @@ performance-tests:
 all-tests:
 	$(SBCL) --load ch.lisp --load ch-test.lisp --eval '(ch-tests:run-all-tests)' --quit
 
+basic-connection:
+	$(SBCL) --load ch.lisp --load examples/basic-connection.lisp --quit
+
 #TODO: Adjust the rest of the Makefile for clickhouse-cl
 # I lifted this from another one of my projects, so it may not be fully applicable.
 ql-check-ci:
