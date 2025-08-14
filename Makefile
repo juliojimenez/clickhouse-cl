@@ -26,3 +26,9 @@ formats:
 
 error-handling:
 	$(SBCL) --load ch.lisp --eval '(handler-case (load "examples/error-handling.lisp") (error (e) (format t "ERROR: ~A~%" e) (sb-ext:exit :code 1)))' --quit
+
+clickhouse-cloud:
+	$(SBCL) --load ch.lisp --eval '(handler-case (load "examples/clickhouse-cloud.lisp") (error (e) (format t "ERROR: ~A~%" e) (sb-ext:exit :code 1)))' --quit
+
+clickhouse-cloud-real:
+	$(SBCL) --load ch.lisp --eval '(handler-case (load "examples/clickhouse-cloud-real.lisp") (error (e) (format t "ERROR: ~A~%" e) (sb-ext:exit :code 1)))' --quit

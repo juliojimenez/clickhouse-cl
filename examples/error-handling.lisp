@@ -7,7 +7,7 @@
 
 ;; Load library
 (unless (find-package :ch)
-  (load "ch.lisp"))
+  (load (merge-pathnames "ch.lisp" (or *load-pathname* *default-pathname-defaults*))))
 
 ;; Connection parameters
 (defparameter *good-db* (ch:make-database :host "localhost" :port 8123))

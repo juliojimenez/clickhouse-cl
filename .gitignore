@@ -32,3 +32,4 @@ uuid
 .vscode
 TODO.md
 .DS_Store
+clickhouse-cloud-real.lisp

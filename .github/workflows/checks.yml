@@ -42,7 +42,8 @@ jobs:
           "basic-connection",
           "data-insertion",
           "formats",
-          "error-handling"
+          "error-handling",
+          "clickhouse-cloud"
         ]
     services: 
       clickhouse:
