@@ -43,7 +43,8 @@ jobs:
           "data-insertion",
           "formats",
           "error-handling",
-          "clickhouse-cloud"
+          "clickhouse-cloud",
+          "performance"
         ]
     services: 
       clickhouse:
