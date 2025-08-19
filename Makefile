@@ -35,3 +35,6 @@ clickhouse-cloud-real:
 
 performance:
 	$(SBCL) --load ch.lisp --eval '(handler-case (load "examples/performance.lisp") (error (e) (format t "ERROR: ~A~%" e) (sb-ext:exit :code 1)))' --quit
+
+analytics:
+	$(SBCL) --load ch.lisp --eval '(handler-case (load "examples/analytics.lisp") (error (e) (format t "ERROR: ~A~%" e) (sb-ext:exit :code 1)))' --quit
