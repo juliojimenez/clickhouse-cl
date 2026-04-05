@@ -34,10 +34,24 @@ cl-user >
 $ sbcl --load ch.lisp
 ```
 
-### make Load Shortcuts
+### make Load Shortcut
 
 ```bash
 $ make load
+```
+
+## Ultralisp
+
+Add the Ultralisp distribution to your Quicklisp client:
+
+```lisp
+(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
+```
+
+Then load clickhouse-cl:
+
+```lisp
+(ql:quickload :clickhouse)
 ```
 
 ## Examples
