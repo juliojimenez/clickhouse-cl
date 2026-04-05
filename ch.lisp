@@ -293,6 +293,34 @@
       (when socket
         (ignore-errors (sb-bsd-sockets:socket-close socket))))))
 
+;;;; Base64 Encoder (for HTTP Basic Authentication)
+
+(defparameter *base64-alphabet*
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/")
+
+(defun base64-encode (octets)
+  "Encode a vector of octets as a Base64 string."
+  (let* ((len (length octets))
+         (out (make-string-output-stream)))
+    (loop for i from 0 below len by 3
+          do (let* ((b0 (aref octets i))
+                    (b1 (if (< (1+ i) len) (aref octets (1+ i)) 0))
+                    (b2 (if (< (+ i 2) len) (aref octets (+ i 2)) 0))
+                    (n (logior (ash b0 16) (ash b1 8) b2)))
+               (write-char (char *base64-alphabet* (logand (ash n -18) #x3F)) out)
+               (write-char (char *base64-alphabet* (logand (ash n -12) #x3F)) out)
+               (if (< (1+ i) len)
+                   (write-char (char *base64-alphabet* (logand (ash n -6) #x3F)) out)
+                   (write-char #\= out))
+               (if (< (+ i 2) len)
+                   (write-char (char *base64-alphabet* (logand n #x3F)) out)
+                   (write-char #\= out))))
+    (get-output-stream-string out)))
+
+(defun base64-encode-string (string)
+  "Encode a string as Base64 using UTF-8 encoding."
+  (base64-encode (encode-string-to-octets string)))
+
 ;;;; Simple Regex Functions (replaces cl-ppcre for basic needs)
 (defun regex-match (pattern string)
   "Simple regex matching. Returns match position or NIL."
@@ -377,10 +405,7 @@
   (when (and username password)
         (let ((credentials (format nil "~A:~A" username password)))
           (cons "Authorization"
-                (format nil "Basic ~A"
-                  #+sbcl (sb-ext:octets-to-string
-                           (sb-ext:string-to-octets credentials :external-format :utf-8))
-                  #-sbcl credentials)))))
+                (format nil "Basic ~A" (base64-encode-string credentials))))))
 
 (defun make-clickhouse-request (db path &key content (method "GET"))
   "Make HTTP request to ClickHouse server."

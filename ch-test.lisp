@@ -186,6 +186,21 @@
   (assert-error (error 'ch:connection-error :message "connection failed"))
   (assert-error (error 'ch:query-error :message "bad query" :query "SELECT invalid")))
 
+(deftest test-base64-encoding
+    "Base64 encoding for HTTP Basic Auth"
+  ;; RFC 4648 test vectors
+  (assert-equal "" (ch::base64-encode-string ""))
+  (assert-equal "Zg==" (ch::base64-encode-string "f"))
+  (assert-equal "Zm8=" (ch::base64-encode-string "fo"))
+  (assert-equal "Zm9v" (ch::base64-encode-string "foo"))
+  (assert-equal "Zm9vYg==" (ch::base64-encode-string "foob"))
+  (assert-equal "Zm9vYmE=" (ch::base64-encode-string "fooba"))
+  (assert-equal "Zm9vYmFy" (ch::base64-encode-string "foobar"))
+  ;; Auth header uses correct encoding
+  (let ((header (ch::build-auth-header "default" "secret")))
+    (assert-equal "Authorization" (car header))
+    (assert-equal "Basic ZGVmYXVsdDpzZWNyZXQ=" (cdr header))))
+
 ;;;; ============================================================================
 ;;;; INTEGRATION TESTS - REQUIRE CLICKHOUSE SERVER
 ;;;; ============================================================================
@@ -303,7 +318,8 @@
                 test-format-extraction
                 test-csv-processing
                 test-tab-separated-processing
-                test-error-conditions)
+                test-error-conditions
+                test-base64-encoding)
               "List of unit tests that don't require ClickHouse server")
 
 (defparameter *integration-tests*

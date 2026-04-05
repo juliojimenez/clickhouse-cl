@@ -2,6 +2,13 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Core Instructions
+
+- Write tests for everything
+- Vendor everything
+- Make sure to update README.md
+- Make sure to update CLAUDE.md
+
 ## Project Overview
 
 A Common Lisp ClickHouse client library. Single-file (`ch.lisp`), zero external dependencies, multi-implementation (SBCL, CCL, ECL, CLISP, Allegro, LispWorks). No ASDF — loaded directly via `(load "ch.lisp")`. The package is `ch`.
