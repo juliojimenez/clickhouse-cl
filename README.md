@@ -21,7 +21,7 @@ cl-user> (load "ch.lisp")
     ██  ██  ██  ██
  
 ClickHouse Common Lisp Client loaded successfully!
-Version: 0.49.0
+Version: 0.50.0
 Usage: (ch:make-database :host "localhost")
  
 T
