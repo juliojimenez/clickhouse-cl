@@ -8,7 +8,7 @@
 ;;;;
 ;;;; Author: julio@clickhouse.com
 ;;;; License: Apache-2.0
-;;;; Version: 0.49.0
+;;;; Version: 0.50.0
 
 (defpackage :ch
   (:use :cl)
@@ -633,5 +633,5 @@ USAGE EXAMPLES:
 (format t "    ██  ██  ██  ██~%")
 (format t " ~%")
 (format t "ClickHouse Common Lisp Client loaded successfully!~%")
-(format t "Version: 0.49.0~%")
+(format t "Version: 0.50.0~%")
 (format t "Usage: (ch:make-database :host \"localhost\")~% ~%")
