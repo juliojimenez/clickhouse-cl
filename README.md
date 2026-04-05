@@ -4,16 +4,7 @@
 
 # clickhouse-cl
 
-Common Lisp ClickHouse Client Library
-
-For users on version 0.48.0 and below, check the [deprecated documentation](#deprecated) below.
-
-- [Loading clickhouse-cl](#loading-clickhouse-cl)
-  - [CLI](#cli)
-  - [make Load Shortcuts](#make-load-shortcuts)
-- [Examples](#examples)
-- [Tests](#tests)
-  - [make Test Shortcuts](#make-test-shortcuts)
+ClickHouse Common Lisp Client
 
 ## Loading clickhouse-cl
 
@@ -43,10 +34,24 @@ cl-user >
 $ sbcl --load ch.lisp
 ```
 
-### make Load Shortcuts
+### make Load Shortcut
 
 ```bash
 $ make load
+```
+
+## Ultralisp
+
+Add the Ultralisp distribution to your Quicklisp client:
+
+```lisp
+(ql-dist:install-dist "http://dist.ultralisp.org/" :prompt nil)
+```
+
+Then load clickhouse-cl:
+
+```lisp
+(ql:quickload :clickhouse)
 ```
 
 ## Examples
