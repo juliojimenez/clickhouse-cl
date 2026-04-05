@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A Common Lisp ClickHouse client library. Single-file (`ch.lisp`), zero external dependencies, multi-implementation (SBCL, CCL, ECL, CLISP, Allegro, LispWorks). No ASDF — loaded directly via `(load "ch.lisp")`. The package is `ch`.
+A Common Lisp ClickHouse client library. Single-file (`ch.lisp`), zero external dependencies, multi-implementation (SBCL, CCL, ECL, CLISP, Allegro, LispWorks). The package is `ch`. Can be loaded directly via `(load "ch.lisp")` or via ASDF/Quicklisp (`clickhouse.asd`).
 
 ## Commands
 
@@ -20,7 +20,7 @@ A Common Lisp ClickHouse client library. Single-file (`ch.lisp`), zero external 
 make load
 
 # Tests (all use SBCL)
-make unit-tests          # 9 tests, no ClickHouse server needed
+make unit-tests          # 10 tests, no ClickHouse server needed
 make integration-tests   # 9 tests, requires ClickHouse on localhost:8123
 make performance-tests   # 2 tests, requires ClickHouse
 make all-tests           # all suites
@@ -39,10 +39,10 @@ Integration/performance tests and examples require a ClickHouse server. CI uses 
 
 ## Architecture
 
-Everything lives in two files:
+Core code lives in two files, plus an ASDF system definition:
 
 - **`ch.lisp`** — the entire library (~610 lines). Organized as:
-  1. **Vendored deps** (lines 40-312): JSON parser (recursive descent), HTTP client (raw sockets per implementation), string utilities, format extraction
+  1. **Vendored deps** (lines 40-335): JSON parser (recursive descent), HTTP client (raw sockets per implementation), Base64 encoder, string utilities, format extraction
   2. **Conditions** (lines 314-333): `clickhouse-error` → `connection-error` / `query-error`
   3. **Database class** (lines 337-370): `database` with host/port/ssl/username/password/database/timeout slots; `make-database` constructor
   4. **HTTP interface** (lines 372-403): `build-auth-header`, `make-clickhouse-request` — all ClickHouse communication goes through here
@@ -51,6 +51,8 @@ Everything lives in two files:
   7. **Utilities** (lines 542-562): `jget`, `with-connection` macro, `format-connection-string`
 
 - **`ch-test.lisp`** — built-in test framework (~420 lines). Package `ch-tests`. Uses `deftest` macro with `assert-equal`/`assert-true`/`assert-error`. Tests are registered in `*unit-tests*`, `*integration-tests*`, `*performance-tests*` lists.
+
+- **`clickhouse.asd`** — ASDF system definition for Ultralisp/Quicklisp distribution. Points at `ch.lisp` as the sole component, no external dependencies. Keep version in sync with `ch.lisp`.
 
 ## Key Design Decisions
 
